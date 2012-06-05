@@ -1,0 +1,15 @@
+﻿<Window x:Class="AccountBookWin.AccountBook"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:AccountBookWin="clr-namespace:AccountBookWin" 
+        Title="Account Book" Height="600" Width="800" Icon="/AccountBookWin;component/Images/account.ico">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top"></Menu>
+        <StatusBar DockPanel.Dock="Bottom" FlowDirection="RightToLeft">
+            <TextBlock Name="Time"></TextBlock>
+        </StatusBar>
+        <ContentControl Name="Content">
+            <AccountBookWin:Welcome LoginSuccess="LoginSuccess" />
+        </ContentControl>
+    </DockPanel>
+</Window>

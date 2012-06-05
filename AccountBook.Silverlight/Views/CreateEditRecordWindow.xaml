@@ -1,0 +1,33 @@
+﻿<controls:ChildWindow x:Class="AccountBook.Silverlight.Views.CreateEditRecordWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+           xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
+           xmlns:Controls="clr-namespace:AccountBook.Silverlight.Controls"
+           xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+           Name="Win">
+    
+    <Grid x:Name="LayoutRoot" Margin="2" MinWidth="280">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+            <Controls:BusyIndicator IsBusy="{Binding IsOperationing}" >
+            <toolkit:DataForm
+                    Name="RecordDataForm"
+                    CurrentItem="{Binding}" 
+                    CommandButtonsVisibility="None"
+                    AutoCommit="False" 
+                    AutoEdit="True"
+                    LabelPosition="Left"
+                    AutoGeneratingField="RecordDataFormAutoGeneratingField"
+                    ContentLoaded="RecordDataFormContentLoaded">
+            </toolkit:DataForm>
+        </Controls:BusyIndicator>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button x:Name="BtnSave" Click="BtnSaveClick" Content="Save" Width="75" />
+            <Button x:Name="BtnSaveAdd" Content="Save + Add" Click="BtnSaveAddClick" Width="75" Margin="5,0,0,0" />
+            <Button x:Name="BtnCancel" Content="Cancel" Click="CancelButtonClick" Width="75"  Margin="5,0,0,0"/>
+        </StackPanel>
+    </Grid>
+</controls:ChildWindow>
