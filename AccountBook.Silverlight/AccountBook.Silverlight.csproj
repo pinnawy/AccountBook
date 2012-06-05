@@ -102,6 +102,7 @@
       <DependentUpon>ErrorResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Controls\CustomPager.cs" />
+    <Compile Include="Controls\RemoteSortableDataGrid.cs" />
     <Compile Include="Controls\TipWindow.xaml.cs">
       <DependentUpon>TipWindow.xaml</DependentUpon>
     </Compile>
@@ -184,6 +185,10 @@
     <Page Include="Controls\TipWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CreateEditRecordWindow.xaml">
       <SubType>Designer</SubType>
