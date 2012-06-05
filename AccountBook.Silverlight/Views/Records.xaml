@@ -54,7 +54,8 @@
             <sdk:DataGrid Name="RecordsGrid" 
                           AutoGenerateColumns="False" 
                           ColumnWidth="*" 
-                          BeginningEdit="RecordsGridBeginningEdit">
+                          BeginningEdit="RecordsGridBeginningEdit"
+                          CanUserSortColumns="False">
                 <sdk:DataGrid.Columns>
                     <sdk:DataGridTextColumn  Header="Type" Binding="{Binding Type.TypeName}"  />
                     <sdk:DataGridTextColumn  Header="Money" Binding="{Binding Money}" />
@@ -67,16 +68,16 @@
         </local:BusyIndicator>
        
         <local:CustomPager x:Name="RecordsPager"
-            Style="{StaticResource CustomDataPagerStyle}"
             IsEnabled="{Binding CanQueryRecords}"
             VerticalAlignment="Bottom"
             Margin="30,0,30,48"
-            PageSize="10"
+            PageSize="15"
             Height="26"
             NumericButtonCount="5"
             DisplayMode="FirstLastPreviousNextNumeric"
             PageIndexChanging="RecordsPagerPageIndexChanging"
-            PageIndexChanged="RecordsPagerPageIndexChanged" />
+            PageIndexChanged="RecordsPagerPageIndexChanged" 
+            PageSizeSelectionChanged="QueryConditionChanged"/>
         
         <TextBlock Name="TotalMoney" HorizontalAlignment="Left"
             Margin="30,0,3,12" 

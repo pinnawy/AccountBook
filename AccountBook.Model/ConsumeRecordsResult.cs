@@ -10,9 +10,14 @@ namespace AccountBook.Model
         public int TotalCount { get; set; }
 
         /// <summary>
-        /// 消费总金额
+        /// 消费总金额(单位：元)
         /// </summary>
         public decimal TotalMoney { get; set; }
+
+        /// <summary>
+        /// 平均消费金额(单位: 元/天)
+        /// </summary>
+        public decimal AverageMoney { get; set; }
 
         /// <summary>
         /// 消费记录

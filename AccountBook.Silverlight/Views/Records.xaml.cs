@@ -171,6 +171,7 @@ namespace AccountBook.Silverlight.Views
                 SortDir = SortDir.ASC
             };
 
+            // 获取服务端消费记录数据
             this.CurrQueryOperation = ContextFactory.RecordsContext.GetConsumeRecordList(option, records =>
             {
                 this.RecordsGrid.ItemsSource = records.Value.Records;
@@ -185,10 +186,8 @@ namespace AccountBook.Silverlight.Views
                     }
                     PagedCollectionView pcv = new PagedCollectionView(_recordsCounts);
                     this.RecordsPager.Source = pcv;
-
                     this.RecordsPager.PageIndex = _currPageIndex;
                 }
-
             }, null);
         }
 
@@ -219,6 +218,11 @@ namespace AccountBook.Silverlight.Views
             if (sender is ComboBox && ((ComboBox)sender).ItemsSource == null)
             {
                 return;
+            }
+
+            if (RecordsPager.Source != null && RecordsPager.PageSize > 0)
+            {
+                RecordsPager.PageIndex = 0;
             }
 
             QueryRecords();
