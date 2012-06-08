@@ -20,6 +20,13 @@ namespace AccountBook.BLL.Interface
         bool UpdateConsumeRecord(ConsumeRecord record);
 
         /// <summary>
+        /// 删除消费记录
+        /// </summary>
+        /// <param name="recordId">消费记录ID</param>
+        /// <returns>true:删除成功 false:删除失败</returns>
+        bool DeleteConsumeRecord(long recordId);
+
+        /// <summary>
         /// 获取消费记录列表
         /// </summary>
         /// <param name="option">获取消费记录列表查询参数</param>
