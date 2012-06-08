@@ -4,6 +4,7 @@
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
            xmlns:Controls="clr-namespace:AccountBook.Silverlight.Controls"
            xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit"
+           Title="Create Record"
            Name="Win">
     
     <Grid x:Name="LayoutRoot" Margin="2" MinWidth="280">
@@ -11,19 +12,30 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
+        <StackPanel>
             <Controls:BusyIndicator IsBusy="{Binding IsOperationing}" >
-            <toolkit:DataForm
-                    Name="RecordDataForm"
-                    CurrentItem="{Binding}" 
-                    CommandButtonsVisibility="None"
-                    AutoCommit="False" 
-                    AutoEdit="True"
-                    LabelPosition="Left"
-                    AutoGeneratingField="RecordDataFormAutoGeneratingField"
-                    ContentLoaded="RecordDataFormContentLoaded">
-            </toolkit:DataForm>
-        </Controls:BusyIndicator>
-        
+                <toolkit:DataForm
+                        Name="RecordDataForm"
+                        CurrentItem="{Binding}" 
+                        CommandButtonsVisibility="None"
+                        AutoCommit="False" 
+                        AutoEdit="True"
+                        LabelPosition="Left"
+                        AutoGeneratingField="RecordDataFormAutoGeneratingField"
+                        ContentLoaded="RecordDataFormContentLoaded"
+                        BeginningEdit="RecordDataFormBeginningEdit">
+                </toolkit:DataForm>
+            </Controls:BusyIndicator>
+            <Border  Name="TipPanel" Visibility="Collapsed" Background="White" BorderBrush="#cceeff"  BorderThickness="2,0,2,2">
+                <StackPanel>
+                    <Border Height="20" Background="#00AA00">
+                        <TextBlock Text="Sucess" Margin="5,0"></TextBlock>
+                    </Border>
+                    <TextBlock Name="Tip" Margin="5,0" Text="记录添加成功..."></TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
             <Button x:Name="BtnSave" Click="BtnSaveClick" Content="Save" Width="75" />
             <Button x:Name="BtnSaveAdd" Content="Save + Add" Click="BtnSaveAddClick" Width="75" Margin="5,0,0,0" />

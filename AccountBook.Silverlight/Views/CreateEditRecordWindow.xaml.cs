@@ -80,11 +80,20 @@ namespace AccountBook.Silverlight.Views
 
         private void BtnSaveAddClick(object sender, RoutedEventArgs e)
         {
+            RecordDataForm.CommitEdit();
             AddOrUpdateConsumeRecord(_isUpdateRecord, record =>
             {
                 _addRecordCount++;
+                TipPanel.Visibility = Visibility.Visible;
+                // RecordDataForm.ClearValue(DataForm.CurrentItemProperty);
                 this.DataContext = new ConsumeRecord
                 {
+                    Consumer = new UserInfo
+                    {
+                        UserId = record.Consumer.UserId,
+                        FriendlyName = record.Consumer.FriendlyName,
+                        UserName = record.Consumer.UserName
+                    },
                     ConsumeTime = record.ConsumeTime
                 };
             });
@@ -165,6 +174,11 @@ namespace AccountBook.Silverlight.Views
             {
                 cmbConsumeType.IsEnabled = e.Mode != DataFormMode.ReadOnly;
             }
+        }
+
+        private void RecordDataFormBeginningEdit(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            TipPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

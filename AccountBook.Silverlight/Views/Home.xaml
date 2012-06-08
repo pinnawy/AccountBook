@@ -15,6 +15,7 @@
         <TextBlock x:Name="HeaderText" Style="{StaticResource HeaderTextStyle}" Text="Welcome to use AccountBook"/>
         <TextBlock Margin="120,0,0,30" Text="Powered by yuwang 2012"/>
 
+        <TextBlock Margin="30,5,0,0" Text="2012-6-8 增加空白管理页面、修复记录添加时Save+Add报错的Bug"/>
         <TextBlock Margin="30,5,0,0" Text="2012-6-5 增加首页身份验证等待遮罩、增加分页控件页码显示设置"/>
         <TextBlock Margin="30,5,0,0" Text="2012-6-3 增加消费类别分组显示"/>
         <TextBlock Margin="30,5,0,0" Text="2012-6-1 第一测试版本上线...."/>

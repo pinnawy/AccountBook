@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using AccountBook.Model;
 using System.Linq;
 
@@ -24,6 +25,15 @@ namespace AccountBook.Silverlight
         public static AccountBookContext Instance
         {
             get { return _instance ?? (_instance = new AccountBookContext()); }
+        }
+
+        /// <summary>
+        /// 管理模块
+        /// </summary>
+        public UIElement ManageModule
+        {
+            get;
+            set;
         }
 
         private ConsumeType _defaultConsumeType;

@@ -13,7 +13,7 @@
     <AssemblyName>AccountBook.Silverlight.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
-    <SilverlightApplicationList>{D99C7F64-EEE8-47B5-BD8B-631E9DAB0BAD}|..\AccountBook.Silverlight\AccountBook.Silverlight.csproj|ClientBin|False</SilverlightApplicationList>
+    <SilverlightApplicationList>{D99C7F64-EEE8-47B5-BD8B-631E9DAB0BAD}|..\AccountBook.Silverlight\AccountBook.Silverlight.csproj|ClientBin|False,{A5988985-BA5C-438B-B337-FB0DE8B1CE0A}|..\AccountBook.Manage\AccountBook.Manage.csproj|ClientBin|False</SilverlightApplicationList>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,6 +70,7 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientBin\AccountBook.Manage.xap" />
     <Content Include="favicon.ico" />
     <Content Include="AccountBook.html" />
     <Content Include="ClientBin\AccountBook.Silverlight.xap" />

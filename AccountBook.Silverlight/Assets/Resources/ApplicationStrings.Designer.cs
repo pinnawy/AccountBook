@@ -61,9 +61,9 @@ namespace AccountBook.Silverlight {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized string similar to Manage.
         /// </summary>
-        public static string AboutPageTitle {
+        public static string ManagePageTitle {
             get {
                 return ResourceManager.GetString("AboutPageTitle", resourceCulture);
             }

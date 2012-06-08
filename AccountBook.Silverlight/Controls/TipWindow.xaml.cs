@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace AccountBook.Silverlight.Controls
@@ -31,11 +32,22 @@ namespace AccountBook.Silverlight.Controls
             new TipWindow(message, title).Show();
         }
 
-        public static bool Confirm(string message, string title = "Confirm")
+        public static void Confirm(string message, Action<bool> callback = null)
+        {
+            Confirm(message, "Confirm", callback);
+        }
+
+        public static void Confirm(string message, string title = "Confirm", Action<bool> callback = null)
         {
             TipWindow win = new TipWindow(message, title, true);
             win.Show();
-            return win.DialogResult.HasValue && win.DialogResult.Value;
+            win.Closed += (s, e) =>
+            {
+                if (callback != null)
+                {
+                    callback(win.DialogResult.HasValue && win.DialogResult.Value);
+                }
+            };
         }
 
         private void BtnOKClick(object sender, RoutedEventArgs e)

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using AccountBook.Model;
+using AccountBook.Silverlight.Controls;
 using AccountBook.Silverlight.Helpers;
 
 namespace AccountBook.Silverlight.Views
@@ -89,7 +90,9 @@ namespace AccountBook.Silverlight.Views
         {
             InitializeComponent();
             this.DataContext = this;
+#if !DEBUG
             BeginDate.SelectedDate = DateTime.Now.Date.AddDays(1 - DateTime.Now.Day);
+#endif
             InitConsumeTypes();
             InitConsumeUsers();
         }
@@ -197,6 +200,8 @@ namespace AccountBook.Silverlight.Views
             {
                 QueryRecords();
             }
+
+            _currPageIndex = RecordsPager.PageIndex;
         }
 
         private void RecordsPagerPageIndexChanging(object sender, CancelEventArgs e)
@@ -253,6 +258,39 @@ namespace AccountBook.Silverlight.Views
                 }
             };
             win.Show();
+        }
+
+        private void BtnDeleteRecordClick(object sender, RoutedEventArgs e)
+        {
+            ConsumeRecord record = ((FrameworkElement)sender).DataContext as ConsumeRecord;
+            if (record != null)
+            {
+                TipWindow.Confirm("Are you sure to delete this record?", isConfirm =>
+                {
+                    if (isConfirm)
+                    {
+                        this.CurrQueryOperation = ContextFactory.RecordsContext.DeleteConsumeRecord(record.Id, result =>
+                        {
+                            if (result.Error != null)
+                            {
+                                ErrorWindow.CreateNew(result.Error);
+                            }
+                            else if (!result.Value)
+                            {
+                                TipWindow.Alert("记录删除失败!");
+                            }
+                            else
+                            {
+                                QueryRecords();
+                            }
+                        }, null);
+                    }
+                });
+            }
+            else
+            {
+                TipWindow.Alert("Invalid Action, record is null");
+            }
         }
     }
 }

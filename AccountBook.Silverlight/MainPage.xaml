@@ -52,7 +52,7 @@
             <Rectangle  Style="{StaticResource DividerStyle}"/>
 
             <HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" 
-                            NavigateUri="/About" TargetName="ContentFrame" Content="{Binding Path=Strings.AboutPageTitle, Source={StaticResource ApplicationResources}}"/>
+                            NavigateUri="/Manage" TargetName="ContentFrame" Content="{Binding Path=Strings.ManagePageTitle, Source={StaticResource ApplicationResources}}"/>
 
           </StackPanel>
         </Border>
@@ -60,7 +60,7 @@
       </Grid>
 
       <Border Style="{StaticResource LoginContainerStyle}">
-          <login:LoginStatus LoginStatusChanged="LoginStatus_LoginStatusChanged" />           
+            <login:LoginStatus LoginStatusChanged="LoginStatus_LoginStatusChanged" />
       </Border>
     </Grid>
 

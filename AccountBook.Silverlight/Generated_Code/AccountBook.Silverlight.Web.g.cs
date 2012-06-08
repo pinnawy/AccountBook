@@ -515,6 +515,8 @@ namespace AccountBook.Model
     public sealed partial class ConsumeRecordsResult : ComplexObject
     {
         
+        private decimal _averageMoney;
+        
         private List<ConsumeRecord> _records;
         
         private int _totalCount;
@@ -528,6 +530,8 @@ namespace AccountBook.Model
         /// can be used for further object setup.
         /// </summary>
         partial void OnCreated();
+        partial void OnAverageMoneyChanging(decimal value);
+        partial void OnAverageMoneyChanged();
         partial void OnRecordsChanging(List<ConsumeRecord> value);
         partial void OnRecordsChanged();
         partial void OnTotalCountChanging(int value);
@@ -544,6 +548,30 @@ namespace AccountBook.Model
         public ConsumeRecordsResult()
         {
             this.OnCreated();
+        }
+        
+        /// <summary>
+        /// Gets or sets the 'AverageMoney' value.
+        /// </summary>
+        [DataMember()]
+        public decimal AverageMoney
+        {
+            get
+            {
+                return this._averageMoney;
+            }
+            set
+            {
+                if ((this._averageMoney != value))
+                {
+                    this.OnAverageMoneyChanging(value);
+                    this.RaiseDataMemberChanging("AverageMoney");
+                    this.ValidateProperty("AverageMoney", value);
+                    this._averageMoney = value;
+                    this.RaiseDataMemberChanged("AverageMoney");
+                    this.OnAverageMoneyChanged();
+                }
+            }
         }
         
         /// <summary>
@@ -1254,6 +1282,34 @@ namespace AccountBook.Silverlight.Web
         }
         
         /// <summary>
+        /// Asynchronously invokes the 'DeleteConsumeRecord' method of the DomainService.
+        /// </summary>
+        /// <param name="recordId">The value for the 'recordId' parameter of this action.</param>
+        /// <param name="callback">Callback to invoke when the operation completes.</param>
+        /// <param name="userState">Value to pass to the callback.  It can be <c>null</c>.</param>
+        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        public InvokeOperation<bool> DeleteConsumeRecord(long recordId, Action<InvokeOperation<bool>> callback, object userState)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("recordId", recordId);
+            this.ValidateMethod("DeleteConsumeRecord", parameters);
+            return ((InvokeOperation<bool>)(this.InvokeOperation("DeleteConsumeRecord", typeof(bool), parameters, true, callback, userState)));
+        }
+        
+        /// <summary>
+        /// Asynchronously invokes the 'DeleteConsumeRecord' method of the DomainService.
+        /// </summary>
+        /// <param name="recordId">The value for the 'recordId' parameter of this action.</param>
+        /// <returns>An operation instance that can be used to manage the asynchronous request.</returns>
+        public InvokeOperation<bool> DeleteConsumeRecord(long recordId)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("recordId", recordId);
+            this.ValidateMethod("DeleteConsumeRecord", parameters);
+            return ((InvokeOperation<bool>)(this.InvokeOperation("DeleteConsumeRecord", typeof(bool), parameters, true, null, null)));
+        }
+        
+        /// <summary>
         /// Asynchronously invokes the 'GetConsumeRecordList' method of the DomainService.
         /// </summary>
         /// <param name="option">The value for the 'option' parameter of this action.</param>
@@ -1342,6 +1398,24 @@ namespace AccountBook.Silverlight.Web
             /// <param name="result">The IAsyncResult returned from 'BeginAddConsumeRecord'.</param>
             /// <returns>The 'Int64' returned from the 'AddConsumeRecord' operation.</returns>
             long EndAddConsumeRecord(IAsyncResult result);
+            
+            /// <summary>
+            /// Asynchronously invokes the 'DeleteConsumeRecord' operation.
+            /// </summary>
+            /// <param name="recordId">The value for the 'recordId' parameter of this action.</param>
+            /// <param name="callback">Callback to invoke on completion.</param>
+            /// <param name="asyncState">Optional state object.</param>
+            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
+            [FaultContract(typeof(DomainServiceFault), Action="http://tempuri.org/RecordsService/DeleteConsumeRecordDomainServiceFault", Name="DomainServiceFault", Namespace="DomainServices")]
+            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/RecordsService/DeleteConsumeRecord", ReplyAction="http://tempuri.org/RecordsService/DeleteConsumeRecordResponse")]
+            IAsyncResult BeginDeleteConsumeRecord(long recordId, AsyncCallback callback, object asyncState);
+            
+            /// <summary>
+            /// Completes the asynchronous operation begun by 'BeginDeleteConsumeRecord'.
+            /// </summary>
+            /// <param name="result">The IAsyncResult returned from 'BeginDeleteConsumeRecord'.</param>
+            /// <returns>The 'Boolean' returned from the 'DeleteConsumeRecord' operation.</returns>
+            bool EndDeleteConsumeRecord(IAsyncResult result);
             
             /// <summary>
             /// Asynchronously invokes the 'GetConsumeRecordList' operation.

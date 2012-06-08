@@ -1,9 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converter="clr-namespace:AccountBook.Silverlight.Helpers"
-    xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
-    xmlns:local="clr-namespace:AccountBook.Silverlight.Controls">
+    xmlns:converter="clr-namespace:AccountBook.Silverlight.Helpers">
 
     <converter:ConsumerTypeGroupConverter x:Key="ConsumerTypeGroupConverter"></converter:ConsumerTypeGroupConverter>
     

@@ -2,51 +2,51 @@
 <publishData>
   <publishProfile publishUrl="E:\Server\AccountBook" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="AccountBook" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
     <file relUrl="Silverlight.js" publishTime="04/25/2012 15:38:12" />
-    <file relUrl="bin/AccountBook.DAL.SQLiteImpl.dll" publishTime="06/04/2012 00:12:02" />
-    <file relUrl="bin/AccountBook.Library.pdb" publishTime="05/31/2012 23:24:51" />
+    <file relUrl="bin/AccountBook.DAL.SQLiteImpl.dll" publishTime="06/05/2012 18:44:20" />
+    <file relUrl="bin/AccountBook.Library.pdb" publishTime="06/05/2012 18:44:19" />
     <file relUrl="bin/System.Data.SQLite.dll" publishTime="04/18/2010 13:58:58" />
-    <file relUrl="bin/it/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:24" />
+    <file relUrl="bin/it/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:42" />
     <file relUrl="Global.asax" publishTime="06/04/2012 00:22:50" />
-    <file relUrl="bin/AccountBook.Library.dll" publishTime="05/31/2012 23:24:51" />
-    <file relUrl="bin/ko/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/ja/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/it/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:22" />
-    <file relUrl="bin/AccountBook.Silverlight.Web.dll" publishTime="06/04/2012 00:24:16" />
-    <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="07/30/2011 04:11:46" />
-    <file relUrl="bin/AccountBook.DAL.Interface.dll" publishTime="06/04/2012 00:12:00" />
-    <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:24" />
+    <file relUrl="bin/System.ServiceModel.DomainServices.Server.xml" publishTime="09/09/2011 21:21:12" />
+    <file relUrl="bin/AccountBook.Library.dll" publishTime="06/05/2012 18:44:19" />
+    <file relUrl="bin/ko/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:42" />
+    <file relUrl="bin/ja/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/it/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/AccountBook.Silverlight.Web.dll" publishTime="06/05/2012 18:44:21" />
+    <file relUrl="bin/es/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:42" />
+    <file relUrl="bin/AccountBook.DAL.Interface.dll" publishTime="06/05/2012 18:44:20" />
+    <file relUrl="bin/es/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:40" />
     <file relUrl="bin/Microsoft.Practices.Unity.Configuration.dll" publishTime="10/29/2010 16:01:16" />
-    <file relUrl="bin/AccountBook.DAL.Interface.pdb" publishTime="06/04/2012 00:12:00" />
-    <file relUrl="bin/AccountBook.DAL.SQLiteImpl.pdb" publishTime="06/04/2012 00:12:01" />
+    <file relUrl="bin/AccountBook.DAL.Interface.pdb" publishTime="06/05/2012 18:44:20" />
+    <file relUrl="bin/AccountBook.DAL.SQLiteImpl.pdb" publishTime="06/05/2012 18:44:20" />
     <file relUrl="bin/ICSharpCode.SharpZipLib.dll" publishTime="10/29/2010 16:01:16" />
-    <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="07/30/2011 04:11:48" />
-    <file relUrl="bin/AccountBook.BLL.Interface.pdb" publishTime="06/04/2012 00:12:01" />
-    <file relUrl="bin/AccountBook.Model.dll" publishTime="06/01/2012 22:36:01" />
-    <file relUrl="bin/AccountBook.BLL.pdb" publishTime="06/04/2012 00:12:02" />
-    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:26" />
-    <file relUrl="bin/AccountBook.BLL.dll" publishTime="06/04/2012 00:12:02" />
-    <file relUrl="bin/fr/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:22" />
+    <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.xml" publishTime="09/09/2011 21:21:14" />
+    <file relUrl="favicon.ico" publishTime="05/31/2012 23:34:14" />
+    <file relUrl="bin/AccountBook.BLL.Interface.pdb" publishTime="06/05/2012 18:44:20" />
+    <file relUrl="bin/AccountBook.BLL.dll" publishTime="06/05/2012 18:44:21" />
+    <file relUrl="bin/AccountBook.BLL.pdb" publishTime="06/05/2012 18:44:20" />
+    <file relUrl="bin/AccountBook.Model.pdb" publishTime="06/05/2012 18:44:19" />
+    <file relUrl="bin/fr/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:42" />
     <file relUrl="AccountBook.html" publishTime="04/25/2012 15:38:12" />
     <file relUrl="bin/Microsoft.Practices.Unity.dll" publishTime="10/29/2010 16:01:16" />
-    <file relUrl="bin/de/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/AccountBook.BLL.Interface.dll" publishTime="06/04/2012 00:12:01" />
-    <file relUrl="bin/ru/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/ja/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:26" />
+    <file relUrl="bin/de/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/AccountBook.BLL.Interface.dll" publishTime="06/05/2012 18:44:20" />
+    <file relUrl="bin/ja/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:42" />
+    <file relUrl="bin/ru/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:42" />
     <file relUrl="bin/log4net.dll" publishTime="03/30/2006 13:23:58" />
-    <file relUrl="bin/ko/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.dll" publishTime="07/30/2011 04:14:20" />
-    <file relUrl="Web.config" publishTime="06/04/2012 00:12:04" />
-    <file relUrl="bin/AccountBook.Model.pdb" publishTime="06/01/2012 22:36:01" />
-    <file relUrl="bin/de/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="bin/fr/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:24" />
-    <file relUrl="favicon.ico" publishTime="05/31/2012 23:34:14" />
-    <file relUrl="bin/AccountBook.Silverlight.Web.pdb" publishTime="06/04/2012 00:24:16" />
-    <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="07/30/2011 04:14:26" />
-    <file relUrl="ClientBin/AccountBook.Silverlight.xap" publishTime="06/04/2012 00:13:24" />
-    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="07/30/2011 04:14:26" />
-    <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="07/30/2011 04:14:24" />
+    <file relUrl="bin/ko/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:42" />
+    <file relUrl="bin/System.ServiceModel.DomainServices.Hosting.dll" publishTime="09/09/2011 21:23:36" />
+    <file relUrl="Web.config" publishTime="06/05/2012 18:44:25" />
+    <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/de/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/fr/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:42" />
+    <file relUrl="bin/ru/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:42" />
+    <file relUrl="bin/AccountBook.Silverlight.Web.pdb" publishTime="06/05/2012 18:44:21" />
+    <file relUrl="bin/zh-Hans/System.ServiceModel.DomainServices.Server.resources.dll" publishTime="09/09/2011 21:23:42" />
+    <file relUrl="ClientBin/AccountBook.Silverlight.xap" publishTime="06/05/2012 17:09:44" />
+    <file relUrl="bin/zh-Hant/System.ServiceModel.DomainServices.Hosting.resources.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/System.ServiceModel.DomainServices.Server.dll" publishTime="09/09/2011 21:23:40" />
+    <file relUrl="bin/AccountBook.Model.dll" publishTime="06/05/2012 18:44:19" />
   </publishProfile>
 </publishData>

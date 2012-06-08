@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         d:DesignWidth="640" d:DesignHeight="480"
         xmlns:Views="clr-namespace:AccountBook.Silverlight.Views"
-        xmlns:local="clr-namespace:AccountBook.Silverlight.Controls"
-        x:Name="RecordsPage">
+        xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls"
+                xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls"
+                x:Name="RecordsPage">
     
     <Grid x:Name="LayoutRoot">
         <StackPanel Orientation="Horizontal"
@@ -47,27 +48,33 @@
                       SelectionChanged="QueryConditionChanged"/>
         </StackPanel>
 
-        <local:BusyIndicator
+        <controls:BusyIndicator
             Margin="30,80"
             IsBusy="{Binding IsOperationing}"
             BusyContent="{Binding Path=Strings.BusyIndicatorQueryRecords, Source={StaticResource ApplicationResources}}">
             <sdk:DataGrid Name="RecordsGrid" 
                           AutoGenerateColumns="False" 
-                          ColumnWidth="*" 
                           BeginningEdit="RecordsGridBeginningEdit"
                           CanUserSortColumns="False">
                 <sdk:DataGrid.Columns>
-                    <sdk:DataGridTextColumn  Header="Type" Binding="{Binding Type.TypeName}"  />
-                    <sdk:DataGridTextColumn  Header="Money" Binding="{Binding Money}" />
-                    <sdk:DataGridTextColumn  Header="ConsumeTime" Binding="{Binding ConsumeTime, StringFormat='yyyy-MM-dd'}"/>
-                    <sdk:DataGridTextColumn  Header="Memo" Binding="{Binding Memo}" />
-                    <sdk:DataGridTextColumn  Header="User" Binding="{Binding Consumer.FriendlyName}" />
-                    <sdk:DataGridTextColumn  Header="RecordTime" Binding="{Binding RecordTime, StringFormat='yyyy-MM-dd'}" />
+                    <sdk:DataGridTextColumn  Header="Type" Width="0.15*" Binding="{Binding Type.TypeName}"  />
+                    <sdk:DataGridTextColumn  Header="Money" Width="0.15*" Binding="{Binding Money}" />
+                    <sdk:DataGridTextColumn  Header="ConsumeTime" Width="0.175*" Binding="{Binding ConsumeTime, StringFormat='yyyy-MM-dd'}"/>
+                    <sdk:DataGridTextColumn  Header="Memo" Width="0.3*" Binding="{Binding Memo}" />
+                    <sdk:DataGridTextColumn  Header="User" Width="0.15*" Binding="{Binding Consumer.FriendlyName}" />
+                    <sdk:DataGridTextColumn  Header="RecordTime" Width="0.175*" Binding="{Binding RecordTime, StringFormat='yyyy-MM-dd'}" />
+                    <sdk:DataGridTemplateColumn Header="Action" Width="70">
+                        <sdk:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <HyperlinkButton VerticalAlignment="Center" Content="Delete" DataContext="{Binding}" Click="BtnDeleteRecordClick"></HyperlinkButton>
+                            </DataTemplate>
+                        </sdk:DataGridTemplateColumn.CellTemplate> 
+                    </sdk:DataGridTemplateColumn>
                 </sdk:DataGrid.Columns>
             </sdk:DataGrid>
-        </local:BusyIndicator>
+        </controls:BusyIndicator>
        
-        <local:CustomPager x:Name="RecordsPager"
+        <SControls:CustomDataPager x:Name="RecordsPager"
             IsEnabled="{Binding CanQueryRecords}"
             VerticalAlignment="Bottom"
             Margin="30,0,30,48"
