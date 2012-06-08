@@ -35,7 +35,7 @@ namespace AccountBook.DAL.SQLiteImpl
 
         public bool UpdateConsumeRecord(ConsumeRecord record)
         {
-            string cmdText = @"UPDATE [ConsumeRecord]
+            const string cmdText = @"UPDATE [ConsumeRecord]
                                 SET [TypeId] = @typeId,
                                     [Money]=@money,
                                     [ConsumeTime]=@consumeTime,
@@ -55,6 +55,18 @@ namespace AccountBook.DAL.SQLiteImpl
                 };
             var rowCount = SqliteHelper.ExecuteNonQuery(cmdText, parameters);
 
+            return rowCount == 1;
+        }
+
+        public bool DeleteConsumeRecord(long recordId)
+        {
+            const string cmdText = @"DELETE FROM [ConsumeRecord]
+                                     WHERE [Id]=@recordId";
+            var parameters = new[]
+            {
+                new SQLiteParameter("@recordId", recordId)
+            };
+            var rowCount = SqliteHelper.ExecuteNonQuery(cmdText, parameters);
             return rowCount == 1;
         }
 
