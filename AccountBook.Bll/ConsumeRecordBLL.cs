@@ -20,6 +20,11 @@ namespace AccountBook.BLL
             return _consumeRecordDal.UpdateConsumeRecord(record);
         }
 
+        public bool DeleteConsumeRecord(long recordId)
+        {
+            return _consumeRecordDal.DeleteConsumeRecord(recordId);
+        }
+
         public ConsumeRecordsResult GetConsumeRecordList(ConsumeRecordQueryOption option)
         {
             int recordCount;
