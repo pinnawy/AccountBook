@@ -59,10 +59,10 @@
                 <sdk:DataGrid.Columns>
                     <sdk:DataGridTextColumn  Header="Type" Width="0.15*" Binding="{Binding Type.TypeName}"  />
                     <sdk:DataGridTextColumn  Header="Money" Width="0.15*" Binding="{Binding Money}" />
-                    <sdk:DataGridTextColumn  Header="ConsumeTime" Width="0.175*" Binding="{Binding ConsumeTime, StringFormat='yyyy-MM-dd'}"/>
-                    <sdk:DataGridTextColumn  Header="Memo" Width="0.3*" Binding="{Binding Memo}" />
+                    <sdk:DataGridTextColumn  Header="ConsumeTime" Width="0.155*" Binding="{Binding ConsumeTime, StringFormat='yyyy-MM-dd'}"/>
+                    <sdk:DataGridTextColumn  Header="Memo" Width="0.34*" Binding="{Binding Memo}" />
                     <sdk:DataGridTextColumn  Header="User" Width="0.15*" Binding="{Binding Consumer.FriendlyName}" />
-                    <sdk:DataGridTextColumn  Header="RecordTime" Width="0.175*" Binding="{Binding RecordTime, StringFormat='yyyy-MM-dd'}" />
+                    <sdk:DataGridTextColumn  Header="RecordTime" Width="0.155*" Binding="{Binding RecordTime, StringFormat='yyyy-MM-dd'}" />
                     <sdk:DataGridTemplateColumn Header="Action" Width="70">
                         <sdk:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
