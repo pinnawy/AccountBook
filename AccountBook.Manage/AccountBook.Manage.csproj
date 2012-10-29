@@ -21,7 +21,8 @@
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>AccountBook.Manage.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>AccountBook.Manage.App</SilverlightAppEntry>
+    <SilverlightAppEntry>
+    </SilverlightAppEntry>
     <TestPageFileName>AccountBook.ManageTestPage.html</TestPageFileName>
     <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>

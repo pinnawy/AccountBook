@@ -101,6 +101,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\QueryPanel.xaml.cs">
+      <DependentUpon>QueryPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TipWindow.xaml.cs">
       <DependentUpon>TipWindow.xaml</DependentUpon>
     </Compile>
@@ -113,10 +116,6 @@
     <Compile Include="Helpers\ConsumeTypeConverter.cs" />
     <Compile Include="Helpers\ConsumeUserConverter.cs" />
     <Compile Include="Helpers\ContextFactory.cs" />
-    <Compile Include="Models\ConsumeRecord.partial.cs" />
-    <Compile Include="Models\LoginInfo.cs" />
-    <Compile Include="Models\User.partial.cs" />
-    <Compile Include="Models\RegistrationData.partial.cs" />
     <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\VisualStates.cs" />
     <Compile Include="Helpers\DataFieldExtensions.cs" />
@@ -128,7 +127,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SecurityQuestions.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsumeRecord.partial.cs" />
+    <Compile Include="Models\LoginInfo.cs" />
+    <Compile Include="Events\QueryConditionChangedEventArgs.cs" />
+    <Compile Include="Models\RegistrationData.partial.cs" />
+    <Compile Include="Models\User.partial.cs" />
     <Compile Include="Views\BasePage.cs" />
+    <Compile Include="Views\Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateEditRecordWindow.xaml.cs">
       <DependentUpon>CreateEditRecordWindow.xaml</DependentUpon>
     </Compile>
@@ -180,9 +187,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\QueryPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\TipWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CreateEditRecordWindow.xaml">
       <SubType>Designer</SubType>

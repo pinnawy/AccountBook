@@ -49,7 +49,12 @@
             <HyperlinkButton  Style="{StaticResource LinkStyle}" 
                 NavigateUri="/Records" TargetName="ContentFrame" Content="{Binding Path=Strings.RecordsPageTitle, Source={StaticResource ApplicationResources}}"/>
 
-            <Rectangle  Style="{StaticResource DividerStyle}"/>
+                        <Rectangle  Style="{StaticResource DividerStyle}"/>
+
+            <HyperlinkButton  Style="{StaticResource LinkStyle}" 
+                NavigateUri="/Statistics" TargetName="ContentFrame" Content="{Binding Path=Strings.StatisticsPageTitle, Source={StaticResource ApplicationResources}}"/>
+              
+                        <Rectangle  Style="{StaticResource DividerStyle}"/>
 
             <HyperlinkButton x:Name="Link2" Style="{StaticResource LinkStyle}" 
                             NavigateUri="/Manage" TargetName="ContentFrame" Content="{Binding Path=Strings.ManagePageTitle, Source={StaticResource ApplicationResources}}"/>

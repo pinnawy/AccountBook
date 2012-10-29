@@ -61,15 +61,6 @@ namespace AccountBook.Silverlight {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage.
-        /// </summary>
-        public static string ManagePageTitle {
-            get {
-                return ResourceManager.GetString("AboutPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Already registered?.
         /// </summary>
         public static string AlreadyRegisteredLabel {
@@ -88,7 +79,7 @@ namespace AccountBook.Silverlight {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to authenticating....
+        ///   Looks up a localized string similar to Authenticating....
         /// </summary>
         public static string AuthenticatingMessage {
             get {
@@ -187,6 +178,15 @@ namespace AccountBook.Silverlight {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage.
+        /// </summary>
+        public static string ManagePageTitle {
+            get {
+                return ResourceManager.GetString("ManagePageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not registered yet?.
         /// </summary>
         public static string NotRegisteredYetLabel {
@@ -246,6 +246,15 @@ namespace AccountBook.Silverlight {
         public static string RememberMeLabel {
             get {
                 return ResourceManager.GetString("RememberMeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics.
+        /// </summary>
+        public static string StatisticsPageTitle {
+            get {
+                return ResourceManager.GetString("StatisticsPageTitle", resourceCulture);
             }
         }
         

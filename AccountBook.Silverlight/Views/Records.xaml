@@ -8,45 +8,16 @@
         d:DesignWidth="640" d:DesignHeight="480"
         xmlns:Views="clr-namespace:AccountBook.Silverlight.Views"
         xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls"
-                xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls"
-                x:Name="RecordsPage">
+        xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls"
+        x:Name="RecordsPage">
     
     <Grid x:Name="LayoutRoot">
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Left" 
-                    Margin="30,20,30,0" 
-                    VerticalAlignment="Top">
-            <TextBlock Text="BeginTime:" VerticalAlignment="Center" />
-            <sdk:DatePicker Name="BeginDate"
-                            Margin="0,0,5,0"
-                            IsEnabled="{Binding CanQueryRecords}"
-                            DisplayDateEnd="{Binding ElementName=EndDate, Path=SelectedDate}" 
-                            SelectedDateChanged="QueryConditionChanged"/>
-
-            <TextBlock Text="EndTime:" VerticalAlignment="Center" />
-            <sdk:DatePicker Name="EndDate" 
-                            Margin="0,0,5,0"
-                            IsEnabled="{Binding CanQueryRecords}"
-                            DisplayDateStart="{Binding ElementName=BeginDate, Path=SelectedDate}" 
-                            SelectedDateChanged="QueryConditionChanged" />
-            <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType=TextBlock}, Path=a}"></TextBlock>
-            <TextBlock Text="Type:" VerticalAlignment="Center" />
-            <ComboBox Name="CmbConsumeType"
-                      Width="80"
-                      Margin="0,0,5,0"
-                      VerticalAlignment="Center"
-                      ItemTemplate="{StaticResource ConsumerTypeItemTemplate}"
-                      ItemContainerStyle="{StaticResource ConsumerTypeItemPanelStyle}"
-                      IsEnabled="{Binding CanQueryRecords}"
-                      SelectionChanged="QueryConditionChanged"/>
-
-            <TextBlock Text="User:" VerticalAlignment="Center" />
-            <ComboBox Name="CmbConsumeUser" 
-                      Width="80"
-                      VerticalAlignment="Center"
-                      IsEnabled="{Binding CanQueryRecords}"
-                      SelectionChanged="QueryConditionChanged"/>
-        </StackPanel>
+        
+        <controls:QueryPanel x:Name="QueryCondionPanel"
+            HorizontalAlignment="Left" 
+            Margin="30,20,30,0" 
+            VerticalAlignment="Top"
+            IsEnabled="{Binding CanQueryRecords}" />
 
         <controls:BusyIndicator
             Margin="30,80"
@@ -56,6 +27,7 @@
                           AutoGenerateColumns="False" 
                           BeginningEdit="RecordsGridBeginningEdit"
                           CanUserSortColumns="False">
+                
                 <sdk:DataGrid.Columns>
                     <sdk:DataGridTextColumn  Header="Type" Width="0.15*" Binding="{Binding Type.TypeName}"  />
                     <sdk:DataGridTextColumn  Header="Money" Width="0.15*" Binding="{Binding Money}" />
@@ -84,7 +56,7 @@
             DisplayMode="FirstLastPreviousNextNumeric"
             PageIndexChanging="RecordsPagerPageIndexChanging"
             PageIndexChanged="RecordsPagerPageIndexChanged" 
-            PageSizeSelectionChanged="QueryConditionChanged"/>
+            PageSizeSelectionChanged="PageSizeChanged"/>
         
         <TextBlock Name="TotalMoney" HorizontalAlignment="Left"
             Margin="30,0,3,12" 

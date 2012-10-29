@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using AccountBook.Model;
@@ -31,6 +30,15 @@ namespace AccountBook.Silverlight
         /// 管理模块
         /// </summary>
         public UIElement ManageModule
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 统计模块
+        /// </summary>
+        public UIElement StatisticsModule
         {
             get;
             set;

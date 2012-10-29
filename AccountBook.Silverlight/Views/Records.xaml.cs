@@ -5,9 +5,9 @@ using System.ServiceModel.DomainServices.Client;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Navigation;
 using AccountBook.Model;
 using AccountBook.Silverlight.Controls;
+using AccountBook.Silverlight.Events;
 using AccountBook.Silverlight.Helpers;
 
 namespace AccountBook.Silverlight.Views
@@ -26,6 +26,11 @@ namespace AccountBook.Silverlight.Views
 
         private readonly List<int> _recordsCounts = new List<int>();
         private int _currPageIndex = -1;
+        private DateTime? _begigDate;
+        private DateTime? _endDate;
+        private UserInfo _consumer;
+        private ConsumeType _consumeType;
+        private string _sortName = "ConsumeTime";
 
         private OperationBase _currQueryOperation;
         internal OperationBase CurrQueryOperation
@@ -95,6 +100,8 @@ namespace AccountBook.Silverlight.Views
 #endif
             InitConsumeTypes();
             InitConsumeUsers();
+
+            QueryCondionPanel.QueryConditionChanged += QueryPanelQueryConditionChanged;
         }
 
         /// <summary>
@@ -104,14 +111,9 @@ namespace AccountBook.Silverlight.Views
         {
             Binding bind = new Binding("ExtConsumeTypeList");
             bind.Source = AccountBookContext.Instance;
-            CmbConsumeType.SetBinding(ItemsControl.ItemsSourceProperty, bind);
-            CmbConsumeType.SelectedIndex = 0;
+            QueryCondionPanel.SetBinding(QueryPanel.ConsumeTypeListProperty, bind);
 
-            ContextFactory.ConsumeTypeContext.GetConsumeTypes(0, result =>
-            {
-                AccountBookContext.Instance.SetConsumeTypeList(result.Value);
-                CmbConsumeType.SelectedIndex = 0;
-            }, null);
+            ContextFactory.ConsumeTypeContext.GetConsumeTypes(0, result => AccountBookContext.Instance.SetConsumeTypeList(result.Value), null);
         }
 
         /// <summary>
@@ -119,25 +121,19 @@ namespace AccountBook.Silverlight.Views
         /// </summary>
         private void InitConsumeUsers()
         {
-            CmbConsumeUser.SelectedValuePath = "UserId";
-            CmbConsumeUser.DisplayMemberPath = "FriendlyName";
-
             Binding bind = new Binding("ExtUserInfoList");
             bind.Source = AccountBookContext.Instance;
-            CmbConsumeUser.SetBinding(ItemsControl.ItemsSourceProperty, bind);
-            CmbConsumeUser.SelectedIndex = 0;
+            QueryCondionPanel.SetBinding(QueryPanel.ConsumerListProperty, bind);
 
-            ContextFactory.UserContext.GetUserList(result =>
-            {
-                AccountBookContext.Instance.SetConsumerList(result.Value);
-                CmbConsumeUser.SelectedIndex = 0;
-            }, null);
+            ContextFactory.UserContext.GetUserList(result => AccountBookContext.Instance.SetConsumerList(result.Value), null);
         }
 
-        // Executes when the user navigates to this page.
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void QueryPanelQueryConditionChanged(object sender, QueryConditionChangedEventArgs e)
         {
-            base.OnNavigatedTo(e);
+            _begigDate = e.BeginTime;
+            _endDate = e.EndTime;
+            _consumer = e.Consumer;
+            _consumeType = e.ConsumeType;
             QueryRecords();
         }
 
@@ -151,26 +147,25 @@ namespace AccountBook.Silverlight.Views
                 return;
             }
 
-            ConsumeType consumeType;
-            if (CmbConsumeType.SelectedItem == null)
+            var consumeType = _consumeType;
+            if (consumeType == null)
             {
                 consumeType = AccountBookContext.Instance.DefaultConsumeType;
             }
             else
             {
-                var selectedConsumeType = (ConsumeType)CmbConsumeType.SelectedItem;
-                consumeType = new ConsumeType { TypeId = selectedConsumeType.TypeId, ParentTypeId = selectedConsumeType.ParentTypeId };
+                consumeType = new ConsumeType { TypeId = consumeType.TypeId, ParentTypeId = consumeType.ParentTypeId };
             }
 
             var option = new ConsumeRecordQueryOption
             {
                 ConsumeType = consumeType,
-                UserId = CmbConsumeUser.SelectedValue == null ? AccountBookContext.Instance.DefaultConsumer.UserId : (long)CmbConsumeUser.SelectedValue,
+                UserId = _consumer == null ? AccountBookContext.Instance.DefaultConsumer.UserId : _consumer.UserId,
                 PageIndex = RecordsPager.PageIndex == -1 ? 0 : RecordsPager.PageIndex,
                 PageSize = RecordsPager.PageSize,
-                BeginTime = BeginDate.SelectedDate.HasValue ? BeginDate.SelectedDate.Value : DateTime.MinValue,
-                EndTime = EndDate.SelectedDate.HasValue ? EndDate.SelectedDate.Value : DateTime.MaxValue,
-                SortName = "RecordTime",
+                BeginTime = _begigDate.HasValue ? _begigDate.Value : DateTime.MinValue,
+                EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
+                SortName = _sortName,
                 SortDir = SortDir.ASC
             };
 
@@ -218,13 +213,8 @@ namespace AccountBook.Silverlight.Views
             AddOrEditRecord(record);
         }
 
-        private void QueryConditionChanged(object sender, SelectionChangedEventArgs e)
+        private void PageSizeChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ComboBox && ((ComboBox)sender).ItemsSource == null)
-            {
-                return;
-            }
-
             if (RecordsPager.Source != null && RecordsPager.PageSize > 0)
             {
                 RecordsPager.PageIndex = 0;
