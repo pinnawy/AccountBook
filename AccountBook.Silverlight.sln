@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountBook.Manage", "Accou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountBook.SControls", "AccountBook.SControls\AccountBook.SControls.csproj", "{82972EF6-4341-4198-BD1F-29B4C5465467}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountBook.Statistics", "AccountBook.Statistics\AccountBook.Statistics.csproj", "{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +145,16 @@ Global
 		{82972EF6-4341-4198-BD1F-29B4C5465467}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{82972EF6-4341-4198-BD1F-29B4C5465467}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{82972EF6-4341-4198-BD1F-29B4C5465467}.Release|x86.ActiveCfg = Release|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,5 +170,6 @@ Global
 		{0BC7B65A-0D31-4BC0-AD7A-D350738FC43C} = {13438317-AFB2-4C54-8B7C-74DD4F12D7B4}
 		{A5988985-BA5C-438B-B337-FB0DE8B1CE0A} = {13438317-AFB2-4C54-8B7C-74DD4F12D7B4}
 		{82972EF6-4341-4198-BD1F-29B4C5465467} = {13438317-AFB2-4C54-8B7C-74DD4F12D7B4}
+		{5DA4CDC4-B67C-4FE0-B46D-FB22FC18082A} = {13438317-AFB2-4C54-8B7C-74DD4F12D7B4}
 	EndGlobalSection
 EndGlobal
