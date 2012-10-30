@@ -37,8 +37,7 @@ namespace AccountBook.Silverlight.LoginUI
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginRegistrationWindow loginWindow = new LoginRegistrationWindow();
-            loginWindow.Show();
+            ShowLoginForm();
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
@@ -95,6 +94,12 @@ namespace AccountBook.Silverlight.LoginUI
             {
                 VisualStateManager.GoToState(this, (WebContext.Current.User.IsAuthenticated) ? "loggedIn" : "loggedOut", true);
             }
+        }
+
+        public void ShowLoginForm()
+        {
+            LoginRegistrationWindow loginWindow = new LoginRegistrationWindow();
+            loginWindow.Show();
         }
     }
 }

@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
-    mc:Ignorable="d" Name="LocalPanel"
+    mc:Ignorable="d"
     d:DesignHeight="25" d:DesignWidth="600">
 
     <StackPanel Orientation="Horizontal">
@@ -29,17 +29,14 @@
                 SelectedIndex="0"
                 ItemTemplate="{StaticResource ConsumerTypeItemTemplate}"
                 ItemContainerStyle="{StaticResource ConsumerTypeItemPanelStyle}"
-                ItemsSource="{Binding ElementName=LocalPanel, Path=ConsumeTypeList}"
                 SelectionChanged="CtlQueryConditionChanged"/>
 
         <TextBlock Text="User:" VerticalAlignment="Center" />
         <ComboBox Name="CmbConsumeUser" 
                 Width="80"
-                VerticalAlignment="Center" 
                 SelectedIndex="0"
-                SelectedValuePath="UserId"
+                VerticalAlignment="Center" 
                 DisplayMemberPath="FriendlyName"
-                ItemsSource="{Binding ElementName=LocalPanel, Path=ConsumerList}"
                 SelectionChanged="CtlQueryConditionChanged"/>
     </StackPanel>
 </UserControl>

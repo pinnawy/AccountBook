@@ -11,7 +11,7 @@ namespace AccountBook.Silverlight.Controls
             InitializeComponent();
             Message = message;
             Title = title;
-            BtnCancelVisibility = isConfirmWin ? Visibility.Visible : Visibility.Collapsed;
+            BtnCancel.Visibility = isConfirmWin ? Visibility.Visible : Visibility.Collapsed;
             this.DataContext = this;
         }
 
@@ -21,15 +21,17 @@ namespace AccountBook.Silverlight.Controls
             private set;
         }
 
-        private Visibility BtnCancelVisibility
+        public static void Alert(string message, string title = "Alert", Action<bool> callback = null)
         {
-            get;
-            set;
-        }
-
-        public static void Alert(string message, string title = "Alert")
-        {
-            new TipWindow(message, title).Show();
+            var win = new TipWindow(message, title);
+            win.Closed += (s, e) =>
+            {
+                if (callback != null)
+                {
+                    callback(win.DialogResult.HasValue && win.DialogResult.Value);
+                }
+            };
+            win.Show();
         }
 
         public static void Confirm(string message, Action<bool> callback = null)
@@ -39,8 +41,7 @@ namespace AccountBook.Silverlight.Controls
 
         public static void Confirm(string message, string title = "Confirm", Action<bool> callback = null)
         {
-            TipWindow win = new TipWindow(message, title, true);
-            win.Show();
+            var win = new TipWindow(message, title, true);
             win.Closed += (s, e) =>
             {
                 if (callback != null)
@@ -48,6 +49,7 @@ namespace AccountBook.Silverlight.Controls
                     callback(win.DialogResult.HasValue && win.DialogResult.Value);
                 }
             };
+            win.Show();
         }
 
         private void BtnOKClick(object sender, RoutedEventArgs e)

@@ -52,6 +52,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SLVisifire.Charts">
+      <HintPath>..\_Refrence\SLVisifire.Charts.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />

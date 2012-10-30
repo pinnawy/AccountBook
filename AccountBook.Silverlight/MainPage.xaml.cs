@@ -6,7 +6,6 @@ namespace AccountBook.Silverlight
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Navigation;
-    using AccountBook.Silverlight.LoginUI;
 
     /// <summary>
     /// <see cref="UserControl"/> class providing the main UI for the application.
@@ -61,9 +60,9 @@ namespace AccountBook.Silverlight
             {
                 _lastFailUri = e.Uri;
                 e.Cancel = true;
-                NavigationService naviSvc = (NavigationService)sender;
+                var naviSvc = (NavigationService)sender;
                 naviSvc.Navigate(homeUri);
-                TipWindow.Alert("你还没有登录, 请先登录!");
+                TipWindow.Confirm("你还没有登录, 请先登录!", "提示", result => { if (result) LoginStatusBar.ShowLoginForm(); });
             }
         }
 

@@ -3,10 +3,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+             xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
+             xmlns:vc="clr-namespace:Visifire.Charts;assembly=SLVisifire.Charts" mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400">
 
     <Grid x:Name="LayoutRoot" Background="White">
-        <TextBlock Text="统计信息" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <controls:QueryPanel x:Name="QueryCondionPanel"
+            HorizontalAlignment="Left" 
+            Margin="30,20,30,0" 
+            VerticalAlignment="Top"
+            IsEnabled="{Binding CanQueryRecords}"/>
+
+        <controls:BusyIndicator
+            Margin="30,50,30,20"
+            IsBusy="{Binding IsOperationing}"
+            BusyContent="{Binding Path=Strings.BusyIndicatorQueryRecords, Source={StaticResource ApplicationResources}}">
+            <vc:Chart Name="MonthChart" AnimatedUpdate="True">
+                <vc:Chart.AxesY>
+                    <vc:Axis Suffix="元"/>
+                </vc:Chart.AxesY>
+                <vc:Chart.Series>
+                    <vc:DataSeries RenderAs="Column" LabelEnabled="true"></vc:DataSeries>
+                </vc:Chart.Series>
+            </vc:Chart>
+        </controls:BusyIndicator>
+       
+        <TextBlock Name="TxtTotalMoney" HorizontalAlignment="Left"
+            Margin="30,0,3,12" 
+            Text="TextBlock" 
+            Height="23" 
+            VerticalAlignment="Bottom" />
     </Grid>
 </UserControl>

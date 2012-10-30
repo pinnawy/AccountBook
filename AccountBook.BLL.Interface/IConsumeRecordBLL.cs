@@ -38,7 +38,7 @@ namespace AccountBook.BLL.Interface
         /// </summary>
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>每月消费总额信息</returns>
-        List<KeyValuePair<string, double>> GetConsumeAmountByMonth(ConsumeRecordQueryOption option);
+        List<string> GetConsumeAmountByMonth(ConsumeRecordQueryOption option);
 
         /// <summary>
         /// 按年统计消费金额

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ServiceModel.DomainServices.Client;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using AccountBook.Model;
 using AccountBook.Silverlight.Controls;
@@ -31,6 +33,8 @@ namespace AccountBook.Silverlight.Views
         private UserInfo _consumer;
         private ConsumeType _consumeType;
         private string _sortName = "ConsumeTime";
+        private SortDir _sortDir = SortDir.ASC;
+        private DataGridColumnHeader _currSortColumnHeader;
 
         private OperationBase _currQueryOperation;
         internal OperationBase CurrQueryOperation
@@ -95,37 +99,6 @@ namespace AccountBook.Silverlight.Views
         {
             InitializeComponent();
             this.DataContext = this;
-#if !DEBUG
-            BeginDate.SelectedDate = DateTime.Now.Date.AddDays(1 - DateTime.Now.Day);
-#endif
-            InitConsumeTypes();
-            InitConsumeUsers();
-
-            QueryCondionPanel.QueryConditionChanged += QueryPanelQueryConditionChanged;
-        }
-
-        /// <summary>
-        /// 初始化消费类别下拉框
-        /// </summary>
-        private void InitConsumeTypes()
-        {
-            Binding bind = new Binding("ExtConsumeTypeList");
-            bind.Source = AccountBookContext.Instance;
-            QueryCondionPanel.SetBinding(QueryPanel.ConsumeTypeListProperty, bind);
-
-            ContextFactory.ConsumeTypeContext.GetConsumeTypes(0, result => AccountBookContext.Instance.SetConsumeTypeList(result.Value), null);
-        }
-
-        /// <summary>
-        /// 初始化消费用户下拉框
-        /// </summary>
-        private void InitConsumeUsers()
-        {
-            Binding bind = new Binding("ExtUserInfoList");
-            bind.Source = AccountBookContext.Instance;
-            QueryCondionPanel.SetBinding(QueryPanel.ConsumerListProperty, bind);
-
-            ContextFactory.UserContext.GetUserList(result => AccountBookContext.Instance.SetConsumerList(result.Value), null);
         }
 
         private void QueryPanelQueryConditionChanged(object sender, QueryConditionChangedEventArgs e)
@@ -166,7 +139,7 @@ namespace AccountBook.Silverlight.Views
                 BeginTime = _begigDate.HasValue ? _begigDate.Value : DateTime.MinValue,
                 EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
                 SortName = _sortName,
-                SortDir = SortDir.ASC
+                SortDir = _sortDir
             };
 
             // 获取服务端消费记录数据
@@ -281,6 +254,46 @@ namespace AccountBook.Silverlight.Views
             {
                 TipWindow.Alert("Invalid Action, record is null");
             }
+        }
+
+        private void ColumnHeaderMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var header = ((FrameworkElement)sender).Tag as DataGridColumnHeader;
+            if (header != null)
+            {
+                // 通过HeaderName找到对应的Column
+                string headerName = header.Content.ToString();
+                var column = RecordsGrid.Columns.Where(col => col.Header.ToString() == headerName).Single();
+
+                // 只对可以排序的Column进行处理
+                if (column.CanUserSort)
+                {
+                    var newSortName = string.IsNullOrWhiteSpace(column.SortMemberPath) ? headerName : column.SortMemberPath.Trim();
+                    if (newSortName == _sortName)
+                    {
+                        _sortDir = _sortDir == SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+                    }
+                    else
+                    {
+                        _sortName = newSortName;
+                        _sortDir = SortDir.ASC;
+                    }
+
+                    // 设置箭头状态
+                    string sortState = _sortDir == SortDir.ASC ? "SortAsc" : "SortDesc";
+                    VisualStateManager.GoToState(header, sortState, true);
+                    if (_currSortColumnHeader != null && _currSortColumnHeader != header)
+                    {
+                        VisualStateManager.GoToState(_currSortColumnHeader, "Unsort", false);
+                    }
+                    _currSortColumnHeader = header;
+
+                    // 查询
+                    QueryRecords();
+                }
+            }
+
+            e.Handled = true;
         }
     }
 }

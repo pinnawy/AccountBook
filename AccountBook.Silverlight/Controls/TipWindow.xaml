@@ -13,8 +13,10 @@
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Message}" 
                    HorizontalAlignment="Center" 
-                   VerticalAlignment="Center"
-                   FontSize="14"/>
+                   VerticalAlignment="Top"
+                   Margin="5,10"
+                   FontSize="14"
+                  TextWrapping="Wrap"/>
 
         <StackPanel Orientation="Horizontal" 
                 HorizontalAlignment="Right"  
@@ -32,7 +34,6 @@
                 Content="Cancel" 
                 Width="70" 
                 Margin="5,0,0,0"
-                Visibility="{Binding BtnCancelVisibility}"
                 Click="BtnCancelClick"/>
         </StackPanel>
         

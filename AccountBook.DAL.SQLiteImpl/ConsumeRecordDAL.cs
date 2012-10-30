@@ -127,7 +127,7 @@ namespace AccountBook.DAL.SQLiteImpl
                         sortName = "U.[FriendlyName]";
                         break;
                     case "TypeId":
-                        sortName = "T.[UserId]";
+                        sortName = "T.[TypeId]";
                         break;
                     case "ParentTypeId":
                         sortName = "T.[ParentTypeId]";

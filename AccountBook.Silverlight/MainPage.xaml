@@ -65,7 +65,7 @@
       </Grid>
 
       <Border Style="{StaticResource LoginContainerStyle}">
-            <login:LoginStatus LoginStatusChanged="LoginStatus_LoginStatusChanged" />
+            <login:LoginStatus x:Name="LoginStatusBar" LoginStatusChanged="LoginStatus_LoginStatusChanged" />
       </Border>
     </Grid>
 

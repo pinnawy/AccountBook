@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using AccountBook.Model;
 using AccountBook.Silverlight.Events;
+using AccountBook.Silverlight.Helpers;
 
 namespace AccountBook.Silverlight.Controls
 {
@@ -19,27 +22,42 @@ namespace AccountBook.Silverlight.Controls
             "ConsumeTypeList", typeof(ObservableCollection<ConsumeType>), typeof(QueryPanel),
             new PropertyMetadata(new ObservableCollection<ConsumeType> { AccountBookContext.Instance.DefaultConsumeType }));
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public ObservableCollection<ConsumeType> ConsumeTypeList
-        {
-            get { return (ObservableCollection<ConsumeType>)GetValue(ConsumeTypeListProperty); }
-            set { SetValue(ConsumeTypeListProperty, value); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ObservableCollection<UserInfo> ConsumerList
-        {
-            get { return (ObservableCollection<UserInfo>)GetValue(ConsumerListProperty); }
-            set { SetValue(ConsumerListProperty, value); }
-        }
-
         public QueryPanel()
         {
             InitializeComponent();
+
+#if !DEBUG
+            DpBeginDate.SelectedDate = DateTime.Now.Date.AddDays(1 - DateTime.Now.Day);
+#endif
+            if (!DesignerProperties.IsInDesignTool)
+            {
+                InitConsumeTypes();
+                InitConsumeUsers();
+            }
+        }
+
+        /// <summary>
+        /// 初始化消费类别下拉框
+        /// </summary>
+        private void InitConsumeTypes()
+        {
+            ContextFactory.ConsumeTypeContext.GetConsumeTypes(0, result =>
+            {
+                AccountBookContext.Instance.SetConsumeTypeList(result.Value);
+                CmbConsumeType.ItemsSource = AccountBookContext.Instance.ExtConsumeTypeList;
+            }, null);
+        }
+
+        /// <summary>
+        /// 初始化消费用户下拉框
+        /// </summary>
+        private void InitConsumeUsers()
+        {
+            ContextFactory.UserContext.GetUserList(result =>
+            {
+                AccountBookContext.Instance.SetConsumerList(result.Value);
+                CmbConsumeUser.ItemsSource = AccountBookContext.Instance.ExtUserInfoList;
+            }, null);
         }
 
         private void CtlQueryConditionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,8 +68,8 @@ namespace AccountBook.Silverlight.Controls
                 {
                     BeginTime = DpBeginDate.SelectedDate,
                     EndTime = DpEndDate.SelectedDate,
-                    Consumer = CmbConsumeUser.SelectedValue as UserInfo,
-                    ConsumeType = CmbConsumeType.SelectedValue as ConsumeType
+                    Consumer = CmbConsumeUser.SelectedItem as UserInfo,
+                    ConsumeType = CmbConsumeType.SelectedItem as ConsumeType
                 };
 
                 QueryConditionChanged(this, args);
