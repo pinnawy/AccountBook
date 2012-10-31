@@ -30,12 +30,12 @@ namespace AccountBook.Silverlight.Web
             return _consumeRecordBLL.DeleteConsumeRecord(recordId);
         }
 
-        public List<string> GetConsumeAmountByMonth(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByMonth(ConsumeRecordQueryOption option)
         {
             return _consumeRecordBLL.GetConsumeAmountByMonth(option);
         }
 
-        public List<KeyValuePair<string, double>> GetConsumeAmountByYear(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByYear(ConsumeRecordQueryOption option)
         {
             return _consumeRecordBLL.GetConsumeAmountByYear(option);
         }

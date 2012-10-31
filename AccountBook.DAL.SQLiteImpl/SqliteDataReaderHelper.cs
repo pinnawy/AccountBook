@@ -88,15 +88,14 @@ namespace AccountBook.DAL.SQLiteImpl
             return typeList;
         }
 
-        public static List<KeyValuePair<string, double>> ToConsumeAmountList(this SQLiteDataReader reader)
+        public static Dictionary<string, double> ToConsumeAmountDictionary(this SQLiteDataReader reader)
         {
-            List<KeyValuePair<string, double>> list = new List<KeyValuePair<string, double>>();
+            Dictionary<string, double> list = new Dictionary<string, double>();
             while (reader.Read())
             {
                 string time = reader.SafeRead<string>("Time");
                 double money = reader.SafeRead<double>("Money");
-                KeyValuePair<string, double> amount = new KeyValuePair<string, double>(time, money);
-                list.Add(amount);
+                list.Add(time, money);
             }
             return list;
         }

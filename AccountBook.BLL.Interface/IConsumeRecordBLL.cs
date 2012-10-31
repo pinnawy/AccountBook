@@ -38,13 +38,13 @@ namespace AccountBook.BLL.Interface
         /// </summary>
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>每月消费总额信息</returns>
-        List<string> GetConsumeAmountByMonth(ConsumeRecordQueryOption option);
+        Dictionary<string, double> GetConsumeAmountByMonth(ConsumeRecordQueryOption option);
 
         /// <summary>
         /// 按年统计消费金额
         /// </summary>
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>每年消费总额信息</returns>
-        List<KeyValuePair<string, double>> GetConsumeAmountByYear(ConsumeRecordQueryOption option);
+        Dictionary<string, double> GetConsumeAmountByYear(ConsumeRecordQueryOption option);
     }
 }

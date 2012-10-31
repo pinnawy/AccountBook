@@ -12,7 +12,17 @@ namespace AccountBook.Statistics
 {
     public partial class MainPage : UserControl, INotifyPropertyChanged
     {
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private Dictionary<string, double> _amountInfos;
+
+        private DateTime? _beginDate;
+        private DateTime? _endDate;
+        private ConsumeType _consumeType;
+        private UserInfo _consumer;
+        private RenderAs _renderAs = RenderAs.Column;
+        private string _statisticsRange = "Month";
 
         private void NotifyPropertyChanged(string propertyName)
         {
@@ -98,65 +108,126 @@ namespace AccountBook.Statistics
 
         private void QueryPanelQueryConditionChanged(object sender, Silverlight.Events.QueryConditionChangedEventArgs e)
         {
-            QueryRecords(e.BeginTime, e.EndTime, e.ConsumeType, e.Consumer);
+            _beginDate = e.BeginTime;
+            _endDate = e.EndTime;
+            _consumeType = e.ConsumeType;
+            _consumer = e.Consumer;
+
+            QueryRecords();
         }
 
         /// <summary>
         /// 查询消费记录
         /// </summary>
-        private void QueryRecords(DateTime? beginDate, DateTime? endDate, ConsumeType consumeType, UserInfo consumer)
+        private void QueryRecords()
         {
             if (this.CurrQueryOperation != null && !this.CurrQueryOperation.IsComplete)
             {
                 return;
             }
 
-            if (consumeType == null)
+            if (_consumeType == null)
             {
-                consumeType = AccountBookContext.Instance.DefaultConsumeType;
-            }
-            else
-            {
-                consumeType = new ConsumeType { TypeId = consumeType.TypeId, ParentTypeId = consumeType.ParentTypeId };
+                _consumeType = AccountBookContext.Instance.DefaultConsumeType;
             }
 
             var option = new ConsumeRecordQueryOption
             {
-                ConsumeType = consumeType,
-                UserId = consumer == null ? AccountBookContext.Instance.DefaultConsumer.UserId : consumer.UserId,
+                ConsumeType = _consumeType.Clone(),
+                UserId = _consumer == null ? AccountBookContext.Instance.DefaultConsumer.UserId : _consumer.UserId,
                 PageIndex = 0,
                 PageSize = int.MaxValue,
-                BeginTime = beginDate.HasValue ? beginDate.Value : DateTime.MinValue,
-                EndTime = endDate.HasValue ? endDate.Value : DateTime.MaxValue
+                BeginTime = _beginDate.HasValue ? _beginDate.Value : DateTime.MinValue,
+                EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue
             };
 
-            // 获取服务端消费记录数据
-            this.CurrQueryOperation = ContextFactory.RecordsContext.GetConsumeAmountByMonth(option, result =>
+            if (_statisticsRange == "Month")
             {
-                if (result.HasError)
+                // 获取服务端消费记录数据
+                this.CurrQueryOperation = ContextFactory.RecordsContext.GetConsumeAmountByMonth(option, result =>
                 {
-                    ErrorWindow.CreateNew(result.Error);
-                }
-                else
-                {
-                    double totalMoney = 0;
-                    if (MonthChart != null)
+                    if (result.HasError)
                     {
-                        MonthChart.Series[0].DataPoints.Clear();
-                        foreach (var amountInfo in result.Value)
-                        {
-                            var infos = amountInfo.Split(new[] { '_' });
-                            var month = infos[0];
-                            var money = double.Parse(infos[1]);
-                            totalMoney += money;
-                            MonthChart.Series[0].DataPoints.Add(new DataPoint { AxisXLabel = month, YValue = money });
-                        }
-
-                        TxtTotalMoney.Text = "TotalMoney:" + totalMoney;
+                        ErrorWindow.CreateNew(result.Error);
                     }
-                }
+                    else
+                    {
+                        _amountInfos = result.Value;
+                        DrawChart(_amountInfos, _renderAs);
+                    }
 
-            }, null);
+                }, null);
+            }
+            else
+            {
+                // 获取服务端消费记录数据
+                this.CurrQueryOperation = ContextFactory.RecordsContext.GetConsumeAmountByYear(option, result =>
+                {
+                    if (result.HasError)
+                    {
+                        ErrorWindow.CreateNew(result.Error);
+                    }
+                    else
+                    {
+                        _amountInfos = result.Value;
+                        DrawChart(_amountInfos, _renderAs);
+                    }
+
+                }, null);
+            }
+
+        }
+
+        private void DrawChart(Dictionary<string, double> amountInfos, RenderAs renderAs)
+        {
+            if (amountInfos == null)
+            {
+                return;
+            }
+
+            double totalMoney = 0;
+
+            var chart = new Chart { Watermark = false };
+            chart.AxesY.Add(new Axis { Suffix = "元" });
+
+            var dataSeries = new DataSeries { RenderAs = renderAs, LabelEnabled = true };
+
+            foreach (var amountInfo in amountInfos)
+            {
+                var month = amountInfo.Key;
+                var money = amountInfo.Value;
+                totalMoney += money;
+                dataSeries.DataPoints.Add(new DataPoint { AxisXLabel = month, YValue = money });
+            }
+            chart.Series.Add(dataSeries);
+
+            ChartPanel.Content = chart;
+
+            TxtTotalMoney.Text = "TotalMoney:" + totalMoney;
+        }
+
+        private void CmbChartShapeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+            {
+                _renderAs = (RenderAs)e.AddedItems[0];
+                DrawChart(_amountInfos, _renderAs);
+            }
+        }
+
+        private void RdbStatisticRnageChecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _statisticsRange = ((RadioButton)sender).Content.ToString();
+            QueryRecords();
+        }
+
+        private void BtnExportClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var chart = ChartPanel.Content as Chart;
+            if (chart != null)
+            {
+                chart.Export();
+            }
         }
     }
 }

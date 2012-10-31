@@ -3,36 +3,62 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
-             xmlns:vc="clr-namespace:Visifire.Charts;assembly=SLVisifire.Charts" mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400">
+    xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
+    xmlns:Charts="clr-namespace:Visifire.Charts;assembly=SLVisifire.Charts" mc:Ignorable="d"
+    d:DesignHeight="600" d:DesignWidth="800">
 
-    <Grid x:Name="LayoutRoot" Background="White">
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Margin="30,20"  HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <controls:QueryPanel x:Name="QueryCondionPanel" IsEnabled="{Binding CanQueryRecords}"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5" >
+                <TextBlock Text="Chart Shape:"  VerticalAlignment="Center"/>
+                <ComboBox IsEnabled="{Binding CanQueryRecords}" SelectedIndex="0" SelectionChanged="CmbChartShapeSelectionChanged">
+                    <Charts:RenderAs>Column</Charts:RenderAs>
+                    <Charts:RenderAs>Line</Charts:RenderAs>
+                    <Charts:RenderAs>Pie</Charts:RenderAs>
+                    <Charts:RenderAs>Area</Charts:RenderAs>
+                    <Charts:RenderAs>Doughnut</Charts:RenderAs>
+                    <Charts:RenderAs>StackedBar</Charts:RenderAs>
+                    <Charts:RenderAs>StackedArea</Charts:RenderAs>
+                    <Charts:RenderAs>Bubble</Charts:RenderAs>
+                    <Charts:RenderAs>Point</Charts:RenderAs>
+                    <Charts:RenderAs>StreamLineFunnel</Charts:RenderAs>
+                    <Charts:RenderAs>SectionFunnel</Charts:RenderAs>
+                    <Charts:RenderAs>StepLine</Charts:RenderAs>
+                    <Charts:RenderAs>Spline</Charts:RenderAs>
+                    <Charts:RenderAs>Radar</Charts:RenderAs>
+                    <Charts:RenderAs>Polar</Charts:RenderAs>
+                    <Charts:RenderAs>Pyramid</Charts:RenderAs>
+                </ComboBox>
 
-        <controls:QueryPanel x:Name="QueryCondionPanel"
-            HorizontalAlignment="Left" 
-            Margin="30,20,30,0" 
-            VerticalAlignment="Top"
-            IsEnabled="{Binding CanQueryRecords}"/>
+                <TextBlock VerticalAlignment="Center" Text="Statistic Range:" Margin="10,0,5,0" />
+                <RadioButton Content="Month" VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}" IsChecked="True" Checked="RdbStatisticRnageChecked" />
+                <RadioButton Content="Year" VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}"  Checked="RdbStatisticRnageChecked"  />
 
-        <controls:BusyIndicator
-            Margin="30,50,30,20"
+                <Button VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}" Content="Export" Click="BtnExportClick" />
+            </StackPanel>           
+        </Grid>                     
+                                    
+        <controls:BusyIndicator Grid.Row="1" 
+            Margin="30,0"
             IsBusy="{Binding IsOperationing}"
+            x:Name="ChartPanel"
             BusyContent="{Binding Path=Strings.BusyIndicatorQueryRecords, Source={StaticResource ApplicationResources}}">
-            <vc:Chart Name="MonthChart" AnimatedUpdate="True">
-                <vc:Chart.AxesY>
-                    <vc:Axis Suffix="元"/>
-                </vc:Chart.AxesY>
-                <vc:Chart.Series>
-                    <vc:DataSeries RenderAs="Column" LabelEnabled="true"></vc:DataSeries>
-                </vc:Chart.Series>
-            </vc:Chart>
         </controls:BusyIndicator>
-       
-        <TextBlock Name="TxtTotalMoney" HorizontalAlignment="Left"
-            Margin="30,0,3,12" 
+
+        <TextBlock Name="TxtTotalMoney" Grid.Row="2"  HorizontalAlignment="Left"
+            Margin="30,10" 
             Text="TextBlock" 
-            Height="23" 
-            VerticalAlignment="Bottom" />
+            Height="23" />
     </Grid>
 </UserControl>

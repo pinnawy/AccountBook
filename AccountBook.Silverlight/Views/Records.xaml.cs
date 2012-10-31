@@ -120,19 +120,14 @@ namespace AccountBook.Silverlight.Views
                 return;
             }
 
-            var consumeType = _consumeType;
-            if (consumeType == null)
+            if (_consumeType == null)
             {
-                consumeType = AccountBookContext.Instance.DefaultConsumeType;
-            }
-            else
-            {
-                consumeType = new ConsumeType { TypeId = consumeType.TypeId, ParentTypeId = consumeType.ParentTypeId };
+                _consumeType = AccountBookContext.Instance.DefaultConsumeType;
             }
 
             var option = new ConsumeRecordQueryOption
             {
-                ConsumeType = consumeType,
+                ConsumeType = _consumeType.Clone(),
                 UserId = _consumer == null ? AccountBookContext.Instance.DefaultConsumer.UserId : _consumer.UserId,
                 PageIndex = RecordsPager.PageIndex == -1 ? 0 : RecordsPager.PageIndex,
                 PageSize = RecordsPager.PageSize,

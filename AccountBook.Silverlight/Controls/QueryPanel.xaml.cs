@@ -12,6 +12,10 @@ namespace AccountBook.Silverlight.Controls
 {
     public partial class QueryPanel : UserControl
     {
+        private bool _consumerTypeInitialized;
+        private bool _consumerInitialized;
+
+
         public event EventHandler<QueryConditionChangedEventArgs> QueryConditionChanged;
 
         public static readonly DependencyProperty ConsumerListProperty = DependencyProperty.Register(
@@ -22,6 +26,17 @@ namespace AccountBook.Silverlight.Controls
             "ConsumeTypeList", typeof(ObservableCollection<ConsumeType>), typeof(QueryPanel),
             new PropertyMetadata(new ObservableCollection<ConsumeType> { AccountBookContext.Instance.DefaultConsumeType }));
 
+        /// <summary>
+        /// 数据初始化完成
+        /// </summary>
+        private bool DataInitialized
+        {
+            get
+            {
+                return _consumerTypeInitialized && _consumerInitialized;
+            }
+        }
+
         public QueryPanel()
         {
             InitializeComponent();
@@ -29,6 +44,9 @@ namespace AccountBook.Silverlight.Controls
 #if !DEBUG
             DpBeginDate.SelectedDate = DateTime.Now.Date.AddDays(1 - DateTime.Now.Day);
 #endif
+            var style = Application.Current.Resources["ConsumerTypeItemPanelStyle"] as Style;
+            CmbConsumeType.ItemContainerStyle = style;
+
             if (!DesignerProperties.IsInDesignTool)
             {
                 InitConsumeTypes();
@@ -45,6 +63,12 @@ namespace AccountBook.Silverlight.Controls
             {
                 AccountBookContext.Instance.SetConsumeTypeList(result.Value);
                 CmbConsumeType.ItemsSource = AccountBookContext.Instance.ExtConsumeTypeList;
+                _consumerTypeInitialized = true;
+
+                if (DataInitialized)
+                {
+                    CtlQueryConditionChanged(this, null);
+                }
             }, null);
         }
 
@@ -57,6 +81,12 @@ namespace AccountBook.Silverlight.Controls
             {
                 AccountBookContext.Instance.SetConsumerList(result.Value);
                 CmbConsumeUser.ItemsSource = AccountBookContext.Instance.ExtUserInfoList;
+                _consumerInitialized = true;
+
+                if (DataInitialized)
+                {
+                    CtlQueryConditionChanged(this, null);
+                }
             }, null);
         }
 
@@ -64,12 +94,13 @@ namespace AccountBook.Silverlight.Controls
         {
             if (QueryConditionChanged != null)
             {
+                var consumerType = CmbConsumeType.SelectedItem as ConsumeType;
                 var args = new QueryConditionChangedEventArgs
                 {
                     BeginTime = DpBeginDate.SelectedDate,
                     EndTime = DpEndDate.SelectedDate,
                     Consumer = CmbConsumeUser.SelectedItem as UserInfo,
-                    ConsumeType = CmbConsumeType.SelectedItem as ConsumeType
+                    ConsumeType = consumerType
                 };
 
                 QueryConditionChanged(this, args);

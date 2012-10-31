@@ -41,6 +41,6 @@ namespace AccountBook.DAL.Interface
         /// <param name="format">时间格式</param>
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>每月消费总额信息</returns>
-        List<KeyValuePair<string, double>> GetConsumeAmountList(string format, ConsumeRecordQueryOption option);
+        Dictionary<string, double> GetConsumeAmountInfo(string format, ConsumeRecordQueryOption option);
     }
 }

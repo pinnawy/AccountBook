@@ -131,6 +131,7 @@
       <DependentUpon>SecurityQuestions.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\ConsumeRecord.partial.cs" />
+    <Compile Include="Models\ConsumeType.partial.cs" />
     <Compile Include="Models\LoginInfo.cs" />
     <Compile Include="Events\QueryConditionChangedEventArgs.cs" />
     <Compile Include="Models\RegistrationData.partial.cs" />

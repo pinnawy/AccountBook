@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AccountBook.BLL.Interface;
 using AccountBook.DAL.Interface;
 using AccountBook.Library;
@@ -42,16 +41,14 @@ namespace AccountBook.BLL
             return result;
         }
 
-        public List<string> GetConsumeAmountByMonth(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByMonth(ConsumeRecordQueryOption option)
         {
-            List<KeyValuePair<string, double>> tempList = _consumeRecordDal.GetConsumeAmountList("%Y-%m", option);
-
-            return tempList.Select(item => item.Key + "_" + item.Value).ToList();
+            return _consumeRecordDal.GetConsumeAmountInfo("%Y年%m月", option);
         }
 
-        public List<KeyValuePair<string, double>> GetConsumeAmountByYear(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByYear(ConsumeRecordQueryOption option)
         {
-            return _consumeRecordDal.GetConsumeAmountList("%m", option);
+            return _consumeRecordDal.GetConsumeAmountInfo("%Y年", option);
         }
     }
 }

@@ -8,16 +8,16 @@ namespace AccountBook.Silverlight.Helpers
 {
     public class ConsumerTypeGroupConverter : IValueConverter
     {
-        private static Brush headerBg = new SolidColorBrush(Colors.LightGray);
-        private static Brush itemBg = new SolidColorBrush(Colors.Transparent); 
+        private static readonly Brush _headerBg = new SolidColorBrush(Colors.LightGray);
+        private static readonly Brush _itemBg = new SolidColorBrush(Colors.Transparent);
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool isHeader = (long) value == 0;
+            bool isHeader = (long)value == 0;
             switch (parameter.ToString())
             {
                 case "Background":
-                    return isHeader ? headerBg : itemBg;
+                    return isHeader ? _headerBg : _itemBg;
                 case "IsEnabled":
                     return !isHeader;
                 case "FontWeight":

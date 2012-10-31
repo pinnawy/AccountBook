@@ -5,10 +5,6 @@
 
     <converter:ConsumerTypeGroupConverter x:Key="ConsumerTypeGroupConverter"></converter:ConsumerTypeGroupConverter>
     
-    <DataTemplate x:Key="ConsumerTypeItemTemplate">
-        <TextBlock Text="{Binding TypeName}"></TextBlock>
-    </DataTemplate>
-    
     <Style x:Key="ConsumerTypeItemPanelStyle" TargetType="ContentControl">
         <Setter Property="Background" Value="{Binding ParentTypeId,Converter={StaticResource ConsumerTypeGroupConverter}, ConverterParameter=Background}"></Setter>
         <Setter Property="FontWeight" Value="{Binding ParentTypeId,Converter={StaticResource ConsumerTypeGroupConverter}, ConverterParameter=FontWeight}"></Setter>

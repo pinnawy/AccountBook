@@ -149,9 +149,9 @@ namespace AccountBook.DAL.SQLiteImpl
             return reader.ToConsumeRecordList();
         }
 
-        public List<KeyValuePair<string, double>> GetConsumeAmountList(string format, ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountInfo(string format, ConsumeRecordQueryOption option)
         {
-            string cmdText = string.Format(@"SELECT strftime('{0}', R.ConsumeTime) as 'Time', Sum(R.Money) as 'Money'
+            string cmdText = string.Format(@"SELECT strftime('{0}', R.ConsumeTime) as 'Time', CAST(Sum(R.Money) as DOUBLE) as 'Money'
                                 FROM [ConsumeRecord] R 
                                      JOIN [USER] U ON R.[UserId] = U.[UserId]       
                                      JOIN [ConsumeType] T ON T.[TypeId] = R.[TypeId]
@@ -184,7 +184,7 @@ namespace AccountBook.DAL.SQLiteImpl
 
             var reader = SqliteHelper.ExecuteReader(cmdText);
 
-            return reader.ToConsumeAmountList();
+            return reader.ToConsumeAmountDictionary();
         }
     }
 }
