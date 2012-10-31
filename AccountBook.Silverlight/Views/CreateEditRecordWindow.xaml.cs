@@ -25,6 +25,13 @@ namespace AccountBook.Silverlight.Views
                 BtnSaveAdd.Visibility = Visibility.Collapsed;
             }
             this.DataContext = record;
+
+            this.Closing += new EventHandler<System.ComponentModel.CancelEventArgs>(CreateEditRecordWindowClosing);
+        }
+
+        private void CreateEditRecordWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.DialogResult = _addRecordCount > 0;
         }
 
         private void RecordDataFormAutoGeneratingField(object sender, DataFormAutoGeneratingFieldEventArgs e)
@@ -34,6 +41,7 @@ namespace AccountBook.Silverlight.Views
             if (e.PropertyName == "Type")
             {
                 ComboBox cmbConsumeType = new ComboBox();
+                cmbConsumeType.DisplayMemberPath = "TypeName";
                 cmbConsumeType.Name = "CmbConsumeType";
                 cmbConsumeType.ItemsSource = AccountBookContext.Instance.ConsumeTypeList;
                 cmbConsumeType.SelectedItem = AccountBookContext.Instance.ConsumeTypeList[1];

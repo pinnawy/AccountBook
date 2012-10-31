@@ -28,5 +28,11 @@ namespace AccountBook.Silverlight.Events
             get;
             set;
         }
+
+        public string Keyword
+        {
+            get;
+            set;
+        }
     }
 }

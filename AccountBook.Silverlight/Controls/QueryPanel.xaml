@@ -5,24 +5,25 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
     mc:Ignorable="d"
-    d:DesignHeight="25" d:DesignWidth="600">
+    d:DesignHeight="25" d:DesignWidth="800">
 
     <StackPanel Orientation="Horizontal">
         <TextBlock Text="BeginTime:" VerticalAlignment="Center" />
-        <sdk:DatePicker Name="DpBeginDate"  Margin="0,0,5,0"
+        <sdk:DatePicker Name="DpBeginDate" Margin="0,0,5,0" x:FieldModifier="private"
                 IsEnabled="{Binding CanQueryRecords}"
+                SelectedDate="{Binding BeginTime}"
                 DisplayDateEnd="{Binding ElementName=DpEndDate, Path=SelectedDate}"
                 SelectedDateChanged="CtlQueryConditionChanged"/>
 
         <TextBlock Text="EndTime:" VerticalAlignment="Center" />
-        <sdk:DatePicker Name="DpEndDate" 
+        <sdk:DatePicker Name="DpEndDate" x:FieldModifier="private"
                 Margin="0,0,5,0"
                 IsEnabled="{Binding CanQueryRecords}"
                 DisplayDateStart="{Binding ElementName=DpBeginDate, Path=SelectedDate}"
                 SelectedDateChanged="CtlQueryConditionChanged"/>
         
         <TextBlock Text="Type:" VerticalAlignment="Center" />
-        <ComboBox Name="CmbConsumeType"
+        <ComboBox Name="CmbConsumeType" x:FieldModifier="private"
                 Width="80"
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
@@ -31,11 +32,14 @@
                 SelectionChanged="CtlQueryConditionChanged"/>
 
         <TextBlock Text="User:" VerticalAlignment="Center" />
-        <ComboBox Name="CmbConsumeUser" 
+        <ComboBox Name="CmbConsumeUser" x:FieldModifier="private"
                 Width="80"
                 SelectedIndex="0"
                 VerticalAlignment="Center" 
                 DisplayMemberPath="FriendlyName"
                 SelectionChanged="CtlQueryConditionChanged"/>
+        
+        <TextBlock Text="Keyword:" VerticalAlignment="Center" Margin="5,0,0,0" />
+        <TextBox Name="TxtKeyword" VerticalAlignment="Center" Width="150" MaxLength="20" LostFocus="TxtKeywordLostFocus"  KeyUp="TxtKeywordKeyUp"/>
     </StackPanel>
 </UserControl>

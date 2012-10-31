@@ -34,6 +34,7 @@ namespace AccountBook.Silverlight.Views
         private ConsumeType _consumeType;
         private string _sortName = "ConsumeTime";
         private SortDir _sortDir = SortDir.ASC;
+        private string _keyword;
         private DataGridColumnHeader _currSortColumnHeader;
 
         private OperationBase _currQueryOperation;
@@ -99,6 +100,11 @@ namespace AccountBook.Silverlight.Views
         {
             InitializeComponent();
             this.DataContext = this;
+
+#if !DEBUG
+            QueryCondionPanel.BeginTime = DateTime.Now.Date.AddDays(1 - DateTime.Now.Day);
+#endif
+            QueryRecords();
         }
 
         private void QueryPanelQueryConditionChanged(object sender, QueryConditionChangedEventArgs e)
@@ -107,6 +113,8 @@ namespace AccountBook.Silverlight.Views
             _endDate = e.EndTime;
             _consumer = e.Consumer;
             _consumeType = e.ConsumeType;
+            _keyword = e.Keyword;
+
             QueryRecords();
         }
 
@@ -134,7 +142,8 @@ namespace AccountBook.Silverlight.Views
                 BeginTime = _begigDate.HasValue ? _begigDate.Value : DateTime.MinValue,
                 EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
                 SortName = _sortName,
-                SortDir = _sortDir
+                SortDir = _sortDir,
+                KeyWord = _keyword
             };
 
             // 获取服务端消费记录数据

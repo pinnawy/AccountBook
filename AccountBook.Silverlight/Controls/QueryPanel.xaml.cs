@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
+using System.Windows.Input;
 using AccountBook.Model;
 using AccountBook.Silverlight.Events;
 using AccountBook.Silverlight.Helpers;
@@ -14,17 +13,24 @@ namespace AccountBook.Silverlight.Controls
     {
         private bool _consumerTypeInitialized;
         private bool _consumerInitialized;
-
+        private string _keyword;
 
         public event EventHandler<QueryConditionChangedEventArgs> QueryConditionChanged;
 
-        public static readonly DependencyProperty ConsumerListProperty = DependencyProperty.Register(
-            "ConsumerList", typeof(ObservableCollection<UserInfo>), typeof(QueryPanel),
-            new PropertyMetadata(new ObservableCollection<UserInfo> { AccountBookContext.Instance.DefaultConsumer }));
+        public static readonly DependencyProperty BeginTimeProperty = DependencyProperty.Register(
+        "BeginTime",
+        typeof(DateTime?)
+        , typeof(QueryPanel),
+        new PropertyMetadata(null));
 
-        public static readonly DependencyProperty ConsumeTypeListProperty = DependencyProperty.Register(
-            "ConsumeTypeList", typeof(ObservableCollection<ConsumeType>), typeof(QueryPanel),
-            new PropertyMetadata(new ObservableCollection<ConsumeType> { AccountBookContext.Instance.DefaultConsumeType }));
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? BeginTime
+        {
+            get { return (DateTime?)GetValue(BeginTimeProperty); }
+            set { SetValue(BeginTimeProperty, value); }
+        }
 
         /// <summary>
         /// 数据初始化完成
@@ -40,16 +46,13 @@ namespace AccountBook.Silverlight.Controls
         public QueryPanel()
         {
             InitializeComponent();
+            this.DataContext = this;
 
-#if !DEBUG
-            DpBeginDate.SelectedDate = DateTime.Now.Date.AddDays(1 - DateTime.Now.Day);
-#endif
             var style = Application.Current.Resources["ConsumerTypeItemPanelStyle"] as Style;
             if (style != null)
             {
                 CmbConsumeType.ItemContainerStyle = style;
             }
-
 
             if (!DesignerProperties.IsInDesignTool)
             {
@@ -94,7 +97,7 @@ namespace AccountBook.Silverlight.Controls
             }, null);
         }
 
-        private void CtlQueryConditionChanged(object sender, SelectionChangedEventArgs e)
+        private void RiseQueryConditionChangedEvent()
         {
             if (QueryConditionChanged != null)
             {
@@ -104,10 +107,34 @@ namespace AccountBook.Silverlight.Controls
                     BeginTime = DpBeginDate.SelectedDate,
                     EndTime = DpEndDate.SelectedDate,
                     Consumer = CmbConsumeUser.SelectedItem as UserInfo,
-                    ConsumeType = consumerType
+                    ConsumeType = consumerType,
+                    Keyword = _keyword
                 };
 
                 QueryConditionChanged(this, args);
+            }
+        }
+
+        private void CtlQueryConditionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RiseQueryConditionChangedEvent();
+        }
+
+        private void TxtKeywordLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (_keyword != TxtKeyword.Text.Trim())
+            {
+                _keyword = TxtKeyword.Text.Trim();
+                RiseQueryConditionChangedEvent();
+            }
+        }
+
+        private void TxtKeywordKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && _keyword != TxtKeyword.Text.Trim())
+            {
+                _keyword = TxtKeyword.Text.Trim();
+                RiseQueryConditionChangedEvent();
             }
         }
     }

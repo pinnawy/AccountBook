@@ -9,6 +9,8 @@ namespace AccountBook.DAL.SQLiteImpl
 {
     public class ConsumeRecordDAL : IConsumeRecordDAL
     {
+        private const string ESCAPER = @"\";
+
         public long AddConsumeRecord(ConsumeRecord record)
         {
             string cmdText = @"INSERT INTO [ConsumeRecord] (
@@ -100,6 +102,13 @@ namespace AccountBook.DAL.SQLiteImpl
                 cmdText = string.Format("{0} AND U.[UserId] = {1}", cmdText, option.UserId);
             }
 
+            // Keyword
+            if (!string.IsNullOrWhiteSpace(option.KeyWord))
+            {
+                cmdText = string.Format(@"{0} AND R.[Memo] like '%{1}%' escape '{2}'", cmdText, GetFinalKeyword(option.KeyWord), ESCAPER);
+            }
+
+            // Sort
             if (!string.IsNullOrWhiteSpace(option.SortName))
             {
                 string sortName = option.SortName;
@@ -177,14 +186,24 @@ namespace AccountBook.DAL.SQLiteImpl
                 cmdText = string.Format("{0} AND U.[UserId] = {1}", cmdText, option.UserId);
             }
 
-            cmdText = string.Format("{0} GROUP BY  strftime('{1}', R.ConsumeTime)", cmdText, format);
+            // Keyword
+            if (!string.IsNullOrWhiteSpace(option.KeyWord))
+            {
+                cmdText = string.Format(@"{0} AND R.[Memo] like '%{1}%' escape '{2}'", cmdText, GetFinalKeyword(option.KeyWord), ESCAPER);
+            }
 
+            cmdText = string.Format("{0} GROUP BY  strftime('{1}', R.ConsumeTime)", cmdText, format);
 
             Debug.WriteLine(cmdText);
 
             var reader = SqliteHelper.ExecuteReader(cmdText);
 
             return reader.ToConsumeAmountDictionary();
+        }
+
+        private string GetFinalKeyword(string originalKeyword)
+        {
+            return originalKeyword.Replace(ESCAPER, ESCAPER + ESCAPER).Replace("_", ESCAPER + "_").Replace("%", ESCAPER + "%");
         }
     }
 }

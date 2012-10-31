@@ -21,6 +21,7 @@ namespace AccountBook.Statistics
         private DateTime? _endDate;
         private ConsumeType _consumeType;
         private UserInfo _consumer;
+        private string _keyword;
         private RenderAs _renderAs = RenderAs.Column;
         private string _statisticsRange = "Month";
 
@@ -112,6 +113,7 @@ namespace AccountBook.Statistics
             _endDate = e.EndTime;
             _consumeType = e.ConsumeType;
             _consumer = e.Consumer;
+            _keyword = e.Keyword;
 
             QueryRecords();
         }
@@ -138,7 +140,8 @@ namespace AccountBook.Statistics
                 PageIndex = 0,
                 PageSize = int.MaxValue,
                 BeginTime = _beginDate.HasValue ? _beginDate.Value : DateTime.MinValue,
-                EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue
+                EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
+                KeyWord = _keyword
             };
 
             if (_statisticsRange == "Month")
