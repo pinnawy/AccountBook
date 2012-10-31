@@ -1,12 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Browser;
-using System.Windows.Resources;
-using System.Xml;
+using AccountBook.Silverlight.Helpers;
 
 namespace AccountBook.Silverlight
 {
@@ -67,7 +64,7 @@ namespace AccountBook.Silverlight
         {
             if (e.Error == null)
             {
-                Assembly assembly = GetAssemblyFromXap(e.Result, "AccountBook.Manage.dll");
+                Assembly assembly = XapHelper.LoadAssemblyFromXap(e.Result);
                 UIElement manageModule = assembly.CreateInstance("AccountBook.Manage.MainPage") as UIElement;
 
                 AccountBookContext.Instance.ManageModule = manageModule;
@@ -95,39 +92,6 @@ namespace AccountBook.Silverlight
         private void UnLoadManageMoudle()
         {
             this.LayoutRoot.Children.Remove(AccountBookContext.Instance.ManageModule);
-        }
-
-        /// <summary>
-        /// 从XAP包中返回程序集信息
-        /// </summary>
-        /// <param name="packageStream"></param>
-        /// <param name="assemblyName"></param>
-        /// <returns></returns>
-        private Assembly GetAssemblyFromXap(Stream packageStream, String assemblyName)
-        {
-            Stream stream = Application.GetResourceStream(new StreamResourceInfo(packageStream, null), new Uri("AppManifest.xaml", UriKind.Relative)).Stream;
-            Assembly asm = null;
-            XmlReader xmlReader = XmlReader.Create(stream);
-            xmlReader.MoveToContent();
-            if (xmlReader.ReadToFollowing("Deployment.Parts"))
-            {
-                string str = xmlReader.ReadInnerXml();
-                Regex reg = new Regex("Source=\"(.+?)\"");
-                Match match = reg.Match(str);
-                string sSource = "";
-                if (match.Groups.Count == 2)
-                {
-                    sSource = match.Groups[1].Value;
-                }
-                AssemblyPart assemblyPart = new AssemblyPart();
-                StreamResourceInfo streamInfo = Application.GetResourceStream(new StreamResourceInfo(packageStream, "application/binary"), new Uri(sSource, UriKind.Relative));
-                if (sSource == assemblyName)
-                {
-                    asm = assemblyPart.Load(streamInfo.Stream);
-                }
-            }
-
-            return asm;
         }
     }
 }

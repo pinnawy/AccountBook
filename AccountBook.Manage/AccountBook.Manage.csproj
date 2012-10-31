@@ -62,12 +62,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL" />
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.DomainServices.Client, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.ServiceModel.DomainServices.Client.Web, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.ServiceModel.Web.Extensions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.DomainServices.Client, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.DomainServices.Client.Web, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web.Extensions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -101,6 +109,7 @@
     <ProjectReference Include="..\AccountBook.Silverlight\AccountBook.Silverlight.csproj">
       <Project>{D99C7F64-EEE8-47B5-BD8B-631E9DAB0BAD}</Project>
       <Name>AccountBook.Silverlight</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

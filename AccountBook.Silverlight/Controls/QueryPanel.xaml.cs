@@ -45,7 +45,11 @@ namespace AccountBook.Silverlight.Controls
             DpBeginDate.SelectedDate = DateTime.Now.Date.AddDays(1 - DateTime.Now.Day);
 #endif
             var style = Application.Current.Resources["ConsumerTypeItemPanelStyle"] as Style;
-            CmbConsumeType.ItemContainerStyle = style;
+            if (style != null)
+            {
+                CmbConsumeType.ItemContainerStyle = style;
+            }
+
 
             if (!DesignerProperties.IsInDesignTool)
             {

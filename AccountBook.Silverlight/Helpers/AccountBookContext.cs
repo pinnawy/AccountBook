@@ -98,6 +98,11 @@ namespace AccountBook.Silverlight
         /// <param name="userInfoList">消费人列表</param>
         public void SetConsumerList(IEnumerable<UserInfo> userInfoList)
         {
+            if (userInfoList == null)
+            {
+                return;
+            }
+
             _consumerList.Clear();
             for (int i = _extUserInfoList.Count - 1; i > 0; i--)
             {
@@ -141,6 +146,11 @@ namespace AccountBook.Silverlight
         /// <param name="consumeTypeList">消费类别列表</param>
         public void SetConsumeTypeList(IEnumerable<ConsumeType> consumeTypeList)
         {
+            if (consumeTypeList == null)
+            {
+                return;
+            }
+
             _consumeTypeList.Clear();
             for (int i = _extConsumeTypeList.Count - 1; i > 0; i--)
             {
