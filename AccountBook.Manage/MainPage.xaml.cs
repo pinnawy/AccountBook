@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using AccountBook.Silverlight.Helpers;
 
 namespace AccountBook.Manage
 {

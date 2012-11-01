@@ -11,26 +11,59 @@ namespace AccountBook.Silverlight.Helpers
     public class XapHelper
     {
         /// <summary>
+        /// 
+        /// </summary>
+        private struct AssemblyPartInfo
+        {
+            /// <summary>
+            /// 名称
+            /// </summary>
+            public string Name
+            {
+                get;
+                set;
+            }
+            /// <summary>
+            /// dll相对路径
+            /// </summary>
+            public string Source
+            {
+                get;
+                set;
+            }
+        }
+
+        /// <summary>
         /// 从XAP包中返回程序集信息
         /// </summary>
         /// <param name="packageStream">Xap Stream</param>
-        /// <returns>Main Assembly</returns>
+        /// <returns>入口程序集</returns>
         public static Assembly LoadAssemblyFromXap(Stream packageStream)
         {
+            // 加载AppManifest.xaml
             Stream stream = Application.GetResourceStream(new StreamResourceInfo(packageStream, null), new Uri("AppManifest.xaml", UriKind.Relative)).Stream;
-            Assembly mainAssembly = null;
             XmlReader xmlReader = XmlReader.Create(stream);
 
-            var assemblyNames = new List<string>();
+            // 读取程序集信息
+            Assembly entryAssembly = null;
+            string entryAssemblyName = string.Empty;
+            var assemblyPartInfos = new List<AssemblyPartInfo>();
             while (xmlReader.Read())
             {
                 switch (xmlReader.NodeType)
                 {
                     case XmlNodeType.Element:
-                        if (xmlReader.Name == "AssemblyPart")
+                        if (xmlReader.Name == "Deployment")
                         {
-                            var assemblyName = xmlReader.GetAttribute("Source");
-                            assemblyNames.Add(assemblyName);
+                            // 入口程序集名称
+                            entryAssemblyName = xmlReader.GetAttribute("EntryPointAssembly");
+                        }
+                        else if (xmlReader.Name == "AssemblyPart")
+                        {
+                            var name = xmlReader.GetAttribute("x:Name");
+                            var source = xmlReader.GetAttribute("Source");
+
+                            assemblyPartInfos.Add(new AssemblyPartInfo { Name = name, Source = source });
                         }
                         break;
                     default:
@@ -39,20 +72,23 @@ namespace AccountBook.Silverlight.Helpers
             }
 
             var assemblyPart = new AssemblyPart();
-            foreach (var assemblyName in assemblyNames)
+            // 加载程序集
+            foreach (var assemblyPartInfo in assemblyPartInfos)
             {
-                StreamResourceInfo streamInfo = Application.GetResourceStream(new StreamResourceInfo(packageStream, "application/binary"), new Uri(assemblyName, UriKind.Relative));
-                if (mainAssembly == null)
+                StreamResourceInfo streamInfo = Application.GetResourceStream(new StreamResourceInfo(packageStream, "application/binary"), new Uri(assemblyPartInfo.Source, UriKind.Relative));
+                // 入口程序集
+                if (assemblyPartInfo.Name == entryAssemblyName)
                 {
-                    mainAssembly = assemblyPart.Load(streamInfo.Stream);
+                    entryAssembly = assemblyPart.Load(streamInfo.Stream);
                 }
+                // 其他程序集
                 else
                 {
                     assemblyPart.Load(streamInfo.Stream);
                 }
             }
 
-            return mainAssembly;
+            return entryAssembly;
         }
     }
 }
