@@ -1,5 +1,4 @@
-﻿
-namespace AccountBook.Silverlight.Controls
+﻿namespace AccountBook.Silverlight.Controls
 {
     /// <summary>
     /// Names and helpers for visual states in the controls.

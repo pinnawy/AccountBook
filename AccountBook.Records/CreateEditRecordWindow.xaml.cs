@@ -4,10 +4,11 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using AccountBook.Model;
-using AccountBook.Silverlight.Controls;
+using AccountBook.SControls;
+using AccountBook.Silverlight;
 using AccountBook.Silverlight.Helpers;
 
-namespace AccountBook.Silverlight.Views
+namespace AccountBook.Records
 {
     public partial class CreateEditRecordWindow : ChildWindow
     {

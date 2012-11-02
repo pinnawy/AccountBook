@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace AccountBook.Silverlight.Controls
+namespace AccountBook.SControls
 {
     public partial class TipWindow : ChildWindow
     {

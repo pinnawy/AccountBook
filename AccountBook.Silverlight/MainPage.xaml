@@ -13,9 +13,9 @@
     <Border x:Name="ContentBorder" Style="{StaticResource ContentBorderStyle}">
             <navigation:Frame x:Name="ContentFrame" Style="{StaticResource ContentFrameStyle}" 
                               Source="/Home" 
-                              Navigating="ContentFrame_Navigating"
-                              Navigated="ContentFrame_Navigated" 
-                              NavigationFailed="ContentFrame_NavigationFailed">
+                              Navigating="ContentFrameNavigating"
+                              Navigated="ContentFrameNavigated" 
+                              NavigationFailed="ContentFrameNavigationFailed">
                 <navigation:Frame.UriMapper>
                   <uriMapper:UriMapper>
                     <uriMapper:UriMapping Uri="" MappedUri="/Views/Home.xaml"/>
@@ -65,7 +65,14 @@
       </Grid>
 
       <Border Style="{StaticResource LoginContainerStyle}">
-            <login:LoginStatus x:Name="LoginStatusBar" LoginStatusChanged="LoginStatus_LoginStatusChanged" />
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button  Content="Full Screen" Click="BtnFullScreenClick"/>
+            <login:LoginStatus Grid.Column="1" x:Name="LoginStatusBar" LoginStatusChanged="LoginStatusLoginStatusChanged" />
+        </Grid>
       </Border>
     </Grid>
 

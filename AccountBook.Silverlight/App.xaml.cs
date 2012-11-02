@@ -1,4 +1,7 @@
-﻿namespace AccountBook.Silverlight
+﻿using AccountBook.SControls;
+using AccountBook.Silverlight.Controls;
+
+namespace AccountBook.Silverlight
 {
     using System.ServiceModel.DomainServices.Client.ApplicationServices;
     using System.Windows;
@@ -8,7 +11,7 @@
     /// </summary>
     public partial class App : Application
     {
-        private Controls.BusyIndicator _busyIndicator;
+        private BusyIndicator _busyIndicator;
 
         /// <summary>
         /// Creates a new <see cref="App"/> instance.
@@ -17,7 +20,7 @@
         {
             InitializeComponent();
 
-            _busyIndicator = new Controls.BusyIndicator();
+            _busyIndicator = new BusyIndicator();
             _busyIndicator.BusyContent = "User Authenticating, Please Wait...";
             // Create a WebContext and add it to the ApplicationLifetimeObjects collection.
             // This will then be available as WebContext.Current.
@@ -34,7 +37,11 @@
 
             // This will automatically authenticate a user when using Windows authentication or when the user chose "Keep me signed in" on a previous login attempt.
             LoadUserOperation option = WebContext.Current.Authentication.LoadUser(this.Application_UserLoaded, null);
-            option.Completed += delegate { _busyIndicator.IsBusy = false; };
+            option.Completed += delegate
+            {
+                _busyIndicator.IsBusy = false;
+                this.Resources.Add("AuthenticationCompleted", true);
+            };
 
             // Show some UI to the user while LoadUser is in progress
             this.InitializeRootVisual();

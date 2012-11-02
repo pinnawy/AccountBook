@@ -1,0 +1,157 @@
+﻿<SControls:BasePage x:Class="AccountBook.Records.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
+             xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+             xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls" mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <controls:QueryPanel x:Name="QueryCondionPanel"
+            HorizontalAlignment="Left" 
+            Margin="30,20,30,0" 
+            VerticalAlignment="Top"
+            IsEnabled="{Binding CanQueryRecords}"
+            QueryConditionChanged="QueryPanelQueryConditionChanged"/>
+
+        <controls:BusyIndicator
+            Margin="30,80"
+            IsBusy="{Binding IsOperationing}"
+            BusyContent="{Binding Path=Strings.BusyIndicatorQueryRecords, Source={StaticResource ApplicationResources}}">
+            <sdk:DataGrid Name="RecordsGrid" 
+                    AutoGenerateColumns="False" 
+                    CanUserSortColumns="False"
+                    BeginningEdit="RecordsGridBeginningEdit">
+                <sdk:DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="sdk:DataGridColumnHeader">
+                        <Setter Property="Template" >
+                            <Setter.Value>
+                                <ControlTemplate TargetType="sdk:DataGridColumnHeader">
+                                    <Grid Name="Root" Tag="{Binding  RelativeSource={RelativeSource AncestorType=sdk:DataGridColumnHeader}}" Background="Transparent" MouseLeftButtonDown="ColumnHeaderMouseLeftButtonDown">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal" />
+                                                <VisualState x:Name="MouseOver">
+                                                    <Storyboard>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="(Fill).Color" To="#FF448DCA"/>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Fill).(GradientStops)[3].Color" To="#7FFFFFFF"/>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Fill).(GradientStops)[2].Color" To="#CCFFFFFF"/>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Fill).(GradientStops)[1].Color" To="#F2FFFFFF"/>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Pressed">
+                                                    <Storyboard>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundRectangle" Storyboard.TargetProperty="(Fill).Color" To="#FF448DCA"/>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Fill).(GradientStops)[0].Color" To="#D8FFFFFF"/>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Fill).(GradientStops)[1].Color" To="#C6FFFFFF"/>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Fill).(GradientStops)[2].Color" To="#8CFFFFFF"/>
+                                                        <ColorAnimation Duration="0" Storyboard.TargetName="BackgroundGradient" Storyboard.TargetProperty="(Fill).(GradientStops)[3].Color" To="#3FFFFFFF"/>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                            <VisualStateGroup x:Name="SortStates">
+                                                <VisualState x:Name="Unsort" />
+                                                <VisualState x:Name="SortAsc">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="SortIcon" Storyboard.TargetProperty="Opacity" Duration="0" To="1.0"/>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="SortDesc">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="SortIcon" Storyboard.TargetProperty="Opacity" Duration="0" To="1.0"/>
+                                                        <DoubleAnimation Storyboard.TargetName="SortIcon" Storyboard.TargetProperty="(RenderTransform).ScaleY" Duration="0" To="-.9"/>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Rectangle x:Name="BackgroundRectangle" Stretch="Fill" Fill="#FF1F3B53" Grid.ColumnSpan="2" />
+
+                                        <Rectangle x:Name="BackgroundGradient" Stretch="Fill" Grid.ColumnSpan="2" >
+                                            <Rectangle.Fill>
+                                                <LinearGradientBrush StartPoint=".7,0" EndPoint=".7,1">
+                                                    <GradientStop Color="#FCFFFFFF" Offset="0.015" />
+                                                    <GradientStop Color="#F7FFFFFF" Offset="0.375" />
+                                                    <GradientStop Color="#E5FFFFFF" Offset="0.6" />
+                                                    <GradientStop Color="#D1FFFFFF" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+
+                                        <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="{TemplateBinding Padding}">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ContentPresenter IsHitTestVisible="False" Content="{TemplateBinding Content}"/>
+
+                                            <Path Grid.Column="1" Name="SortIcon" Fill="#FF444444" RenderTransformOrigin=".5,.5" HorizontalAlignment="Left" VerticalAlignment="Center" Opacity="0" Stretch="Uniform" Width="8" Margin="4,0,0,0" Data="F1 M -5.215,6.099L 5.215,6.099L 0,0L -5.215,6.099 Z ">
+                                                <Path.RenderTransform>
+                                                    <ScaleTransform ScaleX=".9" ScaleY=".9" />
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Grid>
+
+                                        <Rectangle Name="VerticalSeparator" Grid.Column="1" Width="1" VerticalAlignment="Stretch" Fill="{TemplateBinding SeparatorBrush}" Visibility="{TemplateBinding SeparatorVisibility}" />
+
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </sdk:DataGrid.ColumnHeaderStyle>
+                <sdk:DataGrid.Columns>
+                    <sdk:DataGridTextColumn  Header="Type" Width="0.15*" Binding="{Binding Type.TypeName}" CanUserSort="True" SortMemberPath="TypeId" />
+                    <sdk:DataGridTextColumn  Header="Money" Width="0.15*" Binding="{Binding Money}" CanUserSort="True" />
+                    <sdk:DataGridTextColumn  Header="ConsumeTime" Width="0.155*" Binding="{Binding ConsumeTime, StringFormat='yyyy-MM-dd'}" CanUserSort="True"/>
+                    <sdk:DataGridTextColumn  Header="Memo" Width="0.34*" Binding="{Binding Memo}" CanUserSort="True" />
+                    <sdk:DataGridTextColumn  Header="User" Width="0.15*" Binding="{Binding Consumer.FriendlyName}" CanUserSort="True" SortMemberPath="FriendlyName" />
+                    <sdk:DataGridTextColumn  Header="RecordTime" Width="0.155*" Binding="{Binding RecordTime, StringFormat='yyyy-MM-dd'}" CanUserSort="True"/>
+                    <sdk:DataGridTemplateColumn Header="Action" Width="70">
+                        <sdk:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <HyperlinkButton VerticalAlignment="Center" Content="Delete" DataContext="{Binding}" Click="BtnDeleteRecordClick"></HyperlinkButton>
+                            </DataTemplate>
+                        </sdk:DataGridTemplateColumn.CellTemplate>
+                    </sdk:DataGridTemplateColumn>
+                </sdk:DataGrid.Columns>
+            </sdk:DataGrid>
+        </controls:BusyIndicator>
+
+        <SControls:CustomDataPager x:Name="RecordsPager"
+            IsEnabled="{Binding CanQueryRecords}"
+            VerticalAlignment="Bottom"
+            Margin="30,0,30,48"
+            PageSize="15"
+            Height="26"
+            NumericButtonCount="5"
+            DisplayMode="FirstLastPreviousNextNumeric"
+            PageIndexChanging="RecordsPagerPageIndexChanging"
+            PageIndexChanged="RecordsPagerPageIndexChanged" 
+            PageSizeSelectionChanged="PageSizeChanged"/>
+
+        <TextBlock Name="TotalMoney" HorizontalAlignment="Left"
+            Margin="30,0,3,12" 
+            Text="TextBlock" 
+            Height="23" 
+            VerticalAlignment="Bottom" />
+
+        <Button Name="BtnCreateRecord"
+                Content="Add Record" 
+                Height="23" 
+                HorizontalAlignment="Left" 
+                Margin="30,51,0,0"  
+                VerticalAlignment="Top" 
+                Width="75" 
+                IsEnabled="{Binding CanQueryRecords}"
+                Click="BtnCreateRecordClick"/>
+    </Grid>
+</SControls:BasePage>

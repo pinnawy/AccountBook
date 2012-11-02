@@ -8,7 +8,7 @@ namespace AccountBook.Model
     {
         private OperationBase _currentOperation;
 
-        internal OperationBase CurrentOperation
+        public OperationBase CurrentOperation
         {
             get
             {

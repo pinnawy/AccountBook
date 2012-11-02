@@ -1,11 +1,12 @@
-﻿namespace AccountBook.Silverlight.Controls
-{
-    using System;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Shapes;
-    using System.Windows.Threading;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using AccountBook.SControls;
 
+namespace AccountBook.Silverlight.Controls
+{
     /// <summary>
     /// A control to provide a visual indicator when an application is busy.
     /// </summary>
@@ -130,7 +131,7 @@
         /// </summary>
         public object BusyContent
         {
-            get { return (object)GetValue(BusyContentProperty); }
+            get { return GetValue(BusyContentProperty); }
             set { SetValue(BusyContentProperty, value); }
         }
 

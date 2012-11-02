@@ -4,17 +4,15 @@ using System.ComponentModel;
 using System.ServiceModel.DomainServices.Client;
 using System.Windows.Controls;
 using AccountBook.Model;
+using AccountBook.SControls;
 using AccountBook.Silverlight;
 using AccountBook.Silverlight.Helpers;
 using Visifire.Charts;
 
 namespace AccountBook.Statistics
 {
-    public partial class MainPage : UserControl, INotifyPropertyChanged
+    public partial class MainPage : BasePage
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private Dictionary<string, double> _amountInfos;
 
         private DateTime? _beginDate;
@@ -25,72 +23,6 @@ namespace AccountBook.Statistics
         private RenderAs _renderAs = RenderAs.Column;
         private string _statisticsRange = "Month";
 
-        private void NotifyPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        private OperationBase _currQueryOperation;
-        internal OperationBase CurrQueryOperation
-        {
-            get
-            {
-                return _currQueryOperation;
-            }
-            set
-            {
-                if (_currQueryOperation != value)
-                {
-                    if (_currQueryOperation != null)
-                    {
-                        _currQueryOperation.Completed -= CurrQueryOperationChanged;
-                    }
-
-                    _currQueryOperation = value;
-
-                    if (_currQueryOperation != null)
-                    {
-                        _currQueryOperation.Completed += CurrQueryOperationChanged;
-                    }
-
-                    this.CurrentOperationChanged();
-                }
-            }
-        }
-
-        private void CurrQueryOperationChanged(object sender, EventArgs e)
-        {
-            this.CurrentOperationChanged();
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the user is presently being registered or logged in.
-        /// </summary>
-        public bool IsOperationing
-        {
-            get
-            {
-                return this.CurrQueryOperation != null && !this.CurrQueryOperation.IsComplete;
-            }
-        }
-
-        public bool CanQueryRecords
-        {
-            get { return !IsOperationing; }
-        }
-
-        /// <summary>
-        /// Helper method for when the current operation changes.
-        /// Used to raise appropriate property change notifications.
-        /// </summary>
-        private void CurrentOperationChanged()
-        {
-            this.NotifyPropertyChanged("IsOperationing");
-            this.NotifyPropertyChanged("CanQueryRecords");
-        }
 
         public MainPage()
         {
@@ -149,6 +81,11 @@ namespace AccountBook.Statistics
                 // 获取服务端消费记录数据
                 this.CurrQueryOperation = ContextFactory.RecordsContext.GetConsumeAmountByMonth(option, result =>
                 {
+                    if (result.IsCanceled)
+                    {
+                        return;
+                    }
+
                     if (result.HasError)
                     {
                         ErrorWindow.CreateNew(result.Error);
@@ -166,6 +103,11 @@ namespace AccountBook.Statistics
                 // 获取服务端消费记录数据
                 this.CurrQueryOperation = ContextFactory.RecordsContext.GetConsumeAmountByYear(option, result =>
                 {
+                    if (result.IsCanceled)
+                    {
+                        return;
+                    }
+
                     if (result.HasError)
                     {
                         ErrorWindow.CreateNew(result.Error);

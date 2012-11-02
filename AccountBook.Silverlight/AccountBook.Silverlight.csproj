@@ -60,9 +60,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Windows.Controls.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="System.Windows.Controls.Data.DataForm.Toolkit, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Data.DataForm.Toolkit">
       <HintPath>..\_Refrence\System.Windows.Controls.Data.DataForm.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Controls.Data.Input" />
@@ -72,7 +72,6 @@
     <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
-    <Reference Include="System.Windows.Controls" />
     <Reference Include="System.Windows.Controls.Navigation" />
   </ItemGroup>
   <ItemGroup>
@@ -101,12 +100,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BusyIndicator.cs" />
     <Compile Include="Controls\QueryPanel.xaml.cs">
       <DependentUpon>QueryPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TipWindow.xaml.cs">
-      <DependentUpon>TipWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\VisualStates.cs" />
     <Compile Include="Events\LoginStatus.cs" />
     <Compile Include="Events\LoginStatusChangedEventArgs.cs" />
     <Compile Include="Events\LoginStatusChangedHandler.cs" />
@@ -116,8 +114,6 @@
     <Compile Include="Helpers\ConsumeTypeConverter.cs" />
     <Compile Include="Helpers\ConsumeUserConverter.cs" />
     <Compile Include="Helpers\ContextFactory.cs" />
-    <Compile Include="Controls\BusyIndicator.cs" />
-    <Compile Include="Controls\VisualStates.cs" />
     <Compile Include="Helpers\DataFieldExtensions.cs" />
     <Compile Include="Helpers\NotOperatorValueConverter.cs" />
     <Compile Include="Helpers\TargetNullValueConverter.cs" />
@@ -134,13 +130,6 @@
     <Compile Include="Events\QueryConditionChangedEventArgs.cs" />
     <Compile Include="Models\RegistrationData.partial.cs" />
     <Compile Include="Models\User.partial.cs" />
-    <Compile Include="Views\BasePage.cs" />
-    <Compile Include="Views\Statistics.xaml.cs">
-      <DependentUpon>Statistics.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateEditRecordWindow.xaml.cs">
-      <DependentUpon>CreateEditRecordWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
@@ -169,6 +158,9 @@
     <Compile Include="Views\Records.xaml.cs">
       <DependentUpon>Records.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -192,18 +184,6 @@
     <Page Include="Controls\QueryPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\TipWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Statistics.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\CreateEditRecordWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ErrorWindow.xaml">
       <SubType>Designer</SubType>
@@ -238,6 +218,10 @@
       <Generator>MSBuild:MarkupCompilePass1</Generator>
     </Page>
     <Page Include="Views\Records.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,12 +4,11 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Browser;
 using AccountBook.Silverlight.Helpers;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
-namespace AccountBook.Silverlight
+namespace AccountBook.Silverlight.Views
 {
-    using System.Windows.Controls;
-    using System.Windows.Navigation;
-
     /// <summary>
     /// <see cref="Page"/> class to present information about the current application.
     /// </summary>
@@ -31,7 +30,7 @@ namespace AccountBook.Silverlight
         {
             base.OnNavigatedTo(e);
 
-            if (AccountBookContext.Instance.ManageModule == null)
+            if (!AccountBookContext.Instance.ModuleCache.ContainsKey(this.GetType()))
             {
                 WebClient loadManageXapClient = new WebClient();
                 loadManageXapClient.OpenReadCompleted += new OpenReadCompletedEventHandler(ManageXapOpenReadCompleted);
@@ -41,7 +40,7 @@ namespace AccountBook.Silverlight
             }
             else
             {
-                LoadManageMoudle(AccountBookContext.Instance.ManageModule);
+                LoadManageMoudle(AccountBookContext.Instance.ModuleCache[this.GetType()]);
             }
         }
 
@@ -65,9 +64,9 @@ namespace AccountBook.Silverlight
             if (e.Error == null)
             {
                 Assembly assembly = XapHelper.LoadAssemblyFromXap(e.Result);
-                UIElement manageModule = assembly.CreateInstance("AccountBook.Manage.MainPage") as UIElement;
+                var manageModule = assembly.CreateInstance("AccountBook.Manage.MainPage") as UserControl;
 
-                AccountBookContext.Instance.ManageModule = manageModule;
+                AccountBookContext.Instance.ModuleCache.Add(this.GetType(), manageModule);
                 LoadManageMoudle(manageModule);
             }
             else
@@ -91,7 +90,7 @@ namespace AccountBook.Silverlight
         /// </summary>
         private void UnLoadManageMoudle()
         {
-            this.LayoutRoot.Children.Remove(AccountBookContext.Instance.ManageModule);
+            this.LayoutRoot.Children.Remove(AccountBookContext.Instance.ModuleCache[this.GetType()]);
         }
     }
 }

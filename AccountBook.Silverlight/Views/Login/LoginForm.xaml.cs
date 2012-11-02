@@ -1,4 +1,4 @@
-﻿using AccountBook.Silverlight.Controls;
+﻿using AccountBook.SControls;
 
 namespace AccountBook.Silverlight.LoginUI
 {

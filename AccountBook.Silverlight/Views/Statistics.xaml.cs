@@ -1,17 +1,14 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Browser;
 using AccountBook.Silverlight.Helpers;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
-namespace AccountBook.Silverlight
+namespace AccountBook.Silverlight.Views
 {
-    using System.Windows.Controls;
-    using System.Windows.Navigation;
-
     /// <summary>
     /// <see cref="Page"/> class to present information about the current application.
     /// </summary>
@@ -23,7 +20,7 @@ namespace AccountBook.Silverlight
         public Statistics()
         {
             InitializeComponent();
-            this.Title = ApplicationStrings.ManagePageTitle;
+            this.Title = ApplicationStrings.RecordsPageTitle;
         }
 
         /// <summary>
@@ -33,9 +30,9 @@ namespace AccountBook.Silverlight
         {
             base.OnNavigatedTo(e);
 
-            if (AccountBookContext.Instance.StatisticsModule == null)
+            if (!AccountBookContext.Instance.ModuleCache.ContainsKey(this.GetType()))
             {
-                WebClient loadManageXapClient = new WebClient();
+                var loadManageXapClient = new WebClient();
                 loadManageXapClient.OpenReadCompleted += new OpenReadCompletedEventHandler(ManageXapOpenReadCompleted);
                 loadManageXapClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ManageXapDownloadProgressChanged);
                 Uri xapUri = new Uri(HtmlPage.Document.DocumentUri, "ClientBin/AccountBook.Statistics.xap");
@@ -43,7 +40,7 @@ namespace AccountBook.Silverlight
             }
             else
             {
-                LoadManageMoudle(AccountBookContext.Instance.StatisticsModule);
+                LoadManageMoudle(AccountBookContext.Instance.ModuleCache[this.GetType()]);
             }
         }
 
@@ -67,10 +64,10 @@ namespace AccountBook.Silverlight
             if (e.Error == null)
             {
                 Assembly assembly = XapHelper.LoadAssemblyFromXap(e.Result);
-                UIElement statisticsModule = assembly.CreateInstance("AccountBook.Statistics.MainPage") as UIElement;
+                var manageModule = assembly.CreateInstance("AccountBook.Statistics.MainPage") as UserControl;
 
-                AccountBookContext.Instance.StatisticsModule = statisticsModule;
-                LoadManageMoudle(statisticsModule);
+                AccountBookContext.Instance.ModuleCache.Add(this.GetType(), manageModule);
+                LoadManageMoudle(manageModule);
             }
             else
             {
@@ -79,21 +76,21 @@ namespace AccountBook.Silverlight
         }
 
         /// <summary>
-        /// 加载统计模块
+        /// 加载管理模块
         /// </summary>
-        /// <param name="statisticsModule">统计模块元素</param>
-        private void LoadManageMoudle(UIElement statisticsModule)
+        /// <param name="manageModule">管理模块元素</param>
+        private void LoadManageMoudle(UIElement manageModule)
         {
             this.LayoutRoot.Children.Remove(LoadXapProgressPanel);
-            this.LayoutRoot.Children.Add(statisticsModule);
+            this.LayoutRoot.Children.Add(manageModule);
         }
 
         /// <summary>
-        /// 卸载统计模块
+        /// 卸载管理模块
         /// </summary>
         private void UnLoadManageMoudle()
         {
-            this.LayoutRoot.Children.Remove(AccountBookContext.Instance.StatisticsModule);
+            this.LayoutRoot.Children.Remove(AccountBookContext.Instance.ModuleCache[this.GetType()]);
         }
     }
 }

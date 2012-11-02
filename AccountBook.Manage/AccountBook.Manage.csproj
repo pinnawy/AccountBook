@@ -105,6 +105,11 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AccountBook.SControls\AccountBook.SControls.csproj">
+      <Project>{82972EF6-4341-4198-BD1F-29B4C5465467}</Project>
+      <Name>AccountBook.SControls</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\AccountBook.Silverlight\AccountBook.Silverlight.csproj">
       <Project>{D99C7F64-EEE8-47B5-BD8B-631E9DAB0BAD}</Project>
       <Name>AccountBook.Silverlight</Name>

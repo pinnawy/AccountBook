@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
+using System.Windows.Controls;
 using AccountBook.Model;
 using System.Linq;
 
@@ -13,6 +14,8 @@ namespace AccountBook.Silverlight
     {
         private AccountBookContext()
         {
+            ModuleCache = new Dictionary<Type, UserControl>();
+
             _consumerList = new ObservableCollection<UserInfo>();
             _extUserInfoList = new ObservableCollection<UserInfo> { DefaultConsumer };
             _consumeTypeList = new ObservableCollection<ConsumeType>();
@@ -27,21 +30,12 @@ namespace AccountBook.Silverlight
         }
 
         /// <summary>
-        /// 管理模块
+        /// 模块缓存
         /// </summary>
-        public UIElement ManageModule
+        public Dictionary<Type, UserControl> ModuleCache
         {
             get;
-            set;
-        }
-
-        /// <summary>
-        /// 统计模块
-        /// </summary>
-        public UIElement StatisticsModule
-        {
-            get;
-            set;
+            private set;
         }
 
         private ConsumeType _defaultConsumeType;

@@ -1,5 +1,6 @@
 ﻿using System;
-using AccountBook.Silverlight.Controls;
+using AccountBook.SControls;
+using AccountBook.Silverlight.Events;
 
 namespace AccountBook.Silverlight
 {
@@ -25,11 +26,11 @@ namespace AccountBook.Silverlight
         /// <summary>
         /// After the Frame navigates, ensure the <see cref="HyperlinkButton"/> representing the current page is selected
         /// </summary>
-        private void ContentFrame_Navigated(object sender, NavigationEventArgs e)
+        private void ContentFrameNavigated(object sender, NavigationEventArgs e)
         {
             foreach (UIElement child in LinksStackPanel.Children)
             {
-                HyperlinkButton hb = child as HyperlinkButton;
+                var hb = child as HyperlinkButton;
                 if (hb != null && hb.NavigateUri != null)
                 {
                     if (hb.NavigateUri.ToString().Equals(e.Uri.ToString()))
@@ -47,16 +48,19 @@ namespace AccountBook.Silverlight
         /// <summary>
         /// If an error occurs during navigation, show an error window
         /// </summary>
-        private void ContentFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void ContentFrameNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             e.Handled = true;
             ErrorWindow.CreateNew(e.Exception);
         }
 
-        private void ContentFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        private void ContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
         {
-            Uri homeUri = new Uri("/Home", UriKind.Relative);
-            if (e.Uri != homeUri && !WebContext.Current.Authentication.User.Identity.IsAuthenticated)
+            var homeUri = new Uri("/Home", UriKind.Relative);
+
+            if (e.Uri != homeUri
+                && Application.Current.Resources.Contains("AuthenticationCompleted")
+                && !WebContext.Current.Authentication.User.Identity.IsAuthenticated)
             {
                 _lastFailUri = e.Uri;
                 e.Cancel = true;
@@ -66,9 +70,9 @@ namespace AccountBook.Silverlight
             }
         }
 
-        private void LoginStatus_LoginStatusChanged(object sender, Events.LoginStatusChangedEventArgs e)
+        private void LoginStatusLoginStatusChanged(object sender, LoginStatusChangedEventArgs e)
         {
-            if (e.LoginStatus == Events.LoginStatus.Login)
+            if (e.LoginStatus == LoginStatus.Login)
             {
                 if (_lastFailUri != null && ContentFrame.Source != _lastFailUri)
                 {
@@ -79,6 +83,11 @@ namespace AccountBook.Silverlight
             {
                 ContentFrame.Navigate(new Uri("/Home", UriKind.Relative));
             }
+        }
+
+        private void BtnFullScreenClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Host.Content.IsFullScreen = !Application.Current.Host.Content.IsFullScreen;
         }
     }
 }
