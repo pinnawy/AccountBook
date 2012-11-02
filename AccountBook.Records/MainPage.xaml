@@ -6,18 +6,33 @@
              xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
              xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
              xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls" mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400">
+    d:DesignHeight="600" d:DesignWidth="1024">
 
-    <Grid x:Name="LayoutRoot" Background="White">
-        <controls:QueryPanel x:Name="QueryCondionPanel"
-            HorizontalAlignment="Left" 
-            Margin="30,20,30,0" 
-            VerticalAlignment="Top"
+    <Grid x:Name="LayoutRoot" Background="White" Margin="30,20,30,10">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition  Height="auto"/>
+            <RowDefinition  Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <SControls:GroupBox Header="Query Condition" Padding="5,5,20,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <controls:QueryPanel x:Name="QueryCondionPanel"
             IsEnabled="{Binding CanQueryRecords}"
             QueryConditionChanged="QueryPanelQueryConditionChanged"/>
+        </SControls:GroupBox>
 
-        <controls:BusyIndicator
-            Margin="30,80"
+        <Button Grid.Row="1" Name="BtnCreateRecord" Margin="0,5"
+                Content="Add Record" 
+                Height="23" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Width="75" 
+                IsEnabled="{Binding CanQueryRecords}"
+                Click="BtnCreateRecordClick"/>
+        
+        <controls:BusyIndicator Grid.Row="2"
             IsBusy="{Binding IsOperationing}"
             BusyContent="{Binding Path=Strings.BusyIndicatorQueryRecords, Source={StaticResource ApplicationResources}}">
             <sdk:DataGrid Name="RecordsGrid" 
@@ -126,10 +141,9 @@
             </sdk:DataGrid>
         </controls:BusyIndicator>
 
-        <SControls:CustomDataPager x:Name="RecordsPager"
+        <SControls:CustomDataPager x:Name="RecordsPager" Grid.Row="3" Margin="0,5"
             IsEnabled="{Binding CanQueryRecords}"
             VerticalAlignment="Bottom"
-            Margin="30,0,30,48"
             PageSize="15"
             Height="26"
             NumericButtonCount="5"
@@ -138,20 +152,10 @@
             PageIndexChanged="RecordsPagerPageIndexChanged" 
             PageSizeSelectionChanged="PageSizeChanged"/>
 
-        <TextBlock Name="TotalMoney" HorizontalAlignment="Left"
-            Margin="30,0,3,12" 
+        <TextBlock Name="TotalMoney" Grid.Row="4" HorizontalAlignment="Left"
             Text="TextBlock" 
             Height="23" 
             VerticalAlignment="Bottom" />
 
-        <Button Name="BtnCreateRecord"
-                Content="Add Record" 
-                Height="23" 
-                HorizontalAlignment="Left" 
-                Margin="30,51,0,0"  
-                VerticalAlignment="Top" 
-                Width="75" 
-                IsEnabled="{Binding CanQueryRecords}"
-                Click="BtnCreateRecordClick"/>
     </Grid>
 </SControls:BasePage>

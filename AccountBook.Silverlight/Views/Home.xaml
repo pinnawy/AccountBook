@@ -23,6 +23,7 @@
                         <Setter Property="TextWrapping" Value="Wrap" />
                     </Style>
                 </StackPanel.Resources>
+                <TextBlock Text="2012-11-2 消费记录列表模块化、界面微调、修复部分已知Bug" />
                 <TextBlock Text="2012-10-31 增加消费信息统计页面、增加消费记录列表排序功能、增加消费记录按消费备注关键字查询功能、优化页面加载速度、修复部分已知Bug" />
                 <TextBlock Text="2012-6-8 增加空白管理页面、修复记录添加时Save+Add报错的Bug、添加删除消费记录功能"/>
                 <TextBlock Text="2012-6-5 增加首页身份验证等待遮罩、增加分页控件页码显示设置"/>

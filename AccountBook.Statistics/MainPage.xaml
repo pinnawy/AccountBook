@@ -20,7 +20,12 @@
                 <RowDefinition/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <controls:QueryPanel x:Name="QueryCondionPanel" IsEnabled="{Binding CanQueryRecords}"/>
+
+            <SControls:GroupBox Header="Query Condition" Padding="5,5,20,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <controls:QueryPanel x:Name="QueryCondionPanel" IsEnabled="{Binding CanQueryRecords}"/>
+            </SControls:GroupBox>
+            
+            
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5" >
                 <TextBlock Text="Chart Shape:"  VerticalAlignment="Center"/>
                 <ComboBox IsEnabled="{Binding CanQueryRecords}" SelectedIndex="0" SelectionChanged="CmbChartShapeSelectionChanged">

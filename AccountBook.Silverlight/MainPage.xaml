@@ -70,7 +70,7 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button  Content="Full Screen" Click="BtnFullScreenClick"/>
+            <Button Visibility="Collapsed" Content="Full Screen" Click="BtnFullScreenClick"/>
             <login:LoginStatus Grid.Column="1" x:Name="LoginStatusBar" LoginStatusChanged="LoginStatusLoginStatusChanged" />
         </Grid>
       </Border>

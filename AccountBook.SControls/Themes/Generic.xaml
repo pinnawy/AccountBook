@@ -1,10 +1,10 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:SControls="clr-namespace:AccountBook.SControls">
+    xmlns:local="clr-namespace:AccountBook.SControls">
 
     <!-- 自定义分页控件样式 -->
-    <Style TargetType="SControls:CustomDataPager">
+    <Style TargetType="local:CustomDataPager">
         <Setter Property="Background" Value="#FFF2F3F4"/>
         <Setter Property="BorderBrush">
             <Setter.Value>
@@ -86,7 +86,7 @@
         </Setter>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="SControls:CustomDataPager">
+                <ControlTemplate TargetType="local:CustomDataPager">
                     <Grid x:Name="Root" Background="Transparent">
                         <Grid.Resources>
                             <SolidColorBrush x:Key="BackgroundColor" Color="#00000000"/>
@@ -413,6 +413,31 @@
                                     </Button>
                                 </StackPanel>
                             </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:GroupBox">
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="BorderBrush" Value="#687B8B"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="Padding" Value="6,10,6,6"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:GroupBox">
+                    <Grid>
+                        <Border Margin="0,8,0,0" CornerRadius="5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter Margin="{TemplateBinding Padding}" ></ContentPresenter>
+                        </Border>
+                        <Border Margin="10,0,10,0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                Background="{TemplateBinding Background}" >
+                            <TextBlock Margin="5,0" Text="{TemplateBinding Header}" ></TextBlock>
                         </Border>
                     </Grid>
                 </ControlTemplate>

@@ -61,7 +61,7 @@ namespace AccountBook.SControls
 
         private void BasePageUnloaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (CurrQueryOperation != null && !CurrQueryOperation.CanCancel)
+            if (CurrQueryOperation != null && !CurrQueryOperation.IsComplete && !CurrQueryOperation.CanCancel)
             {
                 CurrQueryOperation.Cancel();
             }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.ServiceModel.DomainServices.Client;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -18,7 +17,6 @@ namespace AccountBook.Records
 {
     public partial class MainPage : BasePage
     {
-
         private readonly List<int> _recordsCounts = new List<int>();
         private int _currPageIndex = -1;
         private DateTime? _begigDate;
@@ -29,8 +27,6 @@ namespace AccountBook.Records
         private SortDir _sortDir = SortDir.ASC;
         private string _keyword;
         private DataGridColumnHeader _currSortColumnHeader;
-
-
 
         public MainPage()
         {
