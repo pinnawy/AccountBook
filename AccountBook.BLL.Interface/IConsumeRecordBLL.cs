@@ -10,14 +10,14 @@ namespace AccountBook.BLL.Interface
         /// </summary>
         /// <param name="record">消费记录实体对象</param>
         /// <returns>消费记录ID</returns>
-        long AddConsumeRecord(ConsumeRecord record);
+        long AddConsumeRecord(AccountRecord record);
 
         /// <summary>
         /// 更新消费记录
         /// </summary>
         /// <param name="record">消费记录实体对象</param>
         /// <returns>true:更新成功 false:更新失败</returns>
-        bool UpdateConsumeRecord(ConsumeRecord record);
+        bool UpdateConsumeRecord(AccountRecord record);
 
         /// <summary>
         /// 删除消费记录
@@ -31,20 +31,20 @@ namespace AccountBook.BLL.Interface
         /// </summary>
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>消费记录列表</returns>
-        ConsumeRecordsResult GetConsumeRecordList(ConsumeRecordQueryOption option);
+        AccountRecordsResult GetConsumeRecordList(AccountRecordQueryOption option);
 
         /// <summary>
         /// 按月统计消费金额
         /// </summary>
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>每月消费总额信息</returns>
-        Dictionary<string, double> GetConsumeAmountByMonth(ConsumeRecordQueryOption option);
+        Dictionary<string, double> GetConsumeAmountByMonth(AccountRecordQueryOption option);
 
         /// <summary>
         /// 按年统计消费金额
         /// </summary>
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>每年消费总额信息</returns>
-        Dictionary<string, double> GetConsumeAmountByYear(ConsumeRecordQueryOption option);
+        Dictionary<string, double> GetConsumeAmountByYear(AccountRecordQueryOption option);
     }
 }

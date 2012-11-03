@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IConsumeRecordBLL.cs" />
-    <Compile Include="IConsumeTypeBLL.cs" />
+    <Compile Include="IAccountTypeBLL.cs" />
     <Compile Include="IUserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

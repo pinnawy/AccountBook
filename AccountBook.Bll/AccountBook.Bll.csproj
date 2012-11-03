@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsumeRecordBLL.cs" />
-    <Compile Include="ConsumeTypeBLL.cs" />
+    <Compile Include="AccountTypeBLL.cs" />
     <Compile Include="UserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

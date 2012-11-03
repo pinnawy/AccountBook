@@ -8,31 +8,31 @@ namespace AccountBook.BLL
 {
     public class ConsumeRecordBLL : IConsumeRecordBLL
     {
-        private readonly IConsumeRecordDAL _consumeRecordDal = UnityContext.LoadDALModel<IConsumeRecordDAL>();
+        private readonly IAccountRecordDAL _accountRecordDAL = UnityContext.LoadDALModel<IAccountRecordDAL>();
 
-        public long AddConsumeRecord(ConsumeRecord record)
+        public long AddConsumeRecord(AccountRecord record)
         {
-            return _consumeRecordDal.AddConsumeRecord(record);
+            return _accountRecordDAL.AddAccountRecord(record);
         }
 
-        public bool UpdateConsumeRecord(ConsumeRecord record)
+        public bool UpdateConsumeRecord(AccountRecord record)
         {
-            return _consumeRecordDal.UpdateConsumeRecord(record);
+            return _accountRecordDAL.UpdateAccountRecord(record);
         }
 
         public bool DeleteConsumeRecord(long recordId)
         {
-            return _consumeRecordDal.DeleteConsumeRecord(recordId);
+            return _accountRecordDAL.DeleteAccountRecord(recordId);
         }
 
-        public ConsumeRecordsResult GetConsumeRecordList(ConsumeRecordQueryOption option)
+        public AccountRecordsResult GetConsumeRecordList(AccountRecordQueryOption option)
         {
             int recordCount;
             decimal totalMoney;
 
-            List<ConsumeRecord> records = _consumeRecordDal.GetConsumeRecordList(option, out recordCount, out totalMoney);
+            List<AccountRecord> records = _accountRecordDAL.GetAccountRecordList(option, out recordCount, out totalMoney);
 
-            ConsumeRecordsResult result = new ConsumeRecordsResult
+            AccountRecordsResult result = new AccountRecordsResult
             {
                 Records = records,
                 TotalCount = recordCount,
@@ -41,14 +41,14 @@ namespace AccountBook.BLL
             return result;
         }
 
-        public Dictionary<string, double> GetConsumeAmountByMonth(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByMonth(AccountRecordQueryOption option)
         {
-            return _consumeRecordDal.GetConsumeAmountInfo("%Y年%m月", option);
+            return _accountRecordDAL.GetAccountAmountInfo("%Y年%m月", option);
         }
 
-        public Dictionary<string, double> GetConsumeAmountByYear(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByYear(AccountRecordQueryOption option)
         {
-            return _consumeRecordDal.GetConsumeAmountInfo("%Y年", option);
+            return _accountRecordDAL.GetAccountAmountInfo("%Y年", option);
         }
     }
 }

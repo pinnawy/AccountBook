@@ -4,3 +4,11 @@ obj
 
 # mstest test results
 TestResults
+/DB
+/_ReSharper.AccountBook
+/_ReSharper.AccountBook.Silverlight
+/Log
+/AccountBook.Silverlight.suo
+/AccountBook.Silverlight.6.0.ReSharper.user
+/AccountBook.Silverlight.Web/App_Data
+/AccountBook.Silverlight.Web/ClientBin
