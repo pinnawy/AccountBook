@@ -23,7 +23,7 @@ namespace AccountBook.Silverlight.Events
             set;
         }
 
-        public ConsumeType ConsumeType
+        public AccountType AccountType
         {
             get;
             set;

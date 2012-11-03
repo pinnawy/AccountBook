@@ -112,7 +112,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\RegistrationData.cs" />
-    <Compile Include="Services\ConsumeTypeService.cs" />
+    <Compile Include="Services\AccountTypeService.cs" />
     <Compile Include="Services\RecordsService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Models\Shared\User.shared.cs" />

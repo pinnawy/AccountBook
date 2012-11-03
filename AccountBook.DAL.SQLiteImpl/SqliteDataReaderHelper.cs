@@ -40,29 +40,30 @@ namespace AccountBook.DAL.SQLiteImpl
             return userList;
         }
 
-        public static List<ConsumeRecord> ToConsumeRecordList(this SQLiteDataReader reader)
+        public static List<AccountRecord> ToConsumeRecordList(this SQLiteDataReader reader)
         {
-            List<ConsumeRecord> recordList = new List<ConsumeRecord>();
+            var recordList = new List<AccountRecord>();
 
             while (reader.Read())
             {
-                ConsumeRecord record = new ConsumeRecord();
+                var record = new AccountRecord();
                 record.Id = reader.SafeRead<long>("RecordId");
                 record.Money = reader.SafeRead<decimal>("Money");
                 record.ConsumeTime = reader.SafeRead<DateTime>("ConsumeTime");
                 record.RecordTime = reader.SafeRead<DateTime>("RecordTime");
                 record.Memo = reader.SafeRead<string>("Memo");
 
-                UserInfo consumer = new UserInfo();
+                var consumer = new UserInfo();
                 consumer.UserId = reader.SafeRead<long>("UserId");
                 consumer.UserName = reader.SafeRead<string>("UserName");
                 consumer.FriendlyName = reader.SafeRead<string>("FriendlyName");
                 record.Consumer = consumer;
 
-                ConsumeType type = new ConsumeType();
+                var type = new AccountType();
                 type.TypeId = reader.SafeRead<long>("TypeId");
                 type.ParentTypeId = reader.SafeRead<long>("ParentTypeId");
                 type.TypeName = reader.SafeRead<string>("TypeName");
+                type.Category = (AccountCategory)reader.SafeRead<int>("Category");
                 record.Type = type;
 
                 recordList.Add(record);
@@ -71,17 +72,18 @@ namespace AccountBook.DAL.SQLiteImpl
             return recordList;
         }
 
-        public static List<ConsumeType> ToConsumeTypeList(this SQLiteDataReader reader)
+        public static List<AccountType> ToConsumeTypeList(this SQLiteDataReader reader)
         {
-            List<ConsumeType> typeList = new List<ConsumeType>();
+            var typeList = new List<AccountType>();
 
             while (reader.Read())
             {
-                ConsumeType type = new ConsumeType();
+                var type = new AccountType();
                 type.TypeId = reader.SafeRead<long>("TypeId");
                 type.ParentTypeId = reader.SafeRead<long>("ParentTypeId");
                 type.TypeName = reader.SafeRead<string>("TypeName");
                 type.ParentTypeName = reader.SafeRead<string>("ParentTypeName");
+                type.Category = (AccountCategory)reader.SafeRead<int>("Category");
                 typeList.Add(type);
             }
 
@@ -90,7 +92,7 @@ namespace AccountBook.DAL.SQLiteImpl
 
         public static Dictionary<string, double> ToConsumeAmountDictionary(this SQLiteDataReader reader)
         {
-            Dictionary<string, double> list = new Dictionary<string, double>();
+            var list = new Dictionary<string, double>();
             while (reader.Read())
             {
                 string time = reader.SafeRead<string>("Time");

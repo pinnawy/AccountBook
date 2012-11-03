@@ -66,10 +66,10 @@ namespace AccountBook.Silverlight.Controls
         /// </summary>
         private void InitConsumeTypes()
         {
-            ContextFactory.ConsumeTypeContext.GetConsumeTypes(0, result =>
+            ContextFactory.ConsumeTypeContext.GetAccountTypes(0, AccountCategory.Expense, result =>
             {
-                AccountBookContext.Instance.SetConsumeTypeList(result.Value);
-                CmbConsumeType.ItemsSource = AccountBookContext.Instance.ExtConsumeTypeList;
+                AccountBookContext.Instance.SetExpenseTypeList(result.Value);
+                CmbConsumeType.ItemsSource = AccountBookContext.Instance.ExtExpenseTypeList;
                 _consumerTypeInitialized = true;
 
                 if (DataInitialized)
@@ -101,13 +101,13 @@ namespace AccountBook.Silverlight.Controls
         {
             if (QueryConditionChanged != null)
             {
-                var consumerType = CmbConsumeType.SelectedItem as ConsumeType;
+                var consumerType = CmbConsumeType.SelectedItem as AccountType;
                 var args = new QueryConditionChangedEventArgs
                 {
                     BeginTime = DpBeginDate.SelectedDate,
                     EndTime = DpEndDate.SelectedDate,
                     Consumer = CmbConsumeUser.SelectedItem as UserInfo,
-                    ConsumeType = consumerType,
+                    AccountType = consumerType,
                     Keyword = _keyword
                 };
 

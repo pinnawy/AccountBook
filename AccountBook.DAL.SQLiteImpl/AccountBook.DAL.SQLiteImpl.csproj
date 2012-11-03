@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsumeRecordDAL.cs" />
+    <Compile Include="AccountRecordDAL.cs" />
     <Compile Include="ConsumeTypeDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqliteDataReaderHelper.cs" />

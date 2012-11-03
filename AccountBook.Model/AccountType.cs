@@ -1,14 +1,15 @@
 ﻿namespace AccountBook.Model
 {
     /// <summary>
-    /// 消费类别
+    /// 账目类别
     /// </summary>
-    public class ConsumeType
+    public class AccountType
     {
         private long _typeId;
         private long _parentTypeId;
         private string _typeName;
         private string _parentTypeName;
+        private AccountCategory _category;
 
         public long TypeId
         {
@@ -32,6 +33,12 @@
         {
             get { return _parentTypeName; }
             set { _parentTypeName = value; }
+        }
+
+        public AccountCategory Category
+        {
+            get { return _category; }
+            set { _category = value; }
         }
 
         public override string ToString()

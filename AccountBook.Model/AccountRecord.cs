@@ -6,10 +6,10 @@ namespace AccountBook.Model
     /// <summary>
     /// 消费记录实体类
     /// </summary>
-    public class ConsumeRecord
+    public class AccountRecord
     {
         private long _id;
-        private ConsumeType _type;
+        private AccountType _type;
         private decimal _money;
         private DateTime _consumeTime;
         private DateTime _recordTime;
@@ -31,7 +31,7 @@ namespace AccountBook.Model
         /// </summary>
         [Display(Order = 0)]
         [Required(ErrorMessage = "消费类别不能为空")]
-        public ConsumeType Type
+        public AccountType Type
         {
             get { return _type; }
             set { _type = value; }

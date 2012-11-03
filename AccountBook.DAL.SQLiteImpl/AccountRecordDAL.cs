@@ -7,13 +7,13 @@ using AccountBook.Model;
 
 namespace AccountBook.DAL.SQLiteImpl
 {
-    public class ConsumeRecordDAL : IConsumeRecordDAL
+    public class AccountRecordDAL : IAccountRecordDAL
     {
         private const string ESCAPER = @"\";
 
-        public long AddConsumeRecord(ConsumeRecord record)
+        public long AddAccountRecord(AccountRecord record)
         {
-            string cmdText = @"INSERT INTO [ConsumeRecord] (
+            string cmdText = @"INSERT INTO [AccountRecord] (
                                     [TypeId],[Money],[ConsumeTime],[RecordTime],[Memo],[UserId]
                                 )
                                 VALUES (
@@ -35,9 +35,9 @@ namespace AccountBook.DAL.SQLiteImpl
             return (long)SqliteHelper.ExecuteScalar(cmdText);
         }
 
-        public bool UpdateConsumeRecord(ConsumeRecord record)
+        public bool UpdateAccountRecord(AccountRecord record)
         {
-            const string cmdText = @"UPDATE [ConsumeRecord]
+            const string cmdText = @"UPDATE [AccountRecord]
                                 SET [TypeId] = @typeId,
                                     [Money]=@money,
                                     [ConsumeTime]=@consumeTime,
@@ -60,9 +60,9 @@ namespace AccountBook.DAL.SQLiteImpl
             return rowCount == 1;
         }
 
-        public bool DeleteConsumeRecord(long recordId)
+        public bool DeleteAccountRecord(long recordId)
         {
-            const string cmdText = @"DELETE FROM [ConsumeRecord]
+            const string cmdText = @"DELETE FROM [AccountRecord]
                                      WHERE [Id]=@recordId";
             var parameters = new[]
             {
@@ -72,34 +72,39 @@ namespace AccountBook.DAL.SQLiteImpl
             return rowCount == 1;
         }
 
-        public List<ConsumeRecord> GetConsumeRecordList(ConsumeRecordQueryOption option, out int recordCount, out decimal totalMoney)
+        public List<AccountRecord> GetAccountRecordList(AccountRecordQueryOption option, out int recordCount, out decimal totalMoney)
         {
             string cmdText = @"SELECT R.[Id] As RecordId, R.[ConsumeTime], R.[Money], R.[Memo], R.[RecordTime], 
                                       U.[UserId], U.[UserName], U.[FriendlyName], 
-                                      T.[TypeId], T.[ParentTypeId], T.[TypeName] 
-                                FROM [ConsumeRecord] R 
+                                      T.[TypeId], T.[ParentTypeId], T.[TypeName], T.[Category] 
+                                FROM [AccountRecord] R 
                                      JOIN [USER] U ON R.[UserId] = U.[UserId]       
-                                     JOIN [ConsumeType] T ON T.[TypeId] = R.[TypeId]
+                                     JOIN [AccountType] T ON T.[TypeId] = R.[TypeId]
                                 WHERE 1=1";
 
             cmdText = string.Format("{0} AND R.[ConsumeTime] >= '{1}'", cmdText, option.BeginTime.ToString("yyyy-MM-dd HH:mm:ss"));
             cmdText = string.Format("{0} AND R.[ConsumeTime] < '{1}'", cmdText, option.EndTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
-            if (option.ConsumeType.TypeId != 0)
+            if (option.AccountType.TypeId != 0)
             {
-                if (option.ConsumeType.ParentTypeId != 0)
+                if (option.AccountType.ParentTypeId != 0)
                 {
-                    cmdText = string.Format("{0} AND R.[TypeId] = {1}", cmdText, option.ConsumeType.TypeId);
+                    cmdText = string.Format("{0} AND R.[TypeId] = {1}", cmdText, option.AccountType.TypeId);
                 }
                 else
                 {
-                    cmdText = string.Format("{0} AND T.[ParentTypeId] = {1}", cmdText, option.ConsumeType.TypeId);
+                    cmdText = string.Format("{0} AND T.[ParentTypeId] = {1}", cmdText, option.AccountType.TypeId);
                 }
             }
 
             if (option.UserId != 0)
             {
                 cmdText = string.Format("{0} AND U.[UserId] = {1}", cmdText, option.UserId);
+            }
+
+            if(option.AccountCategory != AccountCategory.Undefined)
+            {
+                cmdText = string.Format("{0} AND T.[Category] = {1}", cmdText, (int)option.AccountCategory);
             }
 
             // Keyword
@@ -158,32 +163,37 @@ namespace AccountBook.DAL.SQLiteImpl
             return reader.ToConsumeRecordList();
         }
 
-        public Dictionary<string, double> GetConsumeAmountInfo(string format, ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetAccountAmountInfo(string format, AccountRecordQueryOption option)
         {
             string cmdText = string.Format(@"SELECT strftime('{0}', R.ConsumeTime) as 'Time', CAST(Sum(R.Money) as DOUBLE) as 'Money'
-                                FROM [ConsumeRecord] R 
+                                FROM [AccountRecord] R 
                                      JOIN [USER] U ON R.[UserId] = U.[UserId]       
-                                     JOIN [ConsumeType] T ON T.[TypeId] = R.[TypeId]
+                                     JOIN [AccountType] T ON T.[TypeId] = R.[TypeId]
                                 WHERE 1=1", format);
 
             cmdText = string.Format("{0} AND R.[ConsumeTime] >= '{1}'", cmdText, option.BeginTime.ToString("yyyy-MM-dd HH:mm:ss"));
             cmdText = string.Format("{0} AND R.[ConsumeTime] < '{1}'", cmdText, option.EndTime.ToString("yyyy-MM-dd HH:mm:ss"));
 
-            if (option.ConsumeType.TypeId != 0)
+            if (option.AccountType.TypeId != 0)
             {
-                if (option.ConsumeType.ParentTypeId != 0)
+                if (option.AccountType.ParentTypeId != 0)
                 {
-                    cmdText = string.Format("{0} AND R.[TypeId] = {1}", cmdText, option.ConsumeType.TypeId);
+                    cmdText = string.Format("{0} AND R.[TypeId] = {1}", cmdText, option.AccountType.TypeId);
                 }
                 else
                 {
-                    cmdText = string.Format("{0} AND T.[ParentTypeId] = {1}", cmdText, option.ConsumeType.TypeId);
+                    cmdText = string.Format("{0} AND T.[ParentTypeId] = {1}", cmdText, option.AccountType.TypeId);
                 }
             }
 
             if (option.UserId != 0)
             {
                 cmdText = string.Format("{0} AND U.[UserId] = {1}", cmdText, option.UserId);
+            }
+
+            if (option.AccountCategory != AccountCategory.Undefined)
+            {
+                cmdText = string.Format("{0} AND T.[Category] = {1}", cmdText, (int)option.AccountCategory);
             }
 
             // Keyword

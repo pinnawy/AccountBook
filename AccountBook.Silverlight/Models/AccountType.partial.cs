@@ -1,10 +1,10 @@
 ﻿namespace AccountBook.Model
 {
-    public partial class ConsumeType
+    public partial class AccountType
     {
-        public ConsumeType Clone()
+        public AccountType Clone()
         {
-            return new ConsumeType
+            return new AccountType
             {
                 TypeId = TypeId,
                 ParentTypeId = ParentTypeId,

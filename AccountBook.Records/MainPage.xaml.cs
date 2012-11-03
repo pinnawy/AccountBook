@@ -22,7 +22,7 @@ namespace AccountBook.Records
         private DateTime? _begigDate;
         private DateTime? _endDate;
         private UserInfo _consumer;
-        private ConsumeType _consumeType;
+        private AccountType _accountType;
         private string _sortName = "ConsumeTime";
         private SortDir _sortDir = SortDir.ASC;
         private string _keyword;
@@ -45,7 +45,7 @@ namespace AccountBook.Records
             _begigDate = e.BeginTime;
             _endDate = e.EndTime;
             _consumer = e.Consumer;
-            _consumeType = e.ConsumeType;
+            _accountType = e.AccountType;
             _keyword = e.Keyword;
 
             QueryRecords();
@@ -61,14 +61,14 @@ namespace AccountBook.Records
                 return;
             }
 
-            if (_consumeType == null)
+            if (_accountType == null)
             {
-                _consumeType = AccountBookContext.Instance.DefaultConsumeType;
+                _accountType = AccountBookContext.Instance.DefaultAccountType;
             }
 
-            var option = new ConsumeRecordQueryOption
+            var option = new AccountRecordQueryOption
             {
-                ConsumeType = _consumeType.Clone(),
+                AccountType = _accountType.Clone(),
                 UserId = _consumer == null ? AccountBookContext.Instance.DefaultConsumer.UserId : _consumer.UserId,
                 PageIndex = RecordsPager.PageIndex == -1 ? 0 : RecordsPager.PageIndex,
                 PageSize = RecordsPager.PageSize,
@@ -121,7 +121,7 @@ namespace AccountBook.Records
 
         private void BtnCreateRecordClick(object sender, RoutedEventArgs e)
         {
-            var record = new ConsumeRecord
+            var record = new AccountRecord
             {
                 ConsumeTime = DateTime.Now
             };
@@ -140,7 +140,7 @@ namespace AccountBook.Records
 
         private void RecordsGridBeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            var record = e.Row.DataContext as ConsumeRecord;
+            var record = e.Row.DataContext as AccountRecord;
             if (record != null)
             {
                 e.Cancel = true;
@@ -152,7 +152,7 @@ namespace AccountBook.Records
         /// 添加或编辑消费记录
         /// </summary>
         /// <param name="record">消费记录实体对象</param>
-        private void AddOrEditRecord(ConsumeRecord record)
+        private void AddOrEditRecord(AccountRecord record)
         {
             var win = new CreateEditRecordWindow(record);
             win.Closing += delegate
@@ -167,7 +167,7 @@ namespace AccountBook.Records
 
         private void BtnDeleteRecordClick(object sender, RoutedEventArgs e)
         {
-            var record = ((FrameworkElement)sender).DataContext as ConsumeRecord;
+            var record = ((FrameworkElement)sender).DataContext as AccountRecord;
             if (record != null)
             {
                 TipWindow.Confirm("Are you sure to delete this record?", isConfirm =>

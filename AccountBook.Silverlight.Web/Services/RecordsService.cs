@@ -15,12 +15,12 @@ namespace AccountBook.Silverlight.Web
     {
         private readonly IConsumeRecordBLL _consumeRecordBLL = UnityContext.LoadBLLModel<IConsumeRecordBLL>();
 
-        public long AddConsumeRecord(ConsumeRecord record)
+        public long AddConsumeRecord(AccountRecord record)
         {
             return _consumeRecordBLL.AddConsumeRecord(record);
         }
 
-        public bool UpdateConsumeRecord(ConsumeRecord record)
+        public bool UpdateConsumeRecord(AccountRecord record)
         {
             return _consumeRecordBLL.UpdateConsumeRecord(record);
         }
@@ -30,17 +30,17 @@ namespace AccountBook.Silverlight.Web
             return _consumeRecordBLL.DeleteConsumeRecord(recordId);
         }
 
-        public Dictionary<string, double> GetConsumeAmountByMonth(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByMonth(AccountRecordQueryOption option)
         {
             return _consumeRecordBLL.GetConsumeAmountByMonth(option);
         }
 
-        public Dictionary<string, double> GetConsumeAmountByYear(ConsumeRecordQueryOption option)
+        public Dictionary<string, double> GetConsumeAmountByYear(AccountRecordQueryOption option)
         {
             return _consumeRecordBLL.GetConsumeAmountByYear(option);
         }
 
-        public ConsumeRecordsResult GetConsumeRecordList(ConsumeRecordQueryOption option)
+        public AccountRecordsResult GetConsumeRecordList(AccountRecordQueryOption option)
         {
             return _consumeRecordBLL.GetConsumeRecordList(option);
         }

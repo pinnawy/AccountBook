@@ -93,6 +93,7 @@
     <Compile Include="CreateEditRecordWindow.xaml.cs">
       <DependentUpon>CreateEditRecordWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AccountCategoryConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

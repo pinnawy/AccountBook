@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IConsumeRecordDAL.cs" />
+    <Compile Include="IAccountRecordDAL.cs" />
     <Compile Include="IConsumeTypeDAL.cs" />
     <Compile Include="IUserDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

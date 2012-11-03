@@ -17,7 +17,7 @@ namespace AccountBook.Statistics
 
         private DateTime? _beginDate;
         private DateTime? _endDate;
-        private ConsumeType _consumeType;
+        private AccountType _accountType;
         private UserInfo _consumer;
         private string _keyword;
         private RenderAs _renderAs = RenderAs.Column;
@@ -43,7 +43,7 @@ namespace AccountBook.Statistics
         {
             _beginDate = e.BeginTime;
             _endDate = e.EndTime;
-            _consumeType = e.ConsumeType;
+            _accountType = e.AccountType;
             _consumer = e.Consumer;
             _keyword = e.Keyword;
 
@@ -60,14 +60,14 @@ namespace AccountBook.Statistics
                 return;
             }
 
-            if (_consumeType == null)
+            if (_accountType == null)
             {
-                _consumeType = AccountBookContext.Instance.DefaultConsumeType;
+                _accountType = AccountBookContext.Instance.DefaultAccountType;
             }
 
-            var option = new ConsumeRecordQueryOption
+            var option = new AccountRecordQueryOption
             {
-                ConsumeType = _consumeType.Clone(),
+                AccountType = _accountType.Clone(),
                 UserId = _consumer == null ? AccountBookContext.Instance.DefaultConsumer.UserId : _consumer.UserId,
                 PageIndex = 0,
                 PageSize = int.MaxValue,

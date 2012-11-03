@@ -18,8 +18,8 @@ namespace AccountBook.Silverlight
 
             _consumerList = new ObservableCollection<UserInfo>();
             _extUserInfoList = new ObservableCollection<UserInfo> { DefaultConsumer };
-            _consumeTypeList = new ObservableCollection<ConsumeType>();
-            _extConsumeTypeList = new ObservableCollection<ConsumeType> { DefaultConsumeType };
+            _expenseTypeList = new ObservableCollection<AccountType>();
+            _extExpenseTypeList = new ObservableCollection<AccountType> { DefaultAccountType };
         }
 
         private static AccountBookContext _instance;
@@ -38,15 +38,15 @@ namespace AccountBook.Silverlight
             private set;
         }
 
-        private ConsumeType _defaultConsumeType;
+        private AccountType _defaultAccountType;
         /// <summary>
         /// 默认消费类别
         /// </summary>
-        public ConsumeType DefaultConsumeType
+        public AccountType DefaultAccountType
         {
             get
             {
-                return _defaultConsumeType ?? (_defaultConsumeType = new ConsumeType { TypeId = 0, ParentTypeId = 0, TypeName = "全部" });
+                return _defaultAccountType ?? (_defaultAccountType = new AccountType { TypeId = 0, ParentTypeId = 0, TypeName = "全部" });
             }
         }
 
@@ -110,57 +110,57 @@ namespace AccountBook.Silverlight
             }
         }
 
-        private ObservableCollection<ConsumeType> _consumeTypeList;
+        private ObservableCollection<AccountType> _expenseTypeList;
         /// <summary>
         /// 消费类别列表
         /// </summary>
-        public ObservableCollection<ConsumeType> ConsumeTypeList
+        public ObservableCollection<AccountType> ExpenseTypeList
         {
             get
             {
-                return _consumeTypeList;
+                return _expenseTypeList;
             }
         }
 
-        private ObservableCollection<ConsumeType> _extConsumeTypeList;
+        private ObservableCollection<AccountType> _extExpenseTypeList;
         /// <summary>
         /// 扩展的消费类别列表
         /// </summary>
-        public ObservableCollection<ConsumeType> ExtConsumeTypeList
+        public ObservableCollection<AccountType> ExtExpenseTypeList
         {
             get
             {
-                return _extConsumeTypeList;
+                return _extExpenseTypeList;
             }
         }
 
         /// <summary>
         /// 设置消费类别列表
         /// </summary>
-        /// <param name="consumeTypeList">消费类别列表</param>
-        public void SetConsumeTypeList(IEnumerable<ConsumeType> consumeTypeList)
+        /// <param name="expenseTypeList">消费类别列表</param>
+        public void SetExpenseTypeList(IEnumerable<AccountType> expenseTypeList)
         {
-            if (consumeTypeList == null)
+            if (expenseTypeList == null)
             {
                 return;
             }
 
-            _consumeTypeList.Clear();
-            for (int i = _extConsumeTypeList.Count - 1; i > 0; i--)
+            _expenseTypeList.Clear();
+            for (int i = _extExpenseTypeList.Count - 1; i > 0; i--)
             {
-                _extConsumeTypeList.RemoveAt(i);
+                _extExpenseTypeList.RemoveAt(i);
             }
 
-            var parentTypeList = consumeTypeList.Where(consumeType => consumeType.ParentTypeId == 0);
-            foreach (ConsumeType parentType in parentTypeList)
+            var parentTypeList = expenseTypeList.Where(consumeType => consumeType.ParentTypeId == 0);
+            foreach (AccountType parentType in parentTypeList)
             {
-                IEnumerable<ConsumeType> subTypeList = consumeTypeList.Where(consumeType => consumeType.ParentTypeId == parentType.TypeId);
-                _consumeTypeList.Add(parentType);
-                _extConsumeTypeList.Add(parentType);
+                IEnumerable<AccountType> subTypeList = expenseTypeList.Where(consumeType => consumeType.ParentTypeId == parentType.TypeId);
+                _expenseTypeList.Add(parentType);
+                _extExpenseTypeList.Add(parentType);
                 foreach (var consumeType in subTypeList)
                 {
-                    _consumeTypeList.Add(consumeType);
-                    _extConsumeTypeList.Add(consumeType);
+                    _expenseTypeList.Add(consumeType);
+                    _extExpenseTypeList.Add(consumeType);
                 }
             }
         }

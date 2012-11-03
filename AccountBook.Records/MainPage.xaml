@@ -3,10 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
-             xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
-             xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls" mc:Ignorable="d"
+        xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
+        xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+        xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls"
+        xmlns:Helper="clr-namespace:AccountBook.Records.Helper" mc:Ignorable="d"
     d:DesignHeight="600" d:DesignWidth="1024">
+    <SControls:BasePage.Resources>
+        <Helper:AccountCategoryConverter x:Key="AccountCategoryConverter" />
+    </SControls:BasePage.Resources>
 
     <Grid x:Name="LayoutRoot" Background="White" Margin="30,20,30,10">
         <Grid.RowDefinitions>
@@ -17,7 +21,7 @@
             <RowDefinition  Height="auto"/>
         </Grid.RowDefinitions>
         
-        <SControls:GroupBox Header="Query Condition" Padding="5,5,20,5" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <SControls:GroupBox Header="Query Condition" Padding="5,7,10,5" HorizontalAlignment="Left" VerticalAlignment="Top">
             <controls:QueryPanel x:Name="QueryCondionPanel"
             IsEnabled="{Binding CanQueryRecords}"
             QueryConditionChanged="QueryPanelQueryConditionChanged"/>
@@ -125,7 +129,16 @@
                 </sdk:DataGrid.ColumnHeaderStyle>
                 <sdk:DataGrid.Columns>
                     <sdk:DataGridTextColumn  Header="Type" Width="0.15*" Binding="{Binding Type.TypeName}" CanUserSort="True" SortMemberPath="TypeId" />
-                    <sdk:DataGridTextColumn  Header="Money" Width="0.15*" Binding="{Binding Money}" CanUserSort="True" />
+                    <sdk:DataGridTemplateColumn Header="Money" Width="0.15*"  CanUserSort="True" >
+                        <sdk:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Foreground="{Binding Type.Category, Converter={StaticResource AccountCategoryConverter}}">
+                                    <Run Text="{Binding Type.Category, Converter={StaticResource AccountCategoryConverter}}"/>
+                                    <Run Text="{Binding Money}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </sdk:DataGridTemplateColumn.CellTemplate>
+                    </sdk:DataGridTemplateColumn>
                     <sdk:DataGridTextColumn  Header="ConsumeTime" Width="0.155*" Binding="{Binding ConsumeTime, StringFormat='yyyy-MM-dd'}" CanUserSort="True"/>
                     <sdk:DataGridTextColumn  Header="Memo" Width="0.34*" Binding="{Binding Memo}" CanUserSort="True" />
                     <sdk:DataGridTextColumn  Header="User" Width="0.15*" Binding="{Binding Consumer.FriendlyName}" CanUserSort="True" SortMemberPath="FriendlyName" />

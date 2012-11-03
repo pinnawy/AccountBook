@@ -15,7 +15,7 @@ namespace AccountBook.Records
         private readonly bool _isUpdateRecord;      // 是否是更新记录
         private int _addRecordCount;                // 添加记录数
 
-        public CreateEditRecordWindow(ConsumeRecord record)
+        public CreateEditRecordWindow(AccountRecord record)
         {
             InitializeComponent();
             _isUpdateRecord = record.Id > 0;
@@ -44,8 +44,8 @@ namespace AccountBook.Records
                 ComboBox cmbConsumeType = new ComboBox();
                 cmbConsumeType.DisplayMemberPath = "TypeName";
                 cmbConsumeType.Name = "CmbConsumeType";
-                cmbConsumeType.ItemsSource = AccountBookContext.Instance.ConsumeTypeList;
-                cmbConsumeType.SelectedItem = AccountBookContext.Instance.ConsumeTypeList[1];
+                cmbConsumeType.ItemsSource = AccountBookContext.Instance.ExpenseTypeList;
+                cmbConsumeType.SelectedItem = AccountBookContext.Instance.ExpenseTypeList[1];
                 cmbConsumeType.ItemTemplate = Application.Current.Resources["ConsumerTypeItemTemplate"] as DataTemplate;
                 cmbConsumeType.ItemContainerStyle = Application.Current.Resources["ExConsumerTypeItemPanelStyle"] as Style;
                 e.Field.ReplaceTextBox(cmbConsumeType, Selector.SelectedIndexProperty, binding =>
@@ -94,7 +94,7 @@ namespace AccountBook.Records
                 _addRecordCount++;
                 TipPanel.Visibility = Visibility.Visible;
                 // RecordDataForm.ClearValue(DataForm.CurrentItemProperty);
-                this.DataContext = new ConsumeRecord
+                this.DataContext = new AccountRecord
                 {
                     Consumer = new UserInfo
                     {
@@ -117,9 +117,9 @@ namespace AccountBook.Records
         /// </summary>
         /// <param name="isUpdate">更新记录</param>
         /// <param name="callback">操作成功回调</param>
-        private void AddOrUpdateConsumeRecord(bool isUpdate, Action<ConsumeRecord> callback)
+        private void AddOrUpdateConsumeRecord(bool isUpdate, Action<AccountRecord> callback)
         {
-            var record = this.DataContext as ConsumeRecord;
+            var record = this.DataContext as AccountRecord;
             if (record != null)
             {
                 if (record.CurrentOperation != null && !record.CurrentOperation.IsComplete)

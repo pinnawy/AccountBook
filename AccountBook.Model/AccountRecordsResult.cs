@@ -2,7 +2,7 @@
 
 namespace AccountBook.Model
 {
-    public class ConsumeRecordsResult
+    public class AccountRecordsResult
     {
         /// <summary>
         /// 消费记录总条数
@@ -22,6 +22,6 @@ namespace AccountBook.Model
         /// <summary>
         /// 消费记录
         /// </summary>
-        public List<ConsumeRecord> Records { get; set; }
+        public List<AccountRecord> Records { get; set; }
     }
 }

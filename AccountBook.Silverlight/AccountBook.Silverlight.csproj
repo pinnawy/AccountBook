@@ -124,8 +124,8 @@
       <DependentUpon>SecurityQuestions.resx</DependentUpon>
     </Compile>
     <Compile Include="Helpers\XapHelper.cs" />
-    <Compile Include="Models\ConsumeRecord.partial.cs" />
-    <Compile Include="Models\ConsumeType.partial.cs" />
+    <Compile Include="Models\AccountRecord.partial.cs" />
+    <Compile Include="Models\AccountType.partial.cs" />
     <Compile Include="Models\LoginInfo.cs" />
     <Compile Include="Events\QueryConditionChangedEventArgs.cs" />
     <Compile Include="Models\RegistrationData.partial.cs" />

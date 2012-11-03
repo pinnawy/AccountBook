@@ -4,10 +4,10 @@ using System.ServiceModel.DomainServices.Client;
 
 namespace AccountBook.Model
 {
-    public partial class ConsumeRecord
+    public partial class AccountRecord
     {
         private OperationBase _currentOperation;
-
+        [Display(AutoGenerateField = false)]
         public OperationBase CurrentOperation
         {
             get

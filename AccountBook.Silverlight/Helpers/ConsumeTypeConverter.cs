@@ -10,34 +10,25 @@ namespace AccountBook.Silverlight
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var consumeType = value as ConsumeType;
+            var consumeType = value as AccountType;
             if (consumeType != null)
             {
-                for (var index = 0; index < AccountBookContext.Instance.ConsumeTypeList.Count; index++)
+                for (var index = 0; index < AccountBookContext.Instance.ExpenseTypeList.Count; index++)
                 {
-                    if (AccountBookContext.Instance.ConsumeTypeList[index].TypeId == consumeType.TypeId)
+                    if (AccountBookContext.Instance.ExpenseTypeList[index].TypeId == consumeType.TypeId)
                     {
                         return index;
                     }
                 }
             }
 
-            var firstSubType =AccountBookContext.Instance.ConsumeTypeList.First(type => type.ParentTypeId != 0);
-            return AccountBookContext.Instance.ConsumeTypeList.IndexOf(firstSubType);
+            var firstSubType =AccountBookContext.Instance.ExpenseTypeList.First(type => type.ParentTypeId != 0);
+            return AccountBookContext.Instance.ExpenseTypeList.IndexOf(firstSubType);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ConsumeType consumeType = AccountBookContext.Instance.ConsumeTypeList[(int)value];
-
-            return new ConsumeType
-            {
-                ParentTypeId = consumeType.ParentTypeId,
-                TypeId = consumeType.TypeId,
-                TypeName = consumeType.TypeName,
-                ParentTypeName = consumeType.ParentTypeName
-            };
-
+            return AccountBookContext.Instance.ExpenseTypeList[(int)value];
         }
     }
 }

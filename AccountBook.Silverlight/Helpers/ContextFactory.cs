@@ -6,7 +6,7 @@ namespace AccountBook.Silverlight.Helpers
     public class ContextFactory
     {
         private static RecordsContext _recordsContext;
-        private static ConsumeTypeContext _consumeTypeContext;
+        private static AccountTypeContext _accountTypeContext;
         private static UserContext _userContext ;
 
         public static RecordsContext RecordsContext
@@ -14,9 +14,9 @@ namespace AccountBook.Silverlight.Helpers
             get { return _recordsContext ?? (_recordsContext = new RecordsContext()); }
         }
 
-        public static ConsumeTypeContext ConsumeTypeContext
+        public static AccountTypeContext ConsumeTypeContext
         {
-            get { return _consumeTypeContext ?? (_consumeTypeContext = new ConsumeTypeContext()); }
+            get { return _accountTypeContext ?? (_accountTypeContext = new AccountTypeContext()); }
         }
 
         public static UserContext UserContext

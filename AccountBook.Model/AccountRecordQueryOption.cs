@@ -2,11 +2,11 @@
 
 namespace AccountBook.Model
 {
-    public class ConsumeRecordQueryOption : QueryOptionBase
+    public class AccountRecordQueryOption : QueryOptionBase
     {
-        public ConsumeRecordQueryOption()
+        public AccountRecordQueryOption()
         {
-            ConsumeType = new ConsumeType { ParentTypeId = 0, TypeId = 0 };
+            AccountType = new AccountType { ParentTypeId = 0, TypeId = 0 };
             UserId = 0;
             PageIndex = 1;
             PageSize = 10;
@@ -18,7 +18,7 @@ namespace AccountBook.Model
 
         private DateTime _beginTime;
         private DateTime _endTime;
-        private ConsumeType _type;
+        private AccountType _type;
         private long _userId;
         private string _keyword;
 
@@ -43,7 +43,7 @@ namespace AccountBook.Model
         /// <summary>
         /// 消费类别
         /// </summary>
-        public ConsumeType ConsumeType
+        public AccountType AccountType
         {
             get { return _type; }
             set { _type = value; }
@@ -56,6 +56,15 @@ namespace AccountBook.Model
         {
             get { return _userId; }
             set { _userId = value; }
+        }
+
+        /// <summary>
+        /// 账目分类
+        /// </summary>
+        public AccountCategory AccountCategory
+        {
+            get;
+            set;
         }
 
         /// <summary>
