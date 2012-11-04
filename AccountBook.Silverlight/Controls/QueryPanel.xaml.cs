@@ -11,9 +11,10 @@ namespace AccountBook.Silverlight.Controls
 {
     public partial class QueryPanel : UserControl
     {
-        private bool _consumerTypeInitialized;
+        private bool _accountTypeInitialized;
         private bool _consumerInitialized;
         private string _keyword;
+        private AccountCategory _accountCategory = AccountCategory.Expense;
 
         public event EventHandler<QueryConditionChangedEventArgs> QueryConditionChanged;
 
@@ -39,7 +40,7 @@ namespace AccountBook.Silverlight.Controls
         {
             get
             {
-                return _consumerTypeInitialized && _consumerInitialized;
+                return _accountTypeInitialized && _consumerInitialized;
             }
         }
 
@@ -48,10 +49,10 @@ namespace AccountBook.Silverlight.Controls
             InitializeComponent();
             this.DataContext = this;
 
-            var style = Application.Current.Resources["ConsumerTypeItemPanelStyle"] as Style;
+            var style = Application.Current.Resources["AccountTypeItemPanelStyle"] as Style;
             if (style != null)
             {
-                CmbConsumeType.ItemContainerStyle = style;
+                CmbAccountType.ItemContainerStyle = style;
             }
 
             if (!DesignerProperties.IsInDesignTool)
@@ -66,11 +67,12 @@ namespace AccountBook.Silverlight.Controls
         /// </summary>
         private void InitConsumeTypes()
         {
-            ContextFactory.ConsumeTypeContext.GetAccountTypes(0, AccountCategory.Expense, result =>
+            ContextFactory.ConsumeTypeContext.GetAccountTypes(0, AccountCategory.Undefined, result =>
             {
-                AccountBookContext.Instance.SetExpenseTypeList(result.Value);
-                CmbConsumeType.ItemsSource = AccountBookContext.Instance.ExtExpenseTypeList;
-                _consumerTypeInitialized = true;
+                AccountBookContext.Instance.SetAccountTypeList(result.Value);
+                //CmbAccountType.ItemsSource = AccountBookContext.Instance.ExtAccountTypeList;
+                CmbAccountType.ItemsSource = AccountBookContext.Instance.ExtExpenseTypeList;
+                _accountTypeInitialized = true;
 
                 if (DataInitialized)
                 {
@@ -101,14 +103,15 @@ namespace AccountBook.Silverlight.Controls
         {
             if (QueryConditionChanged != null)
             {
-                var consumerType = CmbConsumeType.SelectedItem as AccountType;
+                var consumerType = CmbAccountType.SelectedItem as AccountType;
                 var args = new QueryConditionChangedEventArgs
                 {
                     BeginTime = DpBeginDate.SelectedDate,
                     EndTime = DpEndDate.SelectedDate,
                     Consumer = CmbConsumeUser.SelectedItem as UserInfo,
                     AccountType = consumerType,
-                    Keyword = _keyword
+                    Keyword = _keyword,
+                    AccountCategory = _accountCategory
                 };
 
                 QueryConditionChanged(this, args);
@@ -135,6 +138,30 @@ namespace AccountBook.Silverlight.Controls
             {
                 _keyword = TxtKeyword.Text.Trim();
                 RiseQueryConditionChangedEvent();
+            }
+        }
+
+        private void CmbCategorySelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(CmbAccountType != null && e.AddedItems.Count>0)
+            {
+                switch(e.AddedItems[0].ToString())
+                {
+                    case "支出":
+                        _accountCategory = AccountCategory.Expense;
+                        CmbAccountType.ItemsSource = AccountBookContext.Instance.ExtExpenseTypeList;
+                        break;
+                    case "收入":
+                        _accountCategory = AccountCategory.Income;
+                        CmbAccountType.ItemsSource = AccountBookContext.Instance.ExtIncomeTypeList;
+                        break;
+                    default:
+                        _accountCategory = AccountCategory.Undefined;
+                        CmbAccountType.ItemsSource = AccountBookContext.Instance.ExtAccountTypeList;
+                        break;
+                }
+
+                CmbAccountType.SelectedIndex = 0;
             }
         }
     }

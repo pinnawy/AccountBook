@@ -26,7 +26,9 @@ namespace AccountBook.Records
         private string _sortName = "ConsumeTime";
         private SortDir _sortDir = SortDir.ASC;
         private string _keyword;
+        private AccountCategory _accountCategory = AccountCategory.Expense;
         private DataGridColumnHeader _currSortColumnHeader;
+        
 
         public MainPage()
         {
@@ -47,6 +49,11 @@ namespace AccountBook.Records
             _consumer = e.Consumer;
             _accountType = e.AccountType;
             _keyword = e.Keyword;
+            if(e.AccountCategory != _accountCategory)
+            {
+                _accountCategory = e.AccountCategory;
+                RecordsPager.PageIndex = 0;
+            }
 
             QueryRecords();
         }
@@ -76,8 +83,25 @@ namespace AccountBook.Records
                 EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
                 SortName = _sortName,
                 SortDir = _sortDir,
-                KeyWord = _keyword
+                KeyWord = _keyword,
+                AccountCategory = _accountCategory
             };
+
+            if (_accountCategory == AccountCategory.Expense)
+            {
+                BtnCreateExpenseRecord.Visibility = Visibility.Visible;
+                BtnCreateIncomeRecord.Visibility = Visibility.Collapsed;
+            }
+            else if (_accountCategory == AccountCategory.Income)
+            {
+                BtnCreateExpenseRecord.Visibility = Visibility.Collapsed;
+                BtnCreateIncomeRecord.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BtnCreateExpenseRecord.Visibility = Visibility.Visible;
+                BtnCreateIncomeRecord.Visibility = Visibility.Visible;
+            }
 
             // 获取服务端消费记录数据
             this.CurrQueryOperation = ContextFactory.RecordsContext.GetConsumeRecordList(option, operation =>
@@ -119,13 +143,22 @@ namespace AccountBook.Records
             _currPageIndex = RecordsPager.PageIndex;
         }
 
-        private void BtnCreateRecordClick(object sender, RoutedEventArgs e)
+        private void BtnCreateExpensenRecordClick(object sender, RoutedEventArgs e)
         {
             var record = new AccountRecord
             {
                 ConsumeTime = DateTime.Now
             };
-            AddOrEditRecord(record);
+            AddOrEditRecord(record, AccountCategory.Expense);
+        }
+
+        private void BtnCreateIncomeRecordClick(object sender, RoutedEventArgs e)
+        {
+            var record = new AccountRecord
+            {
+                ConsumeTime = DateTime.Now
+            };
+            AddOrEditRecord(record, AccountCategory.Income);
         }
 
         private void PageSizeChanged(object sender, SelectionChangedEventArgs e)
@@ -144,7 +177,7 @@ namespace AccountBook.Records
             if (record != null)
             {
                 e.Cancel = true;
-                AddOrEditRecord(record);
+                AddOrEditRecord(record, record.Type.Category);
             }
         }
 
@@ -152,9 +185,10 @@ namespace AccountBook.Records
         /// 添加或编辑消费记录
         /// </summary>
         /// <param name="record">消费记录实体对象</param>
-        private void AddOrEditRecord(AccountRecord record)
+        /// <param name="category"></param>
+        private void AddOrEditRecord(AccountRecord record, AccountCategory category)
         {
-            var win = new CreateEditRecordWindow(record);
+            var win = new CreateEditRecordWindow(record, category);
             win.Closing += delegate
             {
                 if (win.DialogResult.HasValue && win.DialogResult.Value)
@@ -238,6 +272,4 @@ namespace AccountBook.Records
             e.Handled = true;
         }
     }
-
-
 }

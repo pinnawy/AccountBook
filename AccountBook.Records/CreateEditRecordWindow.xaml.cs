@@ -14,16 +14,23 @@ namespace AccountBook.Records
     {
         private readonly bool _isUpdateRecord;      // 是否是更新记录
         private int _addRecordCount;                // 添加记录数
+        private AccountCategory _category;
 
-        public CreateEditRecordWindow(AccountRecord record)
+        public CreateEditRecordWindow(AccountRecord record, AccountCategory category)
         {
             InitializeComponent();
+            _category = category;
             _isUpdateRecord = record.Id > 0;
+
             if (_isUpdateRecord)
             {
-                Title = "Update Record";
+                Title = string.Format("Update {0} Record", category);
                 BtnSave.Content = "Update";
                 BtnSaveAdd.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Title = string.Format("Create {0} Record", category);
             }
             this.DataContext = record;
 
@@ -41,22 +48,22 @@ namespace AccountBook.Records
 
             if (e.PropertyName == "Type")
             {
-                ComboBox cmbConsumeType = new ComboBox();
-                cmbConsumeType.DisplayMemberPath = "TypeName";
-                cmbConsumeType.Name = "CmbConsumeType";
-                cmbConsumeType.ItemsSource = AccountBookContext.Instance.ExpenseTypeList;
-                cmbConsumeType.SelectedItem = AccountBookContext.Instance.ExpenseTypeList[1];
-                cmbConsumeType.ItemTemplate = Application.Current.Resources["ConsumerTypeItemTemplate"] as DataTemplate;
-                cmbConsumeType.ItemContainerStyle = Application.Current.Resources["ExConsumerTypeItemPanelStyle"] as Style;
-                e.Field.ReplaceTextBox(cmbConsumeType, Selector.SelectedIndexProperty, binding =>
+                var accountTypeList = _category == AccountCategory.Expense ? AccountBookContext.Instance.ExpenseTypeList : AccountBookContext.Instance.IncomeTypeList;
+                var cmbAccountType = new ComboBox();
+                cmbAccountType.DisplayMemberPath = "TypeName";
+                cmbAccountType.Name = "CmbAccountType";
+                cmbAccountType.ItemsSource = accountTypeList;
+                cmbAccountType.SelectedItem = accountTypeList[1];
+                cmbAccountType.ItemContainerStyle = Application.Current.Resources["ExAccountTypeItemPanelStyle"] as Style;
+                e.Field.ReplaceTextBox(cmbAccountType, Selector.SelectedIndexProperty, binding =>
                 {
                     binding.Mode = BindingMode.TwoWay;
-                    binding.Converter = new ConsumeTypeConverter();
+                    binding.Converter = new AccountTypeConverter(_category == AccountCategory.Expense ? AccountBookContext.Instance.ExpenseTypeList : AccountBookContext.Instance.IncomeTypeList);
                 });
             }
             else if (e.PropertyName == "Consumer")
             {
-                ComboBox cmbConsumer = new ComboBox();
+                var cmbConsumer = new ComboBox();
                 cmbConsumer.Name = "CmbConsumer";
                 cmbConsumer.DisplayMemberPath = "FriendlyName";
                 cmbConsumer.ItemsSource = AccountBookContext.Instance.ConsumerList;
@@ -68,7 +75,7 @@ namespace AccountBook.Records
             }
             else if (e.PropertyName == "Memo")
             {
-                TextBox memoTextBox = e.Field.Content as TextBox;
+                var memoTextBox = e.Field.Content as TextBox;
                 if (memoTextBox != null)
                 {
                     memoTextBox.Height = 120;
@@ -177,10 +184,10 @@ namespace AccountBook.Records
                 cmbConsumer.IsEnabled = e.Mode != DataFormMode.ReadOnly;
             }
 
-            var cmbConsumeType = RecordDataForm.FindNameInContent("CmbConsumeType") as ComboBox;
-            if (cmbConsumeType != null)
+            var cmbAccountType = RecordDataForm.FindNameInContent("CmbAccountType") as ComboBox;
+            if (cmbAccountType != null)
             {
-                cmbConsumeType.IsEnabled = e.Mode != DataFormMode.ReadOnly;
+                cmbAccountType.IsEnabled = e.Mode != DataFormMode.ReadOnly;
             }
         }
 

@@ -4,7 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
-    mc:Ignorable="d"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" mc:Ignorable="d"
     d:DesignHeight="25" d:DesignWidth="800">
 
     <StackPanel Orientation="Horizontal">
@@ -23,7 +23,7 @@
                 SelectedDateChanged="CtlQueryConditionChanged"/>
         
         <TextBlock Text="Type:" VerticalAlignment="Center" />
-        <ComboBox Name="CmbConsumeType" x:FieldModifier="private"
+        <ComboBox Name="CmbAccountType" x:FieldModifier="private"
                 Width="80"
                 Margin="0,0,5,0"
                 VerticalAlignment="Center"
@@ -38,7 +38,16 @@
                 VerticalAlignment="Center" 
                 DisplayMemberPath="FriendlyName"
                 SelectionChanged="CtlQueryConditionChanged"/>
-        
+
+        <TextBlock Text="Category:" VerticalAlignment="Center"  Margin="5,0,0,0"/>
+        <ComboBox Width="80"
+                SelectedIndex="0"
+                VerticalAlignment="Center" 
+                SelectionChanged="CmbCategorySelectionChanged">
+            <sys:String>支出</sys:String>
+            <sys:String>收入</sys:String>
+        </ComboBox>
+
         <TextBlock Text="Keyword:" VerticalAlignment="Center" Margin="5,0,0,0" />
         <TextBox Name="TxtKeyword" VerticalAlignment="Center" Width="150" MaxLength="20" LostFocus="TxtKeywordLostFocus"  KeyUp="TxtKeywordKeyUp"/>
     </StackPanel>

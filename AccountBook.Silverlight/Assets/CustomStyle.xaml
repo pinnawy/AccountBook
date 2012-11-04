@@ -5,13 +5,12 @@
 
     <converter:ConsumerTypeGroupConverter x:Key="ConsumerTypeGroupConverter"></converter:ConsumerTypeGroupConverter>
     
-    <Style x:Key="ConsumerTypeItemPanelStyle" TargetType="ContentControl">
+    <Style x:Key="AccountTypeItemPanelStyle" TargetType="ContentControl">
         <Setter Property="Background" Value="{Binding ParentTypeId,Converter={StaticResource ConsumerTypeGroupConverter}, ConverterParameter=Background}"></Setter>
         <Setter Property="FontWeight" Value="{Binding ParentTypeId,Converter={StaticResource ConsumerTypeGroupConverter}, ConverterParameter=FontWeight}"></Setter>
     </Style>
 
-    <Style x:Key="ExConsumerTypeItemPanelStyle" TargetType="ContentControl" BasedOn="{StaticResource ConsumerTypeItemPanelStyle}">
-        <Setter Property="IsEnabled" Value="{Binding ParentTypeId,Converter={StaticResource ConsumerTypeGroupConverter}, ConverterParameter=IsEnabled}"></Setter>
+    <Style x:Key="ExAccountTypeItemPanelStyle" TargetType="ContentControl" BasedOn="{StaticResource AccountTypeItemPanelStyle}">
+        <Setter Property="IsEnabled" Value="{Binding ParentTypeId, Converter={StaticResource ConsumerTypeGroupConverter}, ConverterParameter=IsEnabled}"></Setter>
     </Style>
-
 </ResourceDictionary>

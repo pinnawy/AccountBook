@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ServiceModel.DomainServices.Client;
 using System.Windows.Controls;
 using AccountBook.Model;
 using AccountBook.SControls;
@@ -22,6 +20,7 @@ namespace AccountBook.Statistics
         private string _keyword;
         private RenderAs _renderAs = RenderAs.Column;
         private string _statisticsRange = "Month";
+        private AccountCategory _accountCategory = AccountCategory.Expense;
 
 
         public MainPage()
@@ -30,10 +29,10 @@ namespace AccountBook.Statistics
 
             this.DataContext = this;
 
-            this.Loaded += new System.Windows.RoutedEventHandler(MainPage_Loaded);
+            this.Loaded += new System.Windows.RoutedEventHandler(MainPageLoaded);
         }
 
-        void MainPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        void MainPageLoaded(object sender, System.Windows.RoutedEventArgs e)
         {
             QueryCondionPanel.QueryConditionChanged -= QueryPanelQueryConditionChanged;
             QueryCondionPanel.QueryConditionChanged += QueryPanelQueryConditionChanged;
@@ -46,6 +45,7 @@ namespace AccountBook.Statistics
             _accountType = e.AccountType;
             _consumer = e.Consumer;
             _keyword = e.Keyword;
+            _accountCategory = e.AccountCategory;
 
             QueryRecords();
         }
@@ -73,7 +73,8 @@ namespace AccountBook.Statistics
                 PageSize = int.MaxValue,
                 BeginTime = _beginDate.HasValue ? _beginDate.Value : DateTime.MinValue,
                 EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
-                KeyWord = _keyword
+                KeyWord = _keyword,
+                AccountCategory = _accountCategory
             };
 
             if (_statisticsRange == "Month")

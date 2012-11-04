@@ -111,7 +111,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\AccountBookContext.cs" />
     <Compile Include="Helpers\ConsumerTypeGroupConverter.cs" />
-    <Compile Include="Helpers\ConsumeTypeConverter.cs" />
+    <Compile Include="Helpers\AccountTypeConverter.cs" />
     <Compile Include="Helpers\ConsumeUserConverter.cs" />
     <Compile Include="Helpers\ContextFactory.cs" />
     <Compile Include="Helpers\DataFieldExtensions.cs" />

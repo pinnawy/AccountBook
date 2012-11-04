@@ -19,7 +19,7 @@ namespace AccountBook.Records.Helper
                 return category == AccountCategory.Expense ? _expenseColor : _incomeColor;
             }
 
-            return category == AccountCategory.Expense ? "-" : "+";
+            return category == AccountCategory.Expense ? "‐" : "+";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -27,14 +27,19 @@
             QueryConditionChanged="QueryPanelQueryConditionChanged"/>
         </SControls:GroupBox>
 
-        <Button Grid.Row="1" Name="BtnCreateRecord" Margin="0,5"
-                Content="Add Record" 
-                Height="23" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                Width="75" 
+        <StackPanel Grid.Row="1" Margin="0,5" Orientation="Horizontal">
+            <Button  Name="BtnCreateExpenseRecord" 
+                Content="Add Expense Record" 
                 IsEnabled="{Binding CanQueryRecords}"
-                Click="BtnCreateRecordClick"/>
+                Click="BtnCreateExpensenRecordClick"/>
+
+            <Button  Name="BtnCreateIncomeRecord" 
+                Content="Add Income Record" 
+                Margin="5,0"
+                IsEnabled="{Binding CanQueryRecords}"
+                Click="BtnCreateIncomeRecordClick"/>
+        </StackPanel>
+      
         
         <controls:BusyIndicator Grid.Row="2"
             IsBusy="{Binding IsOperationing}"

@@ -34,5 +34,11 @@ namespace AccountBook.Silverlight.Events
             get;
             set;
         }
+
+        public AccountCategory AccountCategory
+        {
+            get;
+            set;
+        }
     }
 }
