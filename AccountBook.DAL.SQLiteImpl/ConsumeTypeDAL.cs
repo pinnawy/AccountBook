@@ -12,8 +12,14 @@ namespace AccountBook.DAL.SQLiteImpl
                                 FROM [AccountType] T WHERE 1=1";
             if (parentTypeId != 0)
             {
-                cmdText = string.Format("{0} AND [ParentTypeId]={1} AND [Category]={2}", cmdText, parentTypeId, (int)category);
+                cmdText = string.Format("{0} AND [ParentTypeId]={1}", cmdText, parentTypeId);
             }
+
+            if(category != AccountCategory.Undefined)
+            {
+                cmdText = string.Format("{0} AND [Category]={1}", cmdText, (int)category);
+            }
+
             var reader = SqliteHelper.ExecuteReader(cmdText);
             return reader.ToConsumeTypeList();
         }
@@ -21,7 +27,13 @@ namespace AccountBook.DAL.SQLiteImpl
         public List<AccountType> GetAccountSubTypes(AccountCategory category)
         {
             string cmdText = string.Format(@"SELECT *,(SELECT [TypeName] FROM [AccountType] WHERE [TypeId] = T.[ParentTypeId]) AS ParentTypeName 
-                                    FROM [AccountType] T WHERE [ParentTypeId] <> 0 AND [Category]={0}",(int)category);
+                                    FROM [AccountType] T WHERE [ParentTypeId] <> 0");
+
+            if (category != AccountCategory.Undefined)
+            {
+                cmdText = string.Format("{0} AND [Category]={1}", cmdText, (int)category);
+            }
+
             var reader = SqliteHelper.ExecuteReader(cmdText);
             return reader.ToConsumeTypeList();
         }
