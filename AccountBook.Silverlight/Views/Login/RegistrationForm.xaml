@@ -27,7 +27,10 @@
                               AutoGeneratingField="RegisterForm_AutoGeneratingField"
                               Style="{StaticResource DataFormStyle}" />
         </local:BusyIndicator>
-
+        <Border Background="White" >
+            <TextBlock Text="Not Support! - -" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
             <Button x:Name="registerButton" Content="{Binding Path=Strings.OKButton, Source={StaticResource ApplicationResources}}" Click="RegisterButton_Click" Style="{StaticResource RegisterLoginButtonStyle}" IsEnabled="{Binding IsRegistering, Converter={StaticResource NotOperatorValueConverter}}" />
             <Button x:Name="registerCancel" Content="{Binding Path=Strings.CancelButton, Source={StaticResource ApplicationResources}}" Click="CancelButton_Click" Style="{StaticResource RegisterLoginButtonStyle}" />

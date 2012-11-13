@@ -80,7 +80,7 @@ namespace AccountBook.Records
                 PageIndex = RecordsPager.PageIndex == -1 ? 0 : RecordsPager.PageIndex,
                 PageSize = RecordsPager.PageSize,
                 BeginTime = _begigDate.HasValue ? _begigDate.Value : DateTime.MinValue,
-                EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
+                EndTime = _endDate.HasValue ? _endDate.Value.AddDays(1) : DateTime.MaxValue,
                 SortName = _sortName,
                 SortDir = _sortDir,
                 KeyWord = _keyword,

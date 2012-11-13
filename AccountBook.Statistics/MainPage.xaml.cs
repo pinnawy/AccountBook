@@ -72,7 +72,7 @@ namespace AccountBook.Statistics
                 PageIndex = 0,
                 PageSize = int.MaxValue,
                 BeginTime = _beginDate.HasValue ? _beginDate.Value : DateTime.MinValue,
-                EndTime = _endDate.HasValue ? _endDate.Value : DateTime.MaxValue,
+                EndTime = _endDate.HasValue ? _endDate.Value.AddDays(1) : DateTime.MaxValue,
                 KeyWord = _keyword,
                 AccountCategory = _accountCategory
             };

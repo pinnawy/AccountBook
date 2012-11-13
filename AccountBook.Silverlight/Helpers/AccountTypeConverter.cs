@@ -36,7 +36,7 @@ namespace AccountBook.Silverlight
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return _accountTypeList[(int)value];
+            return _accountTypeList[(int)value].Clone();
         }
     }
 }
