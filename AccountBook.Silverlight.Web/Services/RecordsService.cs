@@ -40,6 +40,11 @@ namespace AccountBook.Silverlight.Web
             return _consumeRecordBLL.GetConsumeAmountByYear(option);
         }
 
+        public Dictionary<string, double> GetAccountTypeInfo(AccountRecordQueryOption option, int typeLevel)
+        {
+            return _consumeRecordBLL.GetAccountTypeInfo(option, typeLevel);
+        }
+
         public AccountRecordsResult GetConsumeRecordList(AccountRecordQueryOption option)
         {
             return _consumeRecordBLL.GetConsumeRecordList(option);

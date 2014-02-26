@@ -14,6 +14,7 @@ namespace AccountBook.Model
             EndTime = DateTime.MaxValue;
             SortName = string.Empty;
             SortDir = SortDir.DESC;
+            ShowAccessorial = false;
         }
 
         private DateTime _beginTime;
@@ -21,6 +22,7 @@ namespace AccountBook.Model
         private AccountType _type;
         private long _userId;
         private string _keyword;
+        private bool _showAccessorial;
 
         /// <summary>
         /// 开始时间
@@ -74,6 +76,15 @@ namespace AccountBook.Model
         {
             get { return _keyword; }
             set { _keyword = value; }
+        }
+
+        /// <summary>
+        /// 显示附加记录
+        /// </summary>
+        public bool ShowAccessorial
+        {
+            get { return _showAccessorial; }
+            set { _showAccessorial = value; }
         }
     }
 }

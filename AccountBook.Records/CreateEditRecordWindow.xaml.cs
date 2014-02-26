@@ -107,7 +107,7 @@ namespace AccountBook.Records
                     {
                         UserId = record.Consumer.UserId,
                         FriendlyName = record.Consumer.FriendlyName,
-                        UserName = record.Consumer.UserName
+                        UserName = record.Consumer.UserName,
                     },
                     ConsumeTime = record.ConsumeTime
                 };
@@ -194,6 +194,11 @@ namespace AccountBook.Records
         private void RecordDataFormBeginningEdit(object sender, System.ComponentModel.CancelEventArgs e)
         {
             TipPanel.Visibility = Visibility.Collapsed;
+        }
+
+        private void RecordDataFormValidatingItem(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }

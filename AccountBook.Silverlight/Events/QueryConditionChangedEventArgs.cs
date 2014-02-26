@@ -29,6 +29,18 @@ namespace AccountBook.Silverlight.Events
             set;
         }
 
+        /// <summary>
+        /// 显示附加记录
+        /// </summary>
+        public bool ShowAccessorial
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 关键字
+        /// </summary>
         public string Keyword
         {
             get;

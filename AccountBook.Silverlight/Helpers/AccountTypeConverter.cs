@@ -30,13 +30,17 @@ namespace AccountBook.Silverlight
                 }
             }
 
+            if (_accountTypeList.Count < 1)
+                return -1;
+
             var firstSubType = _accountTypeList.First(type => type.ParentTypeId != 0);
-            return _accountTypeList.IndexOf(firstSubType);
+            return  _accountTypeList.IndexOf(firstSubType);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return _accountTypeList[(int)value].Clone();
+            var index = (int) value;
+            return index > -1 &&index < _accountTypeList.Count ? _accountTypeList[(int)value].Clone() : null;
         }
     }
 }

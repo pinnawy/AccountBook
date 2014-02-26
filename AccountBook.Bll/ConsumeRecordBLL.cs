@@ -50,5 +50,10 @@ namespace AccountBook.BLL
         {
             return _accountRecordDAL.GetAccountAmountInfo("%Y年", option);
         }
+
+        public Dictionary<string, double> GetAccountTypeInfo(AccountRecordQueryOption option, int typeLevel)
+        {
+            return _accountRecordDAL.GetAccountTypeInfo(option,typeLevel);
+        }
     }
 }

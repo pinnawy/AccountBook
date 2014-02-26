@@ -26,14 +26,8 @@ namespace AccountBook.Silverlight
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            UserInfo consumer = AccountBookContext.Instance.ConsumerList[(int)value];
-
-            return new UserInfo
-            {
-                FriendlyName = consumer.FriendlyName,
-                UserId = consumer.UserId,
-                UserName = consumer.UserName
-            };
+            var index = (int) value;
+            return  index > -1 && index < AccountBookContext.Instance.ConsumerList.Count ? AccountBookContext.Instance.ConsumerList[index].Clone() : null;
         }
     }
 }

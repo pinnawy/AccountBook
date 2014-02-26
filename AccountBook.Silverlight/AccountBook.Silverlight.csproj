@@ -126,10 +126,12 @@
     <Compile Include="Helpers\XapHelper.cs" />
     <Compile Include="Models\AccountRecord.partial.cs" />
     <Compile Include="Models\AccountType.partial.cs" />
+    <Compile Include="Models\ChangeLogItem.cs" />
     <Compile Include="Models\LoginInfo.cs" />
     <Compile Include="Events\QueryConditionChangedEventArgs.cs" />
     <Compile Include="Models\RegistrationData.partial.cs" />
     <Compile Include="Models\User.partial.cs" />
+    <Compile Include="Models\UserInfo.partial.cs" />
     <Compile Include="Views\ErrorWindow.xaml.cs">
       <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>

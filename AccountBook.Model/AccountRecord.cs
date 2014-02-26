@@ -15,6 +15,7 @@ namespace AccountBook.Model
         private DateTime _recordTime;
         private string _memo;
         private UserInfo _consumer;
+        private bool _isAccessorial;
 
         /// <summary>
         /// 消费记录ID
@@ -89,6 +90,16 @@ namespace AccountBook.Model
         {
             get { return _recordTime; }
             set { _recordTime = value; }
+        }
+
+        /// <summary>
+        /// 消费支出人
+        /// </summary>
+        [Display(Order = 5, Description = "附属记录", Name = "Accessorial")]
+        public bool IsAccessorial
+        {
+            get { return _isAccessorial; }
+            set { _isAccessorial = value; }
         }
     }
 }

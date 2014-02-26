@@ -9,7 +9,8 @@
                 TypeId = TypeId,
                 ParentTypeId = ParentTypeId,
                 TypeName = TypeName,
-                ParentTypeName = ParentTypeName
+                ParentTypeName = ParentTypeName,
+                Category = Category
             };
         }
     }

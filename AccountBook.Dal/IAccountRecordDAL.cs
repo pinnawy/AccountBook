@@ -36,11 +36,19 @@ namespace AccountBook.DAL.Interface
         List<AccountRecord> GetAccountRecordList(AccountRecordQueryOption option, out int recordCount, out decimal totalMoney);
 
         /// <summary>
-        /// 按月统计消费金额
+        /// 统计消费总额信息
         /// </summary>
         /// <param name="format">时间格式</param>
         /// <param name="option">获取消费记录列表查询参数</param>
-        /// <returns>每月消费总额信息</returns>
+        /// <returns>消费总额信息</returns>
         Dictionary<string, double> GetAccountAmountInfo(string format, AccountRecordQueryOption option);
+
+        /// <summary>
+        /// 统计消费类别信息
+        /// </summary>
+        /// <param name="option">获取消费记录列表查询参数</param>
+        /// <param name="typeLevel">记录类别等级</param>
+        /// <returns>消费类别信息</returns>
+        Dictionary<string, double> GetAccountTypeInfo(AccountRecordQueryOption option, int typeLevel);
     }
 }

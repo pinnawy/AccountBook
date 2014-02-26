@@ -24,6 +24,25 @@ namespace AccountBook.Silverlight.Controls
         , typeof(QueryPanel),
         new PropertyMetadata(null));
 
+        public static readonly DependencyProperty ShowSelectTypeProperty = DependencyProperty.Register(
+        "ShowSelectType",
+        typeof(bool)
+        , typeof(QueryPanel),
+        new PropertyMetadata(true, OnShowSelectTypeChanged));
+
+        private static void OnShowSelectTypeChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            var queryPanel = (QueryPanel) sender;
+            if((bool)e.NewValue)
+            {
+                queryPanel.TypePanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                queryPanel.TypePanel.Visibility = Visibility.Collapsed;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -31,6 +50,12 @@ namespace AccountBook.Silverlight.Controls
         {
             get { return (DateTime?)GetValue(BeginTimeProperty); }
             set { SetValue(BeginTimeProperty, value); }
+        }
+
+        public bool ShowSelectType
+        {
+            get { return (bool) GetValue(ShowSelectTypeProperty); }
+            set { SetValue(ShowSelectTypeProperty, value); }
         }
 
         /// <summary>
@@ -111,7 +136,8 @@ namespace AccountBook.Silverlight.Controls
                     Consumer = CmbConsumeUser.SelectedItem as UserInfo,
                     AccountType = consumerType,
                     Keyword = _keyword,
-                    AccountCategory = _accountCategory
+                    AccountCategory = _accountCategory,
+                    ShowAccessorial = CkbAccessorial.IsChecked == true
                 };
 
                 QueryConditionChanged(this, args);
@@ -163,6 +189,11 @@ namespace AccountBook.Silverlight.Controls
 
                 CmbAccountType.SelectedIndex = 0;
             }
+        }
+
+        private void OnCkbAccessorialClick(object sender, RoutedEventArgs e)
+        {
+            RiseQueryConditionChangedEvent();
         }
     }
 }

@@ -5,7 +5,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="clr-namespace:AccountBook.Silverlight.Controls;assembly=AccountBook.Silverlight"
     xmlns:Charts="clr-namespace:Visifire.Charts;assembly=SLVisifire.Charts"
-    xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls" mc:Ignorable="d"
+    xmlns:SControls="clr-namespace:AccountBook.SControls;assembly=AccountBook.SControls"
+                    xmlns:Statistics="clr-namespace:AccountBook.Statistics" mc:Ignorable="d"
     d:DesignHeight="600" d:DesignWidth="800">
 
     <Grid x:Name="LayoutRoot" Background="White" >
@@ -25,9 +26,15 @@
                 <controls:QueryPanel x:Name="QueryCondionPanel" IsEnabled="{Binding CanQueryRecords}"/>
             </SControls:GroupBox>
 
-            <SControls:GroupBox Grid.Row="1" Header="Chart Type" Margin="0,5">
+            <SControls:GroupBox Grid.Row="1" Header="Chart Setting" Margin="0,5">
                 <StackPanel  Orientation="Horizontal" >
-                    <TextBlock Text="Chart Shape:"  VerticalAlignment="Center"/>
+                    <TextBlock Text="Statistics Type:"  VerticalAlignment="Center"/>
+                    <ComboBox IsEnabled="{Binding CanQueryRecords}" SelectedIndex="0" SelectionChanged="CmbStatisticsTypeSelectionChanged">
+                        <Statistics:StatisticsType>AmountInfo</Statistics:StatisticsType>
+                        <Statistics:StatisticsType>AccountType</Statistics:StatisticsType>
+                    </ComboBox>
+                    
+                    <TextBlock Text="Chart Shape:"  Margin="5,0,0,0" VerticalAlignment="Center"/>
                     <ComboBox IsEnabled="{Binding CanQueryRecords}" SelectedIndex="0" SelectionChanged="CmbChartShapeSelectionChanged">
                         <Charts:RenderAs>Column</Charts:RenderAs>
                         <Charts:RenderAs>Line</Charts:RenderAs>
@@ -47,9 +54,12 @@
                         <Charts:RenderAs>Pyramid</Charts:RenderAs>
                     </ComboBox>
 
-                    <TextBlock VerticalAlignment="Center" Text="Statistic Range:" Margin="10,0,5,0" />
-                    <RadioButton Content="Month" VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}" IsChecked="True" Checked="RdbStatisticRnageChecked" />
-                    <RadioButton Content="Year" VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}"  Checked="RdbStatisticRnageChecked"  />
+                    <StackPanel Name="StatisticRangePanel" Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" Text="Statistic Range:" Margin="10,0,5,0" />
+                        <RadioButton Content="Month" VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}" IsChecked="True" Checked="RdbStatisticRnageChecked" />
+                        <RadioButton Content="Year" VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}"  Checked="RdbStatisticRnageChecked"  />
+                    </StackPanel>
+                    
 
                     <Button VerticalAlignment="Center" IsEnabled="{Binding CanQueryRecords}" Content="Export" Click="BtnExportClick" Margin="20,0,0,0" />
                 </StackPanel>
@@ -63,10 +73,19 @@
             BusyContent="{Binding Path=Strings.BusyIndicatorQueryRecords, Source={StaticResource ApplicationResources}}">
         </controls:BusyIndicator>
 
-        <TextBlock Name="TxtTotalMoney" Grid.Row="2"  HorizontalAlignment="Left"
-            Margin="30,10" 
-            Text="TextBlock" 
-            Height="23" />
+        <StackPanel  Margin="30,10" Grid.Row="2"  HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock>
+                <Run Text="Total:"/>
+                <Run x:Name="TxtTotalMoney"/>
+            </TextBlock>
+
+            <TextBlock Name="TxtAverage" Margin="10,0,0,0">
+                <Run Text="Average:"/>
+                <Run x:Name="TxtAverageMoney"/>
+            </TextBlock>
+            
+        </StackPanel>
+        
     </Grid>
     
 </SControls:BasePage>

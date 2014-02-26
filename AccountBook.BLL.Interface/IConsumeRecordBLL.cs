@@ -46,5 +46,13 @@ namespace AccountBook.BLL.Interface
         /// <param name="option">获取消费记录列表查询参数</param>
         /// <returns>每年消费总额信息</returns>
         Dictionary<string, double> GetConsumeAmountByYear(AccountRecordQueryOption option);
+
+        /// <summary>
+        /// 统计消费类别信息
+        /// </summary>
+        /// <param name="option">获取消费记录列表查询参数</param>
+        /// <param name="typeLevel">记录类别等级</param>
+        /// <returns>消费类别信息</returns>
+        Dictionary<string, double> GetAccountTypeInfo(AccountRecordQueryOption option, int typeLevel);
     }
 }

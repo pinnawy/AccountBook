@@ -28,7 +28,7 @@ namespace AccountBook.Records
         private string _keyword;
         private AccountCategory _accountCategory = AccountCategory.Expense;
         private DataGridColumnHeader _currSortColumnHeader;
-        
+        private bool _showAccessorial;
 
         public MainPage()
         {
@@ -49,6 +49,7 @@ namespace AccountBook.Records
             _consumer = e.Consumer;
             _accountType = e.AccountType;
             _keyword = e.Keyword;
+            _showAccessorial = e.ShowAccessorial;
             if(e.AccountCategory != _accountCategory)
             {
                 _accountCategory = e.AccountCategory;
@@ -84,7 +85,8 @@ namespace AccountBook.Records
                 SortName = _sortName,
                 SortDir = _sortDir,
                 KeyWord = _keyword,
-                AccountCategory = _accountCategory
+                AccountCategory = _accountCategory,
+                ShowAccessorial = _showAccessorial
             };
 
             if (_accountCategory == AccountCategory.Expense)

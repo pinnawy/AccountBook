@@ -148,6 +148,7 @@
                     <sdk:DataGridTextColumn  Header="Memo" Width="0.34*" Binding="{Binding Memo}" CanUserSort="True" />
                     <sdk:DataGridTextColumn  Header="User" Width="0.15*" Binding="{Binding Consumer.FriendlyName}" CanUserSort="True" SortMemberPath="FriendlyName" />
                     <sdk:DataGridTextColumn  Header="RecordTime" Width="0.155*" Binding="{Binding RecordTime, StringFormat='yyyy-MM-dd'}" CanUserSort="True"/>
+                    <sdk:DataGridTextColumn  Header="Accessorial" Width="0.15*" Binding="{Binding IsAccessorial}" CanUserSort="True"/>
                     <sdk:DataGridTemplateColumn Header="Action" Width="70">
                         <sdk:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -170,10 +171,17 @@
             PageIndexChanged="RecordsPagerPageIndexChanged" 
             PageSizeSelectionChanged="PageSizeChanged"/>
 
-        <TextBlock Name="TotalMoney" Grid.Row="4" HorizontalAlignment="Left"
-            Text="TextBlock" 
-            Height="23" 
-            VerticalAlignment="Bottom" />
+        <StackPanel Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal">
+            
+            <TextBlock>
+                <Run Text="Total:"/>
+                <Run x:Name="TotalMoney" Text=""/>
+            </TextBlock>
 
+            <!--<TextBlock Margin="15,0,0,0">
+                <Run Text="Average:"/>
+                <Run x:Name="AverageMoney" Text=""/>
+            </TextBlock>-->
+        </StackPanel>
     </Grid>
 </SControls:BasePage>

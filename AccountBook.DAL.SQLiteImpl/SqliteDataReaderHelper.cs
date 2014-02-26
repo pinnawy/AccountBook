@@ -52,6 +52,7 @@ namespace AccountBook.DAL.SQLiteImpl
                 record.ConsumeTime = reader.SafeRead<DateTime>("ConsumeTime");
                 record.RecordTime = reader.SafeRead<DateTime>("RecordTime");
                 record.Memo = reader.SafeRead<string>("Memo");
+                record.IsAccessorial = reader.SafeRead<bool>("IsAccessorial");
 
                 var consumer = new UserInfo();
                 consumer.UserId = reader.SafeRead<long>("UserId");
@@ -92,14 +93,27 @@ namespace AccountBook.DAL.SQLiteImpl
 
         public static Dictionary<string, double> ToConsumeAmountDictionary(this SQLiteDataReader reader)
         {
-            var list = new Dictionary<string, double>();
+            var dictionary = new Dictionary<string, double>();
             while (reader.Read())
             {
                 string time = reader.SafeRead<string>("Time");
                 double money = reader.SafeRead<double>("Money");
-                list.Add(time, money);
+                dictionary.Add(time, money);
             }
-            return list;
+            return dictionary;
+        }
+
+        public static Dictionary<string,double> ToConsumeTypeInfoDictionary(this SQLiteDataReader reader)
+        {
+            var dictionary = new Dictionary<string, double>();
+            while (reader.Read())
+            {
+                string typeName = reader.SafeRead<string>("TypeName");
+                double money = reader.SafeRead<double>("Money");
+                dictionary.Add(typeName, money);
+            }
+
+            return dictionary;
         }
 
         /// <summary>
